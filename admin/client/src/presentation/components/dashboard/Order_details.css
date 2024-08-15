@@ -1,0 +1,27 @@
+@import '../../css/variables.css';
+.dashboard-order-details{
+    width: 100%;
+    height:var(--larger-heght);
+    border: var(--border-width) solid var(--info-color);
+    border-radius: var(--border-radius);
+    display: flex;
+    align-items: center;
+    padding:0 var(--padding);
+    flex-direction: row;
+    gap: var(--container-padding);
+    cursor: pointer;
+    transition:all var(--transition-duration) linear;
+}
+.dashboard-order-details-title{
+    display: flex;
+    flex-direction: column;
+}
+.dashboard-order-details-main-title{
+    color:var(--text-color);
+    font-size: var(--font-size-small);
+}
+.dashboard-order-details-sub-title{
+    color:var(--text-color);
+    font-size: var(--smallest-font-size);
+    opacity: var(--medium-opacity);
+}

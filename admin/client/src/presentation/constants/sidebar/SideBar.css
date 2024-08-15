@@ -1,0 +1,59 @@
+@import '../../css/variables.css';
+.SideBar{
+    width: var(--extra-small-width);
+    height: var(--extra-large-width);
+    overflow-y: auto;
+    overflow-x: hidden;
+    transition:var(--transition-duration) linear;
+}
+.SideBar:hover{
+    width: var(--extra-small-width);
+}
+.SideBar-logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--min-height);
+    flex-direction: column;
+    transition:var(--transition-duration) linear;
+    overflow: hidden;
+}
+.logo{
+    height: var(--larger-heght);
+}
+.logo-title{
+    font-size: var(--font-size-large);
+    color: var(--heading-color);
+    transition: var(--transition-duration) linear;
+    text-wrap: nowrap; 
+}
+.logo-slogan{
+    font-size: var(--font-size-small);
+    color: var(--text-color);
+    opacity: var(--darker-opacity);
+    transition: var(--transition-duration) linear;
+    text-wrap: nowrap;
+}
+hr{
+    opacity: 0.05;
+}
+.SideBar-nav{
+    color: var(--text-color);
+    opacity: var(--medium-opacity);
+    display: flex;
+    text-wrap: nowrap;
+    gap: var(--padding);
+    padding: var(--container-padding);
+    cursor: pointer;
+    font-size: var(--font-size);
+    transition-duration: var(--transition-duration);
+    transition-timing-function: var(--transition-easing);
+}
+.SideBar-nav:hover{
+    background-color: var( --secondary-background-color);
+    opacity:var(--medium-opacity);
+}
+.SideBar-nav:active{
+    background-color: var(--nav-hover-color);
+    opacity:var(--medium-opacity);
+}

@@ -1,0 +1,13 @@
+@import './presentation/css/variables.css';
+.main-background{
+    background-color: var(--background-color);
+    display: flex;
+    flex-direction: var(--float);
+    height: var(--height);
+    width: var(--extra-large-width);
+    
+}
+.main{
+    width: var(--large-width);
+    overflow-y: auto;
+}

@@ -1,0 +1,35 @@
+@import './variables.css';
+.common-css{
+    background:var(--secondary-background-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    opacity:0.7;
+}
+.popup-css{
+    background:var(--background-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+.link{
+    color: var(--text-color) ;
+    text-decoration: none;
+    transition:var(--transition-duration) linear
+}
+
+.hide {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    transform: translate(-300%, 400%)
+}
+.input-css{
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--small-border-radius);
+    color: var(--input-text-color);
+    background-color: transparent;
+    padding:10px;
+    outline: none;
+}
+input::placeholder{
+    color: var(--input-text-color);
+}

@@ -1,0 +1,96 @@
+
+:root {
+    /* Color Variables */
+    --primary-color: #1c8adb;    
+    --secondary-color: #1fbd72;       
+    --background-color: rgb(5, 11, 32);   
+    --secondary-background-color: rgb(0, 0, 46);      
+    --text-color: #e0e0e0;         
+    --heading-color: #f5f5f5;        
+    --link-color: #1e90ff;           
+    --link-hover-color: #ff4500;     
+    --border-color: rgba(68, 68, 71, 0.835);         
+    --input-background-color: #0a041c;
+    --input-text-color: #e0e0e0;    
+    --success-color: #2ecc71; 
+    --error-color: #e74c3c;
+    --warning-color: #f39c12;
+    --info-color: #3498db;
+
+    /*SideBar Display Variables*/
+    --float:row;
+
+    /* Typography Variables */
+    --font-size: 14px;
+    --scroll-bar-width:10px;
+    --font-size-small: 12px;
+    --smallest-font-size:10px;
+    --font-size-extra-small:10px;
+    --font-size-large: 18px;
+    --line-height: 1.5;
+    --heading-line-height: 1.2;
+    --font-weight-normal: 400;
+    --font-weight-bold: 700;
+    --letter-spacing: 0.5px;
+
+    /*dimensions Variables*/
+    --width:100vw;
+    --height:100vh;
+    --extra-small-width:15%;
+    --min-width:20%;
+    --medium-width:50%;
+    --large-width:85%;
+    --extra-large-width:100%;
+    --smallest-width:10%;
+    --extra-small-height:15%;
+    --min-height:20%;
+    --medium-height:50%;
+    --large-height:85%;
+    --smallest-height:10%;
+
+    /* Spacing Variables */
+    --small-spacing: 4px;
+    --medium-spacing: 16px;
+    --large-spacing: 32px;
+    --container-padding: 20px;/*Used*/
+    --padding: 10px;
+
+    /*Size Variables */
+    --small-width:7px;
+    --small-height:20px;
+    --medium-heght:30px;
+    --larger-heght:50px;/*Used*/
+    --larger-width:75px;/*Used*/
+
+    /*Opacity Variables */
+    --medium-opacity:0.5;/*Used*/
+    --light-opacity:0.2;/*Used*/
+    --darker-opacity:0.7;/*Used*/
+    --transparent:0;
+
+    /* Button Variables */
+    --button-padding: 5px 15px;/*Used*/
+    --button-font-size: 12px;/*Used*/
+    --button-border-radius: 5px;
+    --button-primary-background: var(--primary-color);/*Used*/
+    --button-primary-text-color: #ffffff;/*Used*/
+    --button-secondary-background: var(--secondary-color);
+    --button-secondary-text-color: #ffffff;
+
+    /* Border and Radius Variables */
+    --border-radius: 10px;/*Used*/
+    --small-border-radius: 5px;/*Used*/
+    --large-border-radius: 20px;/*Used*/
+    --border-width: 1px;
+
+    /* Shadow Variables */
+    --box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5); /*Used*/
+    --input-shadow: 0px 0px 5px rgba(0, 0, 0, 0.7);
+
+    /* Z-Index Variables */
+
+    /* Miscellaneous Variables */
+    --popup-transition:0.5s;/*Used*/
+    --transition-duration: 0.5s;/*Used*/
+    --transition-easing: ease-in-out;/*Used*/
+}

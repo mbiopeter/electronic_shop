@@ -1,0 +1,39 @@
+@import '../../../css/variables.css';
+.subheading-left-title{
+    display: flex;
+    width: 100%;
+    padding: var(--container-padding);
+    padding-bottom: 0;
+    justify-content: space-between;
+    align-items: center;
+}
+.subheading-left-title-name{
+    color: var(--text-color);
+    font-size: var(--font-size);
+}
+.subheading-left-title-right{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--container-padding);
+}
+.subheading-left-title-right-btn{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: var(--padding);
+    background-color: var(--button-primary-background);
+    border: none;
+    border-radius: var(--large-border-radius);
+    padding: var(--button-padding);
+    font-size: var(--button-font-size);
+    cursor: pointer;
+    font-weight: var(--font-weight-bold);
+    color: var(--button-primary-text-color);
+    box-shadow:var(--box-shadow) ;
+}
+.Reload-icon{
+    color: var(--heading-color);
+    cursor: pointer;
+
+}

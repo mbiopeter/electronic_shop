@@ -1,0 +1,9 @@
+@import '../../css/variables.css';
+.Brands{
+    width: 100%;
+    height: auto;   
+    transition:all var(--transition-duration) linear;
+}
+.Brands-table{
+    margin: var(--container-padding);
+}

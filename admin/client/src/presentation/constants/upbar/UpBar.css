@@ -1,0 +1,76 @@
+@import '../../css/variables.css';
+.UpBar{
+    height:var(--smallest-height);
+    width: var(--extra-large-width);
+    padding: 0 var(--container-padding);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition:all var(--transition-duration) linear;
+}
+.UpBar-title{
+    font-size: var(--font-size-large);
+    color: var(--heading-color);
+    font-weight: var(--font-weight-bold);
+}
+.UpBar-right{
+    display: flex;
+    flex-direction: row;
+    gap: var(--container-padding);
+    height: 100%;
+    max-width: var(--medium-width);
+    display: flex;
+    align-items: center;
+}
+.UpBar-search{
+    display: flex;
+    background-color: var(--secondary-background-color);
+    border-radius:var(--border-radius);
+    width: auto;
+    min-width:300px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 var(--padding);
+    height: 60%;
+    align-items: center;
+}
+.UpBar-search-input{
+    display: flex;
+    flex-direction: row;
+    gap: var(--container-padding);
+    align-items: center;
+    width: 90%;
+    color: var(--text-color);
+    background-color: transparent;
+    outline: none;
+    border: none;
+}
+.search-btn{
+    background-color:var(--primary-color);
+    height: var(--medium-heght);
+    width: var(--medium-heght);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--small-border-radius);
+    cursor: pointer;
+}
+.UpBar-profile{
+    height: 60%;
+    display: flex;
+    flex-direction: row;
+    gap: var(--padding);
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: var(--secondary-background-color);
+    border-radius:var(--border-radius);
+    color: var(--text-color);
+    font-size: var(--font-size-small);
+}
+.Search-icon{
+    size: 30px;
+    color:var(--text-color) ;
+}
+.UpBar-search-input::placeholder{
+    color: var(--text-color);
+}

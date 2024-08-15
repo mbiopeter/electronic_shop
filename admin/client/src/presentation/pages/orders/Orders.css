@@ -1,0 +1,9 @@
+@import '../../css/variables.css';
+.Orders{
+    width: 100%;
+    height: auto;   
+    transition:all var(--transition-duration) linear;
+}
+.Orders-table{
+    margin: var(--container-padding);
+}

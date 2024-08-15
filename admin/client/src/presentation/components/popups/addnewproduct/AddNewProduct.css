@@ -1,0 +1,98 @@
+@import '../../../css/variables.css';
+.AddNewProducts{
+    position: fixed;
+    z-index: 1000;
+    transition: all var(--popup-transition) ease-in-out;
+    padding: var(--container-padding);
+    width: 75%;
+    height: 85%;
+}
+.show-addProduct{
+    transform: translate(16%, 0%);
+    opacity: 1;
+}
+.AddNewProducts-title{
+    height: 10%;
+    font-size: var(--font-size-large);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    font-weight:var(--font-weight-bold);
+}
+.AddNewProducts-container{
+    width: 100%;
+    height: 90%;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--secondary-background-color);
+    border-radius: var(--border-radius);
+}
+.AddNewProducts-container-img-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap: var(--container-padding);
+    padding:10px var(--container-padding);
+}
+.AddNewProducts-form-one{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--padding);
+    padding:5px var(--container-padding);
+}
+.AddNewProducts-form-one input{
+    width: 100%;
+}
+.AddNewProducts-form-one textarea{
+    resize: none;
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--small-border-radius);
+    color: var(--input-text-color);
+    background-color: transparent;
+    padding: 7px 10px;
+    outline: none;
+}
+.AddNewProducts-container textarea::placeholder{
+    color: var(--input-text-color);
+}
+.AddNewProducts-form-two{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: var(--container-padding);
+    padding:5px var(--container-padding);
+    grid-template-rows: 1fr 1fr;
+}
+.AddNewProducts-form-three{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--container-padding);
+    padding:5px var(--container-padding);
+}
+.AddNewProducts-form-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: var(--container-padding);
+    padding: var(--container-padding);
+    
+}
+.AddNewProducts-form-btn-item{
+    padding: 7px 15px;
+    border: none;
+    border-radius: var(--large-border-radius);
+    font-size: var(--font-size);
+    color: var(--heading-color);
+    font-weight:var(--font-weight-bold);
+    cursor: pointer;
+    color: var(--heading-color);
+}
+.AddNewProducts-form-btn-item.cancel{
+    background-color: var(--error-color);
+}
+.AddNewProducts-form-btn-item.submit{
+    background-color: var(--primary-color);
+}

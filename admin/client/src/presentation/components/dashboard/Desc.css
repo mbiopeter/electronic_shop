@@ -1,0 +1,45 @@
+@import '../../css/variables.css';
+.dashboard-desc{
+    padding: var(--padding);
+    display: flex;
+    flex-direction: column;
+    cursor:pointer;
+    gap: var(--padding);
+}
+.dashboard-desc-icons{
+    display: flex;
+    justify-content: space-between;
+}
+.dashboard-desc-icon-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--small-spacing);
+    border-radius: var(--small-border-radius);
+}
+.dashboard-desc-icon-one{
+    font-size: var(--font-size-small);
+}
+.dashboard-desc-icon-two{
+    font-size: var(--font-size);
+    color: var(--heading-color);
+    cursor: pointer;
+}
+.dashboard-desc-title{
+    font-size: var(--font-size-small);
+    color: var(--heading-color);
+}
+.dashboard-desc-progress{
+    width:var(--extra-large-width);
+    height:var(--small-width) ;
+    border-radius: var(--border-radius);
+}
+.dashboard-desc-progress-value{
+    height:100%;
+    border-radius: var(--border-radius);
+}
+.dashboard-desc-count{
+    font-size: var(--font-size-extra-small);
+    color: var(--heading-color);
+    opacity: var(--medium-opacity);
+}
