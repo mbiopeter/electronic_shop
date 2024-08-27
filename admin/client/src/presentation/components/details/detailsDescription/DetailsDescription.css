@@ -1,0 +1,21 @@
+.right-details-description-item{
+    height: 100%;
+    padding: var(--padding);
+    background-color:var(--secondary-background-color);
+    border-radius: var(--small-border-radius);
+    box-shadow: var(--box-shadow);
+    display: flex;
+    flex-direction: column;
+    gap: var(--padding);
+    cursor: pointer;
+}
+.right-details-description-item-header{
+    font-size: 16px;
+    font-weight: var(--font-weight-normal);
+    color: var(--heading-color)
+}
+.right-details-description-item-value{
+    font-size: var(--font-size);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-color)
+}

@@ -1,0 +1,45 @@
+export const couponCodes = [
+    {
+        id:1,
+        name:'SAKJBSD342',
+        status:'active',
+        type:'Fixed',
+        amount:100,
+    },
+    {
+        id:2,
+        name:'SAKJBSD342',
+        status:'active',
+        type:'Fixed',
+        amount:100,
+    },
+    {
+        id:3,
+        name:'SAKJBSD342',
+        status:'active',
+        type:'Fixed',
+        amount:100,
+    },
+    {
+        id:4,
+        name:'SAKJBSD342',
+        status:'active',
+        type:'Fixed',
+        amount:100,
+    },
+    {
+        id:5,
+        name:'SAKJBSD342',
+        status:'active',
+        type:'Fixed',
+        amount:100,
+    },
+    {
+        id:6,
+        name:'SAKJBSD342',
+        status:'active',
+        type:'Fixed',
+        amount:100,
+    },
+
+]

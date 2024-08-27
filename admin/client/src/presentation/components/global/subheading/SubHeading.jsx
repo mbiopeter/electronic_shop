@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './SubHeading.css';
 import { Add, Reload } from '../../../../logical/consts/icons';
 import '../../../css/common.css';
+import DropdownDemo from '../select/Select';
+import { orderStatus } from '../../../../data/orders/table_data';
 const SubHeading = ({
     title,
-    handleAddNew
+    handleAddNew,
+    value,
+    setValue
 }) => {
     const handleReload = () => {
         window.location.reload();
     }
+    const [items, setItems] = useState([]);
     return (
         
         <div className="subheading-left-title">
@@ -17,15 +22,15 @@ const SubHeading = ({
             </span>
             <div className="subheading-left-title-right">
                 {title === 'My Orders' ? (
-                    <select className='input-css' style={{width:'200px'}}>
-                        <option value="" selected>Filter by Status</option>
-                        <option value="all">All Orders</option>
-                        <option value="processed">processed Orders</option>
-                        <option value="pedding">Pending Orders</option>
-                        <option value="shipped">Shipped Orders</option>
-                        <option value="cancelled">Cancelled Orders</option>
-                        <option value="returned">Returned Orders</option>
-                    </select>
+                    <DropdownDemo 
+                        width={'300px'}
+                        allItems = {orderStatus}
+                        placeholder={'Filter Orders By Status'}
+                        value={value}
+                        setValue={setValue}
+                        items={items}
+                        setItems={setItems}
+                    />
                 ):(
                     <button className='subheading-left-title-right-btn' onClick={handleAddNew}>
                         <Add />    

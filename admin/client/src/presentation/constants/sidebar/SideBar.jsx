@@ -25,20 +25,20 @@ const SideBar = ({expand, setExpand}) => {
     return (
         <div 
             className='SideBar' 
-            style={expand == false ? { width: 'var(--larger-width)',cursor:'pointer',transition:'var(--transition-duration) linear' } : null}
+            style={expand === false ? { width: 'var(--larger-width)',cursor:'pointer',transition:'var(--transition-duration) linear' ,overflow: 'hidden'} : null}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
-            <div className="SideBar-logo" style={expand == false ? {height:'10%',display:'flex',alignItems:'center',paddingTop:'var(--container-padding)'}:null}>
-                <img className='logo' src={logo} style={expand == false ? {height:'30px',transition:'var(--transition-duration) linear'} : null} />
-                <span style={expand == false ? {opacity:0,transition:'var(--transition-duration) linear'}:null} className='logo-title'>Shoppers.</span>
-                <span style={expand == false ? {opacity:0,transition:'var(--transition-duration) linear'}:null} className='logo-slogan'>elevating your world!</span>
+            <div className="SideBar-logo" style={expand === false ? {height:'10%',display:'flex',alignItems:'center',paddingTop:'var(--container-padding)'}:null}>
+                <img className='logo' src={logo} style={expand === false ? {height:'30px',transition:'var(--transition-duration) linear'} : null} />
+                <span style={expand === false ? {opacity:0,transition:'var(--transition-duration) linear'}:null} className='logo-title'>Shoppers.</span>
+                <span style={expand === false ? {opacity:0,transition:'var(--transition-duration) linear'}:null} className='logo-slogan'>elevating your world!</span>
             </div>
             <hr />
             {nav_links.map((link) => (
                 <div className="SideBar-nav" key={link.id}>
                     {link.icon}
-                    <Link className="link" style={expand == false ? {opacity:0,transition:'var(--transition-duration) linear'}:null} to={link.path}>{link.name}</Link>
+                    <Link className="link" style={expand === false ? {opacity:0,transition:'var(--transition-duration) linear'}:null} to={link.path}>{link.name}</Link>
                 </div>
             ))}
         </div>

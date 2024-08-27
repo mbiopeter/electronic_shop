@@ -1,0 +1,52 @@
+@import '../../../css/variables.css';
+/* Dropdown container styling */
+.p-autocomplete {
+    position: relative;
+    border: var(--border-width) solid var(--border-color);
+    border-radius:var( --small-border-radius)
+}
+
+/* Input field styling */
+.p-autocomplete input {
+    border: none;
+    border-radius: var(--small-border-radius) 0 0 var(--small-border-radius);
+    color: var(--input-text-color);
+    background-color: transparent;
+    padding:10px;
+    outline: none;
+}
+
+/* Dropdown button styling */
+.p-autocomplete .p-autocomplete-dropdown {
+    background-color: var(--primary-color);
+    border: none;
+    width: 40px;
+    border-radius: 0 var(--small-border-radius) var(--small-border-radius) 0;
+    color: var(--text-color);
+}
+
+/* Dropdown menu styling */
+.p-autocomplete-panel {
+    border-radius: var(--small-border-radius);
+    box-shadow: var(--input-shadow);
+    background-color: var(--background-color);
+}
+
+/* Dropdown items styling */
+.p-autocomplete-items .p-autocomplete-item {
+    padding: 10px;
+    border-bottom: 1px solid var(--border-color);
+    color: var( --text-color);
+    font-size: var(--font-size);
+}
+
+/* Dropdown items hover effect */
+.p-autocomplete-items .p-autocomplete-item:hover {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+/* Remove last item's border */
+.p-autocomplete-items .p-autocomplete-item:last-child {
+    border-bottom: none;
+}

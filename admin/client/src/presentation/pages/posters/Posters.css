@@ -1,0 +1,9 @@
+@import '../../css/variables.css';
+.Posters{
+    width: 100%;
+    height: auto;   
+    transition:all var(--transition-duration) linear;
+}
+.Posters-table{
+    margin: var(--container-padding);
+}

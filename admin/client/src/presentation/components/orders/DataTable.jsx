@@ -2,14 +2,16 @@ import React from 'react';
 import './DataTable.css';
 import '../../css/common.css';
 import StickyHeadTable from '../global/Table';
-import { orders } from '../../../data/orders/table_data';
-const DataTable = () => {
+const DataTable = ({
+    handleShowPopUp,
+    filteredOrders
+}) => {
     const handleEdit = (row) => {
-        console.log('Edit:', row);
+        handleShowPopUp(row.id);
     };
 
     const handleDelete = (row) => {
-        console.log('Delete:', row);
+        console.log('Delete:', row.id);
     };
     const columns = [
         { id: 'name', label: 'Customer Name', minWidth: 170 },
@@ -23,7 +25,7 @@ const DataTable = () => {
     return (
         <div className="sub-category-datatable common-css">
             <span className='sub-category-datatable-title'>All Orders</span>
-            <StickyHeadTable columns={columns} rows={orders} onEdit={handleEdit} onDelete={handleDelete} />
+            <StickyHeadTable columns={columns} rows={filteredOrders} onEdit={handleEdit} onDelete={handleDelete}  handleShowPopUp={handleShowPopUp}/>
         </div>
     )
 }

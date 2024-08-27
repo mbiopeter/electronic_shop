@@ -28,13 +28,13 @@ export const nav_links = [
     {
         id:5,
         icon: < Balance/>,
-        path: '/',
+        path: '/variantType',
         name: 'Varient Type'
     },
     {
         id:4,
         icon: < Notifications/>,
-        path: '/',
+        path: '/variant',
         name: 'Varients'
     },
     {
@@ -46,19 +46,19 @@ export const nav_links = [
     {
         id:4,
         icon: < Settings/>,
-        path: '/',
+        path: '/coupon',
         name: 'Coupons'
     },
     {
         id:4,
         icon: < Inbox/>,
-        path: '/',
+        path: '/posters',
         name: 'Posters'
     },
     {
         id:4,
         icon: < Notifications/>,
-        path: '/',
+        path: '/notification',
         name: 'Notifications'
     },
 ];

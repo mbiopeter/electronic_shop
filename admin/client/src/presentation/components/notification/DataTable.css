@@ -1,0 +1,10 @@
+@import '../../css/variables.css';
+.Notification-datatable{
+    width: 100%;
+    padding: var(--padding);
+}
+.Notification-datatable-title{
+    font-size: var(--font-size);
+    font-weight:var(--font-weight-bold);
+    color:var(--heading-color) ;
+}

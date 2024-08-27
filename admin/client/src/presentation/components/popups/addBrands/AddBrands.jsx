@@ -1,15 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './AddBrands.css';
 import '../../../css/common.css';
 import Layer from '../Layer';
 import ImgPicker from '../addnewproduct/imgPicker/ImgPicker';
 import { subCategories } from '../../../../data/subCategory/table_data';
+import DropdownDemo from '../../global/select/Select';
 const AddBrands = ({
     handleHidePopUp,
     showAddBrands
 }) => {
     const [selectedImages, setSelectedImages] = useState();
-
+    //sub categories state
+    const [subCategoriesNames, setSubCategoriesNames] = useState([]);
+    const [subCategoryValue,setSubCategoriesValue] = useState('');
+    const [subCategoryItem,setSubCategoryItem] = useState([]);
+    //set Image
     const handleImageChange = (event, id) => {
         const file = event.target.files[0];
         if (file) {
@@ -20,10 +25,19 @@ const AddBrands = ({
             reader.readAsDataURL(file);
         }
     };
-
+    //unset Image
     const handleCloseSelected = (id) => {
         setSelectedImages(null);
     }
+    useEffect(()=> {
+        //set sub categories Names
+        subCategories.map((subCategoryName) =>{
+            setSubCategoriesNames(prevState => ([
+                ...prevState,
+                subCategoryName.name
+            ]));
+        });
+    },[])
     return (
         <>
             {showAddBrands && (
@@ -43,12 +57,15 @@ const AddBrands = ({
                         />
                     </div>
                     <div className="AddBrands-input-container">
-                        <select className='input-css'>
-                            <option value="">Select Sub Category</option>
-                            {subCategories.map((subCategories) =>(
-                                <option value={subCategories.id}>{subCategories.name}</option>
-                            ))}
-                        </select>
+                        <DropdownDemo
+                            width={'100%'}
+                            allItems = {subCategoriesNames}
+                            placeholder={'Select Sub Category'}
+                            value={subCategoryValue}
+                            setValue={setSubCategoriesValue}
+                            items={subCategoryItem}
+                            setItems={setSubCategoryItem}
+                        />
                         <input className='input-css' type="text" placeholder='Brand Name' />
                     </div>
                     

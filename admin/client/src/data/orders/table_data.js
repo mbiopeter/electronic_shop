@@ -4,7 +4,7 @@ export const orders = [
         name:'mbiopeter401@gmail.com',
         amount:11000.00,
         payment:'prepaid',
-        status:'peding',
+        status:'Shipped',
         date:'2024-08-14 12:04:30',
     },
     {
@@ -12,7 +12,7 @@ export const orders = [
         name:'mbiopeter401@gmail.com',
         amount:11000.00,
         payment:'prepaid',
-        status:'peding',
+        status:'Shipped',
         date:'2024-08-14 12:04:30',
     },
     {
@@ -20,7 +20,7 @@ export const orders = [
         name:'mbiopeter401@gmail.com',
         amount:11000.00,
         payment:'prepaid',
-        status:'peding',
+        status:'Shipped',
         date:'2024-08-14 12:04:30',
     },
     {
@@ -28,7 +28,7 @@ export const orders = [
         name:'mbiopeter401@gmail.com',
         amount:11000.00,
         payment:'prepaid',
-        status:'peding',
+        status:'Shipped',
         date:'2024-08-14 12:04:30',
     },
     {
@@ -36,7 +36,7 @@ export const orders = [
         name:'mbiopeter401@gmail.com',
         amount:11000.00,
         payment:'prepaid',
-        status:'peding',
+        status:'Shipped',
         date:'2024-08-14 12:04:30',
     },
     {
@@ -44,7 +44,7 @@ export const orders = [
         name:'mbiopeter401@gmail.com',
         amount:11000.00,
         payment:'prepaid',
-        status:'peding',
+        status:'Shipped',
         date:'2024-08-14 12:04:30',
     },
     {
@@ -52,7 +52,7 @@ export const orders = [
         name:'mbiopeter401@gmail.com',
         amount:11000.00,
         payment:'prepaid',
-        status:'peding',
+        status:'Pending',
         date:'2024-08-14 12:04:30',
     },
     {
@@ -60,7 +60,7 @@ export const orders = [
         name:'mbiopeter401@gmail.com',
         amount:11000.00,
         payment:'prepaid',
-        status:'peding',
+        status:'Pending',
         date:'2024-08-14 12:04:30',
     },
     {
@@ -68,7 +68,7 @@ export const orders = [
         name:'mbiopeter401@gmail.com',
         amount:11000.00,
         payment:'prepaid',
-        status:'peding',
+        status:'Pending',
         date:'2024-08-14 12:04:30',
     },
     {
@@ -76,7 +76,7 @@ export const orders = [
         name:'mbiopeter401@gmail.com',
         amount:11000.00,
         payment:'prepaid',
-        status:'peding',
+        status:'Pending',
         date:'2024-08-14 12:04:30',
     },
     {
@@ -84,7 +84,7 @@ export const orders = [
         name:'mbiopeter401@gmail.com',
         amount:11000.00,
         payment:'prepaid',
-        status:'peding',
+        status:'Pending',
         date:'2024-08-14 12:04:30',
     },
     {
@@ -92,7 +92,7 @@ export const orders = [
         name:'mbiopeter401@gmail.com',
         amount:11000.00,
         payment:'prepaid',
-        status:'peding',
+        status:'Pending',
         date:'2024-08-14 12:04:30',
     },
     {
@@ -100,7 +100,7 @@ export const orders = [
         name:'mbiopeter401@gmail.com',
         amount:11000.00,
         payment:'prepaid',
-        status:'peding',
+        status:'Pending',
         date:'2024-08-14 12:04:30',
     },
     {
@@ -108,7 +108,7 @@ export const orders = [
         name:'mbiopeter401@gmail.com',
         amount:11000.00,
         payment:'prepaid',
-        status:'peding',
+        status:'Pending',
         date:'2024-08-14 12:04:30',
     },
     {
@@ -116,7 +116,7 @@ export const orders = [
         name:'mbiopeter401@gmail.com',
         amount:11000.00,
         payment:'prepaid',
-        status:'peding',
+        status:'Pending',
         date:'2024-08-14 12:04:30',
     },
     {
@@ -124,7 +124,7 @@ export const orders = [
         name:'mbiopeter401@gmail.com',
         amount:11000.00,
         payment:'prepaid',
-        status:'peding',
+        status:'Pending',
         date:'2024-08-14 12:04:30',
     },
     {
@@ -132,7 +132,7 @@ export const orders = [
         name:'mbiopeter401@gmail.com',
         amount:11000.00,
         payment:'prepaid',
-        status:'peding',
+        status:'Pending',
         date:'2024-08-14 12:04:30',
     },
     {
@@ -140,7 +140,7 @@ export const orders = [
         name:'mbiopeter401@gmail.com',
         amount:11000.00,
         payment:'prepaid',
-        status:'peding',
+        status:'Pending',
         date:'2024-08-14 12:04:30',
     },
     {
@@ -148,7 +148,7 @@ export const orders = [
         name:'mbiopeter401@gmail.com',
         amount:11000.00,
         payment:'prepaid',
-        status:'peding',
+        status:'Pending',
         date:'2024-08-14 12:04:30',
     },
     {
@@ -156,7 +156,7 @@ export const orders = [
         name:'mbiopeter401@gmail.com',
         amount:11000.00,
         payment:'prepaid',
-        status:'peding',
+        status:'Pending',
         date:'2024-08-14 12:04:30',
     },
     {
@@ -164,8 +164,52 @@ export const orders = [
         name:'mbiopeter401@gmail.com',
         amount:11000.00,
         payment:'prepaid',
-        status:'peding',
+        status:'Pending',
         date:'2024-08-14 12:04:30',
     },
 
 ];
+
+export const userOders = [
+    {
+        id:1,
+        itemName:'Samsang Galxy s 24 utra',
+        total:2,
+        price:310000,
+    },
+    {
+        id:2,
+        itemName:'Samsang Television',
+        total:1,
+        price:110000,
+    },
+    {
+        id:1,
+        itemName:'Apple Watch',
+        total:1,
+        price:31000,
+    }
+]
+
+export const shippingAdress = {
+    phone:'0759595268',
+    street:'Timboroa',
+    city:'Timboroa',
+    postalCode:'30108',
+    country:'Kenya',
+}
+
+export const paymentDetails = {
+    method:'prepaid',
+    couponCode:'N/A',
+    subTotal:'Ksh 721000',
+    discount:'Khs. 0',
+    grandTotal:'Ksh. 721000'
+}
+export const orderStatus = [
+    'Pending',
+    'Shipped',
+    'Cancelled',
+    'Returned',
+    'Processed'
+]

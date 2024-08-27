@@ -3,14 +3,16 @@ import './ImgPicker.css';
 import { Camera, Close } from '../../../../../logical/consts/icons';
 
 const ImgPicker = ({ 
+    error,
     id,
     label, 
     selectedImage,
     handleImageChange,
     handleCloseSelected
 }) => {
+    
     return (
-        <div className="ImgPicker">
+        <div className="ImgPicker" style={error === false && id === 1 ? {border:'5px solid red'}:null}>
             <form style={{width: '100%', height: '100%'}}>
                 
                     {selectedImage ? (
@@ -30,7 +32,7 @@ const ImgPicker = ({
                         </div>
                     )}
                 
-                <input 
+                <input
                     type="file" 
                     id={`img-${id}`} 
                     style={{ display: 'none' }} 

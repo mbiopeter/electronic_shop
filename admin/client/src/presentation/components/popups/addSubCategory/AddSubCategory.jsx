@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './AddSubCategory.css';
 import '../../../css/common.css';
 import Layer from '../Layer';
 import ImgPicker from '../addnewproduct/imgPicker/ImgPicker';
 import { categories } from '../../../../data/category/table_data';
+import DropdownDemo from '../../global/select/Select';
 const AddSubCategory = ({
     handleHidePopUp,
     showAddSubCategory
 }) => {
     const [selectedImages, setSelectedImages] = useState();
+    //categories state
+    const [categoriesNames, setCategoriesNames] = useState([]);
+    const [categoryValue,setCategoriesValue] = useState('');
+    const [categoryItem,setCategoryItem] = useState([]);
 
     const handleImageChange = (event, id) => {
         const file = event.target.files[0];
@@ -24,6 +29,16 @@ const AddSubCategory = ({
     const handleCloseSelected = (id) => {
         setSelectedImages(null);
     }
+
+    useEffect(()=> {
+        //set categories Names
+        categories.map((categoryName) =>{
+            setCategoriesNames(prevState => ([
+                ...prevState,
+                categoryName.name
+            ]));
+        });
+    },[])
     return (
         <>
             {showAddSubCategory && (
@@ -43,12 +58,15 @@ const AddSubCategory = ({
                         />
                     </div>
                     <div className="AddSubCategory-input-container">
-                        <select className='input-css'>
-                            <option value="">Select Category</option>
-                            {categories.map((category) =>(
-                                <option value={category.id}>{category.name}</option>
-                            ))}
-                        </select>
+                        <DropdownDemo
+                            width={'100%'}
+                            allItems = {categoriesNames}
+                            placeholder={'Select Category'}
+                            value={categoryValue}
+                            setValue={setCategoriesValue}
+                            items={categoryItem}
+                            setItems={setCategoryItem}
+                        />
                         <input className='input-css' type="text" placeholder='Sub Category Name' />
                     </div>
                     

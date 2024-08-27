@@ -1,0 +1,14 @@
+@import '../../../css/variables.css';
+.right-details-chart-contaner{
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--container-padding);
+}
+.right-details-chart{
+    height: 100%;
+    padding: var(--container-padding);
+    background-color:var(--secondary-background-color);
+    border-radius: var(--small-border-radius);
+    box-shadow: var(--box-shadow);
+}

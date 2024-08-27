@@ -1,34 +1,53 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Orders.css';
 import '../../css/common.css';
 import SubHeading from '../../components/global/subheading/SubHeading';
 import DataTable from '../../components/orders/DataTable';
-/* import AddOrders from '../../components/popups/addOrders/AddOrders'; */
+import { orders } from '../../../data/orders/table_data';
+import OrderDetails from '../../components/popups/orderDetails/OrderDetails';
 const Orders = () => {
-    const [showAddOrders, setShowAddOrders] = useState(false);
-
-    const handleAddNew = () => {
-        setShowAddOrders(true);
-    }
-
+    const [value, setValue] = useState('');
+    const filteredOrders = [];
+    const [finalData,setFinalData] = useState([]);
+    const [showOderDetailsPopUp, setShowOderDetailsPopUp] = useState(false)
+    let i = 0;
+    useEffect(() => {
+        for(i = 0; i < orders.length; i++){
+            if(orders[i].status === value){
+                filteredOrders.push(orders[i]);
+            } 
+        }
+        if(value === ''){
+            setFinalData(orders);
+        }
+        else{
+            setFinalData(filteredOrders)
+        }
+        
+    },[value]);
     const handleHidePopUp = () => {
-        setShowAddOrders(false);
+        setShowOderDetailsPopUp(false);
     }
-
+    const handleShowPopUp = (id) => {
+        setShowOderDetailsPopUp(true);
+    }
     return (
         <>
-            {/* Add new product pop up */}
-{/*             <AddOrders 
+            <OrderDetails 
                 handleHidePopUp={handleHidePopUp} 
-                showAddOrders={showAddOrders} 
-            /> */}
+                showOderDetailsPopUp={showOderDetailsPopUp} 
+            />
             <div className="Orders">
                 <SubHeading
+                    value={value}
+                    setValue={setValue}
                     title='My Orders'
-                    handleAddNew = {handleAddNew}
                 />
                 <div className="Orders-table">
-                    <DataTable />
+                    <DataTable 
+                        handleShowPopUp={handleShowPopUp}
+                        filteredOrders={finalData}
+                    />
                 </div>     
             </div>
         </>

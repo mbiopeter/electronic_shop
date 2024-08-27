@@ -9,6 +9,12 @@ import SubCategory from "./presentation/pages/subCategory/SubCategory";
 import Brands from "./presentation/pages/brands/Brands";
 import Orders from "./presentation/pages/orders/Orders";
 import { PrimeReactProvider } from 'primereact/api';
+import Coupon from "./presentation/pages/coupon/Coupon";
+import Notification from "./presentation/pages/notification/Notification";
+import Posters from "./presentation/pages/posters/Posters";
+import VariantType from "./presentation/pages/variantType/VariantType";
+import Variant from "./presentation/pages/variant/Variant";
+import Details from "./presentation/pages/details/Details";
 
 
 function App() {
@@ -30,6 +36,12 @@ function App() {
                   <Route path="/subCategory" element={<SubCategory />} />
                   <Route path="/brands" element={<Brands />} />
                   <Route path="/orders" element={<Orders />} />
+                  <Route path="/coupon" element={<Coupon />} />
+                  <Route path="/notification" element={<Notification />} />
+                  <Route path="/posters" element={<Posters />} />
+                  <Route path="/variantType" element={<VariantType />} />
+                  <Route path="/variant" element={<Variant />} />
+                  <Route path="/brands/details" element={<Details />} />
                 </Routes>
               </div>
         </Router>

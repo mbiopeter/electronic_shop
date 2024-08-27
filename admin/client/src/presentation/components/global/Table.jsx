@@ -67,7 +67,7 @@ export default function StickyHeadTable({ columns, rows, onEdit, onDelete }) {
                                             <TableCell key={column.id} align={column.align} sx={{ color: 'var(--text-color)' }}>
                                                 <div style={{ display: 'flex', alignItems: 'center' }}>
                                                     {row.img ? (
-                                                        <img src={row.img} alt={row.name} style={{ width: 50, height: 50, marginRight: 10 }} />
+                                                        <img src={row.img} alt={row.name} style={{ width: 50, height: 50,marginRight: 10 }} />
                                                     ):(
                                                         <span style={{paddingRight:'10px'}}>{row.id}.</span>
                                                     )}

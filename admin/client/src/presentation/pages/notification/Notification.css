@@ -1,0 +1,9 @@
+@import '../../css/variables.css';
+.Notification{
+    width: 100%;
+    height: auto;   
+    transition:all var(--transition-duration) linear;
+}
+.Notification-table{
+    margin: var(--container-padding);
+}

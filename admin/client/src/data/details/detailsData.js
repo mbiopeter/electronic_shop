@@ -1,0 +1,27 @@
+export const descriptionOverview = [
+    {
+        id:1,
+        name:'Count',
+        value:12,
+    },
+    {
+        id:1,
+        name:'Count',
+        value:12,
+    },
+    {
+        id:1,
+        name:'Count',
+        value:12,
+    },
+    {
+        id:1,
+        name:'Count',
+        value:12,
+    },
+    {
+        id:1,
+        name:'Count',
+        value:12,
+    },
+];

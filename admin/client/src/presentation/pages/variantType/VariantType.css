@@ -1,0 +1,9 @@
+@import '../../css/variables.css';
+.VariantType{
+    width: 100%;
+    height: auto;   
+    transition:all var(--transition-duration) linear;
+}
+.VariantType-table{
+    margin: var(--container-padding);
+}

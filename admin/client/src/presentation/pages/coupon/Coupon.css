@@ -1,0 +1,9 @@
+@import '../../css/variables.css';
+.Coupon{
+    width: 100%;
+    height: auto;   
+    transition:all var(--transition-duration) linear;
+}
+.Coupon-table{
+    margin: var(--container-padding);
+}

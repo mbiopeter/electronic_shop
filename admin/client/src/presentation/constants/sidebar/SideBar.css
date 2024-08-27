@@ -41,6 +41,7 @@ hr{
     color: var(--text-color);
     opacity: var(--medium-opacity);
     display: flex;
+    align-items: center;
     text-wrap: nowrap;
     gap: var(--padding);
     padding: var(--container-padding);

@@ -32,19 +32,19 @@ const Dashboard = () => {
         setShowAddNewProduct(false);
     }
     const handleDescChange = (id) => {
-        if(id == 1){
+        if(id === 1){
             setProducts(all_products);
             setSubTitle('All Product');
         }
-        if (id == 2){
+        if (id === 2){
             setProducts(out_of_stock_products);
             setSubTitle('Out of Stock');
         }
-        if (id == 3){
+        if (id === 3){
             setProducts(limited_stock_product);
             setSubTitle('Limited Stock');
         }
-        if (id == 4){
+        if (id === 4){
             setProducts(other_stock_product);
             setSubTitle('Other Stock');
         }

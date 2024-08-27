@@ -25,6 +25,21 @@ const UpBar = () => {
         else if(PageName === 'orders'){
             setTitle('Orders')
         }
+        else if(PageName === 'coupon'){
+            setTitle('Coupon Code')
+        }
+        else if(PageName === 'notification'){
+            setTitle('Notifications')
+        }
+        else if(PageName === 'posters'){
+            setTitle('Posters')
+        }
+        else if(PageName === 'variantType'){
+            setTitle('Variant Type')
+        }
+        else if(PageName === 'variant'){
+            setTitle('Variant')
+        }
     },[PageName])
 
 
