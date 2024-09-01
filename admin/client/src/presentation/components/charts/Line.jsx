@@ -12,27 +12,27 @@ export default function LineDemo() {
         // Use CSS variables for colors
         const textColor = documentStyle.getPropertyValue('--text-color');
         const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-        const surfaceBorder = documentStyle.getPropertyValue('--border-color'); // Updated from --surface-border
+        const surfaceBorder = documentStyle.getPropertyValue('--border-color'); 
         const primaryColor = documentStyle.getPropertyValue('--primary-color');
         const secondaryColor = documentStyle.getPropertyValue('--secondary-color');
 
         const data = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            labels: ['January', 'February', 'March', 'April', 'May', 'June'],
             datasets: [
                 {
                     label: 'First Dataset',
-                    data: [65, 59, 80, 81, 56, 55, 40],
+                    data: [65, 59, 80, 81, 56, 55],
                     fill: true,
-                    borderColor: primaryColor, // Use primary color for the first dataset
-                    backgroundColor: `${primaryColor}33`, // Adjust background opacity
+                    borderColor: primaryColor, 
+                    backgroundColor: `${primaryColor}33`, 
                     tension: 0.4
                 },
                 {
                     label: 'Second Dataset',
-                    data: [28, 48, 40, 19, 86, 27, 90],
+                    data: [28, 48, 40, 19, 86, 27],
                     fill: true,
-                    borderColor: secondaryColor, // Use secondary color for the second dataset
-                    backgroundColor: `${secondaryColor}33`, // Adjust background opacity
+                    borderColor: secondaryColor, 
+                    backgroundColor: `${secondaryColor}33`, 
                     tension: 0.4
                 }
             ]
@@ -44,7 +44,7 @@ export default function LineDemo() {
             plugins: {
                 legend: {
                     labels: {
-                        color: textColor // Legend text color
+                        color: textColor 
                     }
                 }
             },

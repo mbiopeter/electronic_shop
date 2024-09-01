@@ -5,10 +5,21 @@ import Layer from '../Layer';
 import ImgPicker from '../addnewproduct/imgPicker/ImgPicker';
 import { categories } from '../../../../data/category/table_data';
 import DropdownDemo from '../../global/select/Select';
+import { useLocation } from 'react-router-dom';
 const AddSubCategory = ({
     handleHidePopUp,
     showAddSubCategory
 }) => {
+    const[currentPage,setCurrentPage] = useState();
+    const location = useLocation();
+    const pathSegments = location.pathname.split('/');
+    
+    useEffect(() => {
+        if(pathSegments[1] === 'subCategory' && pathSegments[2] === 'details'){
+            setCurrentPage(pathSegments[1])
+        }
+        
+    },[])
     const [selectedImages, setSelectedImages] = useState();
     //categories state
     const [categoriesNames, setCategoriesNames] = useState([]);
@@ -46,7 +57,10 @@ const AddSubCategory = ({
             )}
             <div className={`AddSubCategory popup-css ${showAddSubCategory ? 'show-sub-category' : 'hide'}`}>
                 <div className="AddSubCategory-title">
-                    <span>ADD SUB CATEGORY</span>
+                    <span>{currentPage === 'subCategory' 
+                        ? 'EDIT SUB CATEGORY' 
+                        :'ADD SUB CATEGORY'}
+                        </span>
                 </div>
                 <div className="AddSubCategory-container">
                     <div className="AddSubCategory-container-img-container">
@@ -72,7 +86,10 @@ const AddSubCategory = ({
                     
                     <div className="AddSubCategory-form-btn">
                         <button className="AddSubCategory-form-btn-item cancel">Cancel</button>
-                        <button className="AddSubCategory-form-btn-item submit">Submit</button>
+                        {currentPage === 'subCategory'
+                            ?<button className="AddSubCategory-form-btn-item submit">Submit</button>
+                            :<button className="AddSubCategory-form-btn-item submit">Submit</button>
+                        }
                     </div>                    
                 </div>
 

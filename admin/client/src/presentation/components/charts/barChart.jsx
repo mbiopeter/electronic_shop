@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Chart } from 'primereact/chart';
 import '../../css/variables.css';  // Make sure to import your CSS variables
+import { SpecificQuaterySales } from '../../../data/details/detailsData';
 
 export default function BarChart() {
     const [chartData, setChartData] = useState({});
@@ -22,12 +23,12 @@ export default function BarChart() {
             datasets: [
                 {
                     label: 'Sales',
-                    data: [540, 325, 702, 620],
+                    data:SpecificQuaterySales,
                     backgroundColor: [
-                        `${primaryColor}33`,  // Add opacity to primary color
-                        `${secondaryColor}33`,  // Add opacity to secondary color
-                        `${infoColor}33`,  // Add opacity to info color
-                        `${warningColor}33`  // Add opacity to warning color
+                        `${primaryColor}33`,  
+                        `${secondaryColor}33`, 
+                        `${infoColor}33`,  
+                        `${warningColor}33`  
                     ],
                     borderColor: [
                         primaryColor,
@@ -35,7 +36,7 @@ export default function BarChart() {
                         infoColor,
                         warningColor
                     ],
-                    borderWidth: 1
+                    borderWidth: 2
                 }
             ]
         };

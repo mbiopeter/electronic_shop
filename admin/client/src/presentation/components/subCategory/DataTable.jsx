@@ -3,10 +3,13 @@ import './DataTable.css';
 import '../../css/common.css';
 import StickyHeadTable from '../global/Table';
 import { subCategories } from '../../../data/subCategory/table_data';
+import { useNavigate } from 'react-router-dom';
 const DataTable = () => {
+    const navigate = useNavigate();
     const handleEdit = (row) => {
-        console.log('Edit:', row);
+        navigate(`/subCategory/details/${row.id}`);
     };
+
 
     const handleDelete = (row) => {
         console.log('Delete:', row);

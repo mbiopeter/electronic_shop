@@ -3,9 +3,11 @@ import './DataTable.css';
 import '../../css/common.css';
 import StickyHeadTable from '../global/Table';
 import { categories } from '../../../data/category/table_data';
+import { useNavigate } from 'react-router-dom';
 const DataTable = () => {
+    const navigate = useNavigate();
     const handleEdit = (row) => {
-        console.log('Edit:', row);
+        navigate(`/category/details/${row.id}`);
     };
 
     const handleDelete = (row) => {

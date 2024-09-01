@@ -32,16 +32,20 @@ function App() {
                 <UpBar />
                 <Routes>
                   <Route path="/" element={<Dashboard />} />
+                  <Route path="/details/:id" element={<Details />} />
                   <Route path="/category" element={<Category />} />
+                  <Route path="/category/details/:id" element={<Details />} />
                   <Route path="/subCategory" element={<SubCategory />} />
+                  <Route path="/subCategory/details/:id" element={<Details />} />
                   <Route path="/brands" element={<Brands />} />
+                  <Route path="/brands/details/:id" element={<Details />} />
                   <Route path="/orders" element={<Orders />} />
                   <Route path="/coupon" element={<Coupon />} />
                   <Route path="/notification" element={<Notification />} />
                   <Route path="/posters" element={<Posters />} />
                   <Route path="/variantType" element={<VariantType />} />
                   <Route path="/variant" element={<Variant />} />
-                  <Route path="/brands/details" element={<Details />} />
+                  
                 </Routes>
               </div>
         </Router>

@@ -12,10 +12,20 @@ import { brands } from '../../../../data/brands/table_data';
 import { addNewProducts } from '../../../../logical/dashboard/addNewProduct';
 import { variantType } from '../../../../data/variantType/table_data';
 import { varient } from '../../../../data/varient/table_data';
+
+import { useLocation } from 'react-router-dom';
 const AddNewProduct = ({
     handleHidePopUp,
     showAddNewProduct
 }) => {
+    const[currentPage,setCurrentPage] = useState();
+    const location = useLocation();
+    const pathSegments = location.pathname.split('/');
+    const PageName = pathSegments[1];
+    
+    useEffect(() => {
+        setCurrentPage(PageName)
+    },[])
 
     const [selectedImages, setSelectedImages] = useState({});
     //categories state
@@ -137,7 +147,6 @@ const AddNewProduct = ({
         
         setResponse(newResponse);
     };
-    console.log(selectedImages);
     return (
         <>
             {showAddNewProduct && (
@@ -145,7 +154,7 @@ const AddNewProduct = ({
             )}
             <div className={`AddNewProducts popup-css ${showAddNewProduct ? 'show-addProduct' : 'hide'}`}>
                 <div className="AddNewProducts-title">
-                    <span>ADD PRODUCT</span>
+                    <span>{currentPage === 'details' ? 'EDIT PRODUCT' : 'ADD PRODUCT'}</span>
                 </div>
                 <div className="AddNewProducts-container">
                     <div className="AddNewProducts-container-img-container">
@@ -224,7 +233,11 @@ const AddNewProduct = ({
                     </div>
                     <div className="AddNewProducts-form-btn">
                         <button className="AddNewProducts-form-btn-item cancel">Cancel</button>
-                        <button onClick={uploadNewProduct} className="AddNewProducts-form-btn-item submit">Submit</button>
+                        {currentPage ===  'details' ? (
+                            <button className="AddNewProducts-form-btn-item submit">Submit</button>
+                        ):(
+                            <button onClick={uploadNewProduct} className="AddNewProducts-form-btn-item submit">Submit</button>
+                        )}
                     </div>
                 </div>
             </div>

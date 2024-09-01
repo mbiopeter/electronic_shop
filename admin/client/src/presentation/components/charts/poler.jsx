@@ -15,7 +15,7 @@ export default function ComboDemo() {
         const warningColor = documentStyle.getPropertyValue('--warning-color');
 
         const data = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            labels: ['January', 'February', 'March', 'April', 'May', 'June'],
             datasets: [
                 {
                     type: 'line',
@@ -24,13 +24,13 @@ export default function ComboDemo() {
                     borderWidth: 2,
                     fill: false,
                     tension: 0.4,
-                    data: [50, 25, 12, 48, 56, 76, 42]
+                    data: [50, 25, 12, 48, 56, 76]
                 },
                 {
                     type: 'bar',
                     label: 'Dataset 2',
                     backgroundColor: secondaryColor,
-                    data: [21, 84, 24, 75, 37, 65, 34],
+                    data: [21, 84, 24, 75, 37, 65],
                     borderColor: 'white',
                     borderWidth: 2
                 },
@@ -38,7 +38,7 @@ export default function ComboDemo() {
                     type: 'bar',
                     label: 'Dataset 3',
                     backgroundColor: warningColor,
-                    data: [41, 52, 24, 74, 23, 21, 32]
+                    data: [41, 52, 24, 74, 23, 21]
                 }
             ]
         };

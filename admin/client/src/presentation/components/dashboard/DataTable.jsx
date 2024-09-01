@@ -2,12 +2,14 @@ import React from 'react';
 import './DataTable.css';
 import '../../css/common.css';
 import StickyHeadTable from '../global/Table';
+import { useNavigate } from 'react-router-dom';
 const DataTable = ({
     subTitle,
     products
 }) => {
+    const navigate = useNavigate();
     const handleEdit = (row) => {
-        console.log('Edit:', row);
+        navigate(`/details/${row.id}`);
     };
 
     const handleDelete = (row) => {

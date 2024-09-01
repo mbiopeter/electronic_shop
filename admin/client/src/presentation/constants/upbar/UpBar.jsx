@@ -40,6 +40,9 @@ const UpBar = () => {
         else if(PageName === 'variant'){
             setTitle('Variant')
         }
+        else if(PageName === 'details'){
+            setTitle('Details Page')
+        }
     },[PageName])
 
 

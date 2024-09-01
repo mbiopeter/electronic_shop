@@ -1,12 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './AddCategory.css';
 import '../../../css/common.css';
 import Layer from '../Layer';
 import ImgPicker from '../addnewproduct/imgPicker/ImgPicker';
+import { useLocation } from 'react-router-dom';
 const AddCategory = ({
     handleHidePopUp,
     showAddNewProduct
 }) => {
+
+    const[currentPage,setCurrentPage] = useState();
+    const location = useLocation();
+    const pathSegments = location.pathname.split('/');
+    
+    useEffect(() => {
+        if(pathSegments[1] === 'category' && pathSegments[2] === 'details'){
+            setCurrentPage(pathSegments[2])
+        }
+        
+    },[])
     const [selectedImages, setSelectedImages] = useState();
 
     const handleImageChange = (event, id) => {
@@ -30,7 +42,7 @@ const AddCategory = ({
             )}
             <div className={`AddCategory popup-css ${showAddNewProduct ? 'show-category' : 'hide'}`}>
                 <div className="AddCategory-title">
-                    <span>ADD CATEGORY</span>
+                    <span>{currentPage === 'details' ? 'EDIT CATEGORY' : 'ADD CATEGORY'}</span>
                 </div>
                 <div className="AddCategory-container">
                     <div className="AddCategory-container-img-container">
@@ -44,7 +56,9 @@ const AddCategory = ({
                     <input className='input-css' type="text" placeholder='Category Name' />
                     <div className="AddCategory-form-btn">
                         <button className="AddCategory-form-btn-item cancel">Cancel</button>
-                        <button className="AddCategory-form-btn-item submit">Submit</button>
+                        {currentPage === 'details' 
+                        ?<button className="AddCategory-form-btn-item submit">Submit</button>
+                        :<button className="AddCategory-form-btn-item submit">Submit</button>}
                     </div>                    
                 </div>
 

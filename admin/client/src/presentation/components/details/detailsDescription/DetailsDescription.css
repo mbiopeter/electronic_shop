@@ -15,7 +15,8 @@
     color: var(--heading-color)
 }
 .right-details-description-item-value{
-    font-size: var(--font-size);
+    font-size: var(--font-size-small);
+    opacity: 0.8;
     font-weight: var(--font-weight-bold);
     color: var(--text-color)
 }

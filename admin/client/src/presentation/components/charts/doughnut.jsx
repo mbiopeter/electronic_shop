@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Chart } from 'primereact/chart';
 import '../../css/variables.css';
+import { mostMonthlySales } from '../../../data/details/detailsData';
 
 export default function DoughnutChartDemo() {
     const [chartData, setChartData] = useState({});
@@ -11,10 +12,10 @@ export default function DoughnutChartDemo() {
         
         // Using custom CSS variables for colors
         const data = {
-            labels: ['A', 'B', 'C'],
+            labels: [mostMonthlySales[0].name, mostMonthlySales[1].name, mostMonthlySales[2].name],
             datasets: [
                 {
-                    data: [300, 50, 100],
+                    data: [mostMonthlySales[0].value, mostMonthlySales[1].value, mostMonthlySales[2].value],
                     backgroundColor: [
                         documentStyle.getPropertyValue('--primary-color'), 
                         documentStyle.getPropertyValue('--warning-color'), 
