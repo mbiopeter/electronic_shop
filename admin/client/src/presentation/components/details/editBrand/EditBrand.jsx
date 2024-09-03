@@ -1,7 +1,6 @@
 import React from 'react';
 import '../Edit.css';
 import { Image } from 'primereact/image';
-import { editBrandDetails, editBrandImage } from '../../../../data/details/detailsData';
 import { useLocation } from 'react-router-dom';
 import { brands } from '../../../../data/brands/table_data';
 
@@ -12,7 +11,7 @@ const EditBrand = () => {
     return (
         <div className='Edit'>
             <div className="editHeader">
-                <span>MOBILE DETAILS</span>
+                <span>{brands[currentId - 1].name} DETAILS</span>
             </div>
             <div className="edit-img-container"> 
                 {brands[currentId - 1] && (

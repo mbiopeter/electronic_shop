@@ -10,7 +10,7 @@
     cursor: pointer;
 }
 .right-details-description-item-header{
-    font-size: 16px;
+    font-size: var(--font-size);
     font-weight: var(--font-weight-normal);
     color: var(--heading-color)
 }

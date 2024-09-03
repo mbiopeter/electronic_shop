@@ -16,6 +16,8 @@ import AddSubCategory from '../../components/popups/addSubCategory/AddSubCategor
 import EditBrand from '../../components/details/editBrand/EditBrand';
 import AddBrands from '../../components/popups/addBrands/AddBrands';
 import { brands } from '../../../data/brands/table_data';
+import { subCategories } from '../../../data/subCategory/table_data';
+import { categories } from '../../../data/category/table_data';
 
 const Details = () => {
     const numberOfcharts = [4];
@@ -79,13 +81,21 @@ const Details = () => {
             )}
             <SubHeading 
                 handleAddNew={handleAddNew}
-                title={currentPage === 'brands' ? `${brands[currentId - 1].name} Graphical Analysis`: null}
+                title={
+                    currentPage === 'brands' 
+                    ? `${brands[currentId - 1].name} Analytical Details`
+                    : currentPage === 'subCategory' 
+                    ? `${subCategories[currentId - 1].name} Analytical Details`
+                    :  currentPage === 'category'
+                    ? `${categories[currentId - 1].name} Analytical Details`
+                    : null
+                }
             />        
             <div className='Details'>
                 <div className="right-details">
                     <div className="right-details-description">
                         {descriptionOverview.map((desc) =>(
-                            <DetailsDescription  name={desc.name} value={desc.value}/>
+                            <DetailsDescription   name={desc.name} value={desc.value}/>
                         ) )}
                     </div>
                     {numberOfcharts.map((chart) => (

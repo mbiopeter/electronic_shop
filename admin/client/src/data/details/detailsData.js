@@ -121,27 +121,3 @@ export const mostMonthlySales = [
         value:98,
     },
 ];
-
-export const editCategoryImage =[
-    'https://ke.jumia.is/unsafe/fit-in/680x680/filters:fill(white)/product/54/5806261/1.jpg?0708'
-];
-
-export const editCategoryDetails = [
-    {
-        id:1,
-        name:'Name',
-        value:'Electronics'
-    }
-]
-
-export const editSubCategoryImage =[
-    'https://ke.jumia.is/unsafe/fit-in/680x680/filters:fill(white)/product/54/5806261/1.jpg?0708'
-];
-
-export const editSubCategoryDetails = [
-    {
-        id:1,
-        name:'Name',
-        value:'Mobile'
-    }
-];

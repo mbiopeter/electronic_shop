@@ -2,54 +2,34 @@ import React from 'react'
 import './UpBar.css';
 import { Search,Down } from '../../../logical/consts/icons';
 import { profile } from '../../../logical/consts/images';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import  {useState,useEffect} from 'react'
 const UpBar = () => {
-    const [title, setTitle]  = useState();
+    const [homeTitle, setHomeTitle]  = useState();
+    const[homeRoute,setHomeRoute] = useState();
     const location = useLocation();
     const pathSegments = location.pathname.split('/');
     const PageName = pathSegments[1];
+    const homeTitlesList = ['Dashboard','Category','Sub Category','Brands','Orders','Coupon','Notifications','Posters','Variant Type','Variant','Details'];
+    const homeRoutesList = ['dashboard','category','subCategory','brands','orders','coupon','notifications','posters','variantType','variant','details'];
     useEffect(() => {
-        if(PageName === ''){
-            setTitle('Dashboard')
-        }
-        else if(PageName === 'category'){
-            setTitle('Category')
-        }
-        else if(PageName === 'subCategory'){
-            setTitle('Sub Category')
-        }
-        else if(PageName === 'brands'){
-            setTitle('Brands')
-        }
-        else if(PageName === 'orders'){
-            setTitle('Orders')
-        }
-        else if(PageName === 'coupon'){
-            setTitle('Coupon Code')
-        }
-        else if(PageName === 'notification'){
-            setTitle('Notifications')
-        }
-        else if(PageName === 'posters'){
-            setTitle('Posters')
-        }
-        else if(PageName === 'variantType'){
-            setTitle('Variant Type')
-        }
-        else if(PageName === 'variant'){
-            setTitle('Variant')
-        }
-        else if(PageName === 'details'){
-            setTitle('Details Page')
+        for(var i = 0; i < homeTitlesList.length; i++){
+            if(i === 0){
+                setHomeTitle(homeTitlesList[i]);
+                setHomeRoute(homeRoutesList[i]);
+            }
+            if(PageName === homeRoutesList[i]){
+                setHomeTitle(homeTitlesList[i]);
+                setHomeRoute(homeRoutesList[i]);
+            }
         }
     },[PageName])
 
 
     return (
         <div className="UpBar">
-            <span className='UpBar-title'>
-                {title}
+            <span className='upbar-title-links'>
+                <Link className='UpBar-title' style={{textDecoration:'none'}} to={`${homeRoute}`}>{homeTitle}</Link>
             </span>
             <div className="UpBar-right">
                 <div className="UpBar-search">

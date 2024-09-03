@@ -5,10 +5,14 @@ import Layer from '../Layer';
 import ImgPicker from '../addnewproduct/imgPicker/ImgPicker';
 import { subCategories } from '../../../../data/subCategory/table_data';
 import DropdownDemo from '../../global/select/Select';
+import { useLocation } from 'react-router-dom';
 const AddBrands = ({
     handleHidePopUp,
     showAddBrands
 }) => {
+
+    const location = useLocation();
+    const pathSegments = location.pathname.split('/');
     const [selectedImages, setSelectedImages] = useState();
     //sub categories state
     const [subCategoriesNames, setSubCategoriesNames] = useState([]);
@@ -24,7 +28,7 @@ const AddBrands = ({
             };
             reader.readAsDataURL(file);
         }
-    };
+    };   
     //unset Image
     const handleCloseSelected = (id) => {
         setSelectedImages(null);
@@ -45,7 +49,7 @@ const AddBrands = ({
             )}
             <div className={`AddBrands popup-css ${showAddBrands ? 'show-brands' : 'hide'}`}>
                 <div className="AddBrands-title">
-                    <span>ADD BRAND</span>
+                    <span>{pathSegments[2] === 'details' ? 'EDIT BRANDS' :'ADD BRAND'}</span>
                 </div>
                 <div className="AddBrands-container">
                     <div className="AddBrands-container-img-container">
@@ -71,7 +75,11 @@ const AddBrands = ({
                     
                     <div className="AddBrands-form-btn">
                         <button className="AddBrands-form-btn-item cancel">Cancel</button>
-                        <button className="AddBrands-form-btn-item submit">Submit</button>
+                        {pathSegments[2] === 'details' ? (
+                            <button className="AddBrands-form-btn-item submit">Submit</button>
+                        ):(
+                            <button className="AddBrands-form-btn-item submit">Submit</button> 
+                        )}
                     </div>                    
                 </div>
 
