@@ -16,7 +16,6 @@ const DataTable = () => {
         { id: 'status', label: 'Status', minWidth: 100 },
         { id: 'type', label: 'Type', minWidth: 100 },
         { id: 'amount', label: 'Amount', minWidth: 100 },
-        { id: 'edit', label: 'Edit', minWidth: 50, align: 'center' },
         { id: 'delete', label: 'Delete', minWidth: 50, align: 'center' },
     ];
     return (

@@ -19,7 +19,9 @@ import { brands } from '../../../data/brands/table_data';
 import { subCategories } from '../../../data/subCategory/table_data';
 import { categories } from '../../../data/category/table_data';
 
-const Details = () => {
+const Details = ({
+    products
+}) => {
     const numberOfcharts = [4];
     const [showAddNewProduct, setShowAddNewProduct] = useState(false);
     const[currentPage,setCurrentPage] = useState();
@@ -30,7 +32,7 @@ const Details = () => {
     useEffect(() => {
         if(pathSegments[1] === 'details'){
             setCurrentPage(pathSegments[1])
-            setCurrentId(pathSegments[3]);
+            setCurrentId(pathSegments[2]);
         }
         else if(pathSegments[1] === 'category' && pathSegments[2] === 'details'){
             setCurrentPage(pathSegments[1])
@@ -44,6 +46,7 @@ const Details = () => {
             setCurrentPage(pathSegments[1])
             setCurrentId(pathSegments[3]);
         }
+
         
     },[])
     const handleAddNew = () => {
@@ -88,6 +91,8 @@ const Details = () => {
                     ? `${subCategories[currentId - 1].name} Analytical Details`
                     :  currentPage === 'category'
                     ? `${categories[currentId - 1].name} Analytical Details`
+                    :  currentPage === 'details' && products.length > 0
+                    ? `${products[currentId - 1].name} Analytical Details`
                     : null
                 }
             />        
@@ -95,7 +100,7 @@ const Details = () => {
                 <div className="right-details">
                     <div className="right-details-description">
                         {descriptionOverview.map((desc) =>(
-                            <DetailsDescription   name={desc.name} value={desc.value}/>
+                            <DetailsDescription  name={desc.name} value={desc.value}/>
                         ) )}
                     </div>
                     {numberOfcharts.map((chart) => (
@@ -105,7 +110,7 @@ const Details = () => {
                 </div>
                 <div className="left-details">
                     {currentPage === 'details' && (
-                        <EditProducts />
+                        <EditProducts  products={products}/>
                     )}
                     {currentPage === 'category' && (
                         <EditCategory />

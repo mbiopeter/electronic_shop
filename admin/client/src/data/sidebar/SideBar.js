@@ -32,33 +32,39 @@ export const nav_links = [
         name: 'Varient Type'
     },
     {
-        id:4,
+        id:6,
         icon: < Notifications/>,
         path: '/variant',
         name: 'Varients'
     },
     {
-        id:4,
+        id:7,
         icon: < Person/>,
         path: '/orders',
         name: 'Orders'
     },
     {
-        id:4,
+        id:8,
         icon: < Settings/>,
         path: '/coupon',
         name: 'Coupons'
     },
     {
-        id:4,
+        id:9,
         icon: < Inbox/>,
         path: '/posters',
         name: 'Posters'
     },
     {
-        id:4,
+        id:10,
         icon: < Notifications/>,
         path: '/notification',
         name: 'Notifications'
+    },
+    {
+        id:11,
+        icon: < Settings/>,
+        path: '/settings',
+        name: 'Settings'
     },
 ];

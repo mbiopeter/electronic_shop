@@ -13,9 +13,11 @@ import AddNewProduct from '../../components/popups/addnewproduct/AddNewProduct';
 import {all_products, out_of_stock_products, limited_stock_product, other_stock_product} from '../../../data/dashboard/table_data';
 
 
-const Dashboard = () => {
+const Dashboard = ({
+    products,
+    setProducts
+}) => {
     const [showAddNewProduct, setShowAddNewProduct] = useState(false);
-    const [products, setProducts] = useState(all_products);
     const [subTitle, setSubTitle] = useState('All Product');
     const itemCount = [
         all_products.length,

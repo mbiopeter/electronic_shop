@@ -12,8 +12,7 @@ const DataTable = () => {
         console.log('Delete:', row);
     };
     const columns = [
-        { id: 'name', label: 'Category Name', minWidth: 120 },
-        { id: 'edit', label: 'Edit', minWidth: 120, align: 'center' },
+        { id: 'name', label: 'Category Name', minWidth: 200 },
         { id: 'delete', label: 'Delete', minWidth: 120, align: 'center' },
     ];
     return (

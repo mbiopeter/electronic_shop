@@ -30,9 +30,7 @@
 
 }
 .edit-img-container img{
-    width: 120px;
-    max-width: 200%;
-    max-height: 200%;
+    width: 110px;
     background-color:var(--background-color);
     border-radius: var(--small-border-radius);
     box-shadow: var(--box-shadow);

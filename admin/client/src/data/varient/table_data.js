@@ -6,37 +6,37 @@ export const varient = [
         date:'2024-08-25 12:52:00'
     },
     {
-        id:1,
+        id:2,
         name:'red',
         type:'color',
         date:'2024-08-25 12:52:00'
     },
     {
-        id:1,
+        id:3,
         name:'red',
         type:'color',
         date:'2024-08-25 12:52:00'
     },
     {
-        id:1,
+        id:4,
         name:'red',
         type:'color',
         date:'2024-08-25 12:52:00'
     },
     {
-        id:1,
+        id:5,
         name:'red',
         type:'color',
         date:'2024-08-25 12:52:00'
     },
     {
-        id:1,
+        id:6,
         name:'red',
         type:'color',
         date:'2024-08-25 12:52:00'
     },
     {
-        id:1,
+        id:7,
         name:'red',
         type:'color',
         date:'2024-08-25 12:52:00'

@@ -3,9 +3,10 @@ import './DataTable.css';
 import '../../css/common.css';
 import StickyHeadTable from '../global/Table';
 import { varient } from '../../../data/varient/table_data';
+import { useNavigate } from 'react-router-dom';
 const DataTable = () => {
+    const navigate = useNavigate();
     const handleEdit = (row) => {
-        console.log('Edit:', row);
     };
 
     const handleDelete = (row) => {
@@ -15,7 +16,6 @@ const DataTable = () => {
         { id: 'name', label: 'Variant', minWidth: 120 },
         { id: 'type', label: 'Variant Type', minWidth: 120 },
         { id: 'date', label: 'Added Date', minWidth: 120 },
-        { id: 'edit', label: 'Edit', minWidth: 120, align: 'center' },
         { id: 'delete', label: 'Delete', minWidth: 120, align: 'center' },
     ];
     return (

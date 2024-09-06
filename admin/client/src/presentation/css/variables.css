@@ -16,6 +16,7 @@
     --error-color: #e74c3c;
     --warning-color: #f39c12;
     --info-color: #3498db;
+    --grey-color:rgba(112, 106, 106, 0.675);
 
     /*SideBar Display Variables*/
     --float:row;
@@ -93,4 +94,22 @@
     --popup-transition:0.5s;/*Used*/
     --transition-duration: 0.5s;/*Used*/
     --transition-easing: ease-in-out;/*Used*/
+
+}
+/* Light Mode */
+:root.light-mode {
+    --background-color: #ffffff;
+    --secondary-background-color: #f5f5f5;
+    --text-color: #333333;
+    --heading-color: #000000;
+    --link-color: #1a73e8;
+    --link-hover-color: #d93025;
+    --border-color: rgba(0, 0, 0, 0.12);
+    --input-background-color: #ffffff;
+    --input-text-color: #333333;
+
+    --box-shadow: 0px 4px 8px rgba(167, 163, 163, 0.5); /*Used*/
+    --input-shadow: 0px 0px 5px rgba(152, 147, 147, 0.7);
+
+    /* Adjust any other variables you want for light mode */
 }

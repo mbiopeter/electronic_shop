@@ -14,8 +14,7 @@ const DataTable = () => {
     const columns = [
         { id: 'title', label: 'Title', minWidth: 170 },
         { id: 'desc', label: 'Description', minWidth: 100 },
-        { id: 'date', label: 'Date', minWidth: 100 },
-        { id: 'edit', label: 'Edit', minWidth: 50, align: 'center' },
+        { id: 'date', label: 'Date', minWidth: 100 }, 
         { id: 'delete', label: 'Delete', minWidth: 50, align: 'center' },
     ];
     return (
