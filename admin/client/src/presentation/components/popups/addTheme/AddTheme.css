@@ -1,0 +1,86 @@
+@import '../../../css/variables.css';
+.AddThemePopUp{
+    position: fixed;
+    z-index: 1000;
+    transition: all var(--popup-transition) ease-in-out;
+    padding: var(--container-padding);
+    width: 55%;
+    height: 55%;
+    background-color: var(--secondary-background-color);
+}
+.show-AddThemePopUp{
+    transform: translate(30%, -20%);
+    opacity: 1;
+}
+.AddThemePopUp-title{
+    height: 10%;
+    font-size: var(--font-size-large);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    font-weight:var(--font-weight-bold);
+}
+.AddThemePopUp-container{
+    width: 100%;
+    height: 90%;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: var(--background-color);
+    border-radius: var(--border-radius);
+
+}
+.AddThemePopUpGrid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: var(--container-padding);
+}
+.AddThemePopUpGridControl{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid var(--primary-color);
+    padding:5px ;
+    border-radius:var(--small-border-radius)
+
+}
+.AddThemePopUpGridControlSpan{
+    font-size: var(--font-size-small);
+    color: var(--text-color);
+}
+.themeNameInput{
+    margin-bottom: var(--container-padding);
+    border: 1px solid var(--primary-color);
+}
+
+
+
+.AddThemePopUp-form-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: var(--container-padding);
+    padding: var(--container-padding);
+    
+    
+}
+.AddThemePopUp-form-btn-item{
+    padding: 7px 15px;
+    border: none;
+    border-radius: var(--large-border-radius);
+    font-size: var(--font-size);
+    color: var(--heading-color);
+    font-weight:var(--font-weight-bold);
+    cursor: pointer;
+    color: var(--heading-color);
+}
+.AddThemePopUp-form-btn-item.cancel{
+    background-color: var(--error-color);
+}
+.AddThemePopUp-form-btn-item.submit{
+    background-color: var(--primary-color);
+}

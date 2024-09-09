@@ -1,0 +1,41 @@
+@import '../../css/variables.css';
+.Roles{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+.Roles>hr{
+    margin-top:var(--padding)
+}
+.RolesHeading{
+    margin: var(--padding)  0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.RolesHeading>span{
+    font-weight: var(--font-weight-bold);
+    color: var(--text-color);
+
+}
+.RolesContainer{
+    width: 80%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: var(--padding);
+}
+.RolesContainerItem{
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    border: 1px solid var(--primary-color, 0.5);
+    border-radius: 30px;
+    padding:0px var(--padding);
+}
+.RolesContainerItem>span{
+    font-size: var(--font-size);
+    color: var(--text-color);
+    font-weight: var(--font-weight-bold);
+    opacity: 0.8;
+    text-transform: capitalize;
+}

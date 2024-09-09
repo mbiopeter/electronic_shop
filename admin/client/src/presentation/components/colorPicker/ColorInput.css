@@ -1,0 +1,8 @@
+@import '../../css/variables.css';
+.colorPicker input{
+    width: 20px;
+    height: 20px;
+    outline: none;
+    border: none;
+    border-radius: var(--small-border-radius);
+}

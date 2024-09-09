@@ -1,4 +1,7 @@
 @import './presentation/css/variables.css';
+*{
+transition: background-color var(--transition-duration) linear;
+}
 .main-background{
     background-color: var(--background-color);
     display: flex;

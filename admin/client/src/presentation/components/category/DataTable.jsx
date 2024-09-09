@@ -1,10 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './DataTable.css';
 import '../../css/common.css';
 import StickyHeadTable from '../global/Table';
 import { categories } from '../../../data/category/table_data';
 import { useNavigate } from 'react-router-dom';
+import { editSystemVariables, viewDetails } from '../../../data/roles/Roles';
+import { handleCheckRole } from '../../../logical/settings/Roles';
 const DataTable = () => {
+
+        //get user roles
+        const[editCategoryRole,setEditCategoryRole] = useState(false);
+        const[viewCategoryDetailsRole, setViewCategoryDetailsRole] = useState(false);
+    
+        const showEditIcon = editCategoryRole || viewCategoryDetailsRole ? true : false;
+    
+        useEffect(() => {
+            //Category 
+            setEditCategoryRole(handleCheckRole(editSystemVariables,'edit category'));
+            setViewCategoryDetailsRole(handleCheckRole(viewDetails,'category details'));
+        },[]);
+
+
     const navigate = useNavigate();
     const handleEdit = (row) => {
         navigate(`/category/details/${row.id}`);
@@ -16,7 +32,7 @@ const DataTable = () => {
     const columns = [
         { id: 'name', label: 'Category Name', minWidth: 170 },
         { id: 'addedDate', label: 'Added Date', minWidth: 100 },
-        { id: 'edit', label: 'Edit', minWidth: 50, align: 'center' },
+        showEditIcon && { id: 'edit', label: 'Edit', minWidth: 50, align: 'center' },
         { id: 'delete', label: 'Delete', minWidth: 50, align: 'center' },
     ];
     return (

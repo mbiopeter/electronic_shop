@@ -26,7 +26,7 @@ const ImgPicker = ({
                     ) : (
                         <div className="img-else">
                             <label htmlFor={`img-${id}`}>
-                                <Camera  style={{ fontSize: '50px', color: 'gray' }} />
+                                <Camera className='selectImageIcon' style={{ fontSize: '50px',}} />
                             </label>
                             <span className="img-input-label">{label}</span>
                         </div>

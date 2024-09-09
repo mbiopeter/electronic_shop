@@ -5,10 +5,13 @@
     justify-content: center;
     width: 140px;
     height: 120px;
-    background-color: var(--input-text-color);
+    background-color: var(--grey-color);
     border-radius: var(--small-border-radius);
 
 
+}
+.selectImageIcon{
+    color: var(--text-color);
 }
 .ImgPicker form{
     display: flex;
@@ -17,7 +20,7 @@
 }
 .img-input-label{
     font-size: var(--font-size);
-    color: var(--input-background-color);
+    color: var(--text-color);
 }
 .selected-image {
     width: 120px;

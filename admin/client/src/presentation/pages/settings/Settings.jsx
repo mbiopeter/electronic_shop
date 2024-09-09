@@ -1,11 +1,15 @@
 import React, { useState } from 'react'
 import './Settings.css'
 import Appearance from '../../components/appearance/Appearance';
+import Roles from '../../components/roles/Roles';
 const Settings = ({
   activeMode,
-  setActiveMode
+  setActiveMode,
+  setTransparentSideBar,
+  sideBarChecked,
+  setSideBarChecked
 }) => {
-  const[active,setActive] = useState('Roles');
+  const[active,setActive] = useState('Appearance');
   const handleActive = (active) => {
     setActive(active);
   }
@@ -32,7 +36,16 @@ const Settings = ({
           {active === 'Notifications' &&<span>Notifications</span>}
         </div>
         <hr />
-        {active === 'Appearance' && <Appearance activeMode={activeMode}  setActiveMode={setActiveMode} />}
+        {active === 'Appearance' 
+          && <Appearance 
+            activeMode={activeMode}  
+            setActiveMode={setActiveMode} 
+            setTransparentSideBar={setTransparentSideBar}
+            sideBarChecked={sideBarChecked}
+            setSideBarChecked={setSideBarChecked}
+          />
+        }
+        {active === 'Roles' && <Roles />}
       </div>
   )
 }

@@ -1,7 +1,7 @@
 export const description_data = [
     {
         id:1,
-        title:'All Product',
+        title:'All Products',
         background:'rgba(0, 0, 255, 0.3)',
         progress:'blue'
     },

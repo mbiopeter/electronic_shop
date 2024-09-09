@@ -18,56 +18,79 @@ import Details from "./presentation/pages/details/Details";
 import { all_products } from "./data/dashboard/table_data";
 import Settings from "./presentation/pages/settings/Settings";
 
-
 function App() {
   const [expand, setExpand] = useState(false);
   const [products, setProducts] = useState(all_products);
+  const [transparentSideBar, setTransparentSideBar] = useState(true);
+  const [sideBarChecked, setSideBarChecked] = useState(null);
 
+  // Mode and Sidebar states
+  const [activeMode, setActiveMode] = useState();
 
-  //mode
-  const[activeMode,setActiveMode] = useState();
   useEffect(() => {
-    const savedMode = localStorage.getItem('theme') || 'Dark'; // Default to Dark mode if nothing is saved
+    const savedMode = localStorage.getItem('theme') || 'Light';
+    const sideBar = localStorage.getItem('transparentSideBar');
+
     setActiveMode(savedMode);
     const root = document.documentElement;
-    if(savedMode === 'Dark'){
+
+    if (savedMode === 'Dark') {
+      root.classList.remove('light-mode');
+    } else if (savedMode === 'Light') {
+      root.classList.add('light-mode');
+    } else {
+      const savedThemes = JSON.parse(localStorage.getItem('themes')) || {};
+      const selectedTheme = savedThemes[savedMode];
+      if (selectedTheme) {
+        Object.keys(selectedTheme).forEach(variable => {
+          root.style.setProperty(variable, `#${selectedTheme[variable]}`);
+        });
         root.classList.remove('light-mode');
-        localStorage.setItem('theme', savedMode); 
+      }
     }
-    if(savedMode === 'Light'){
-        root.classList.add('light-mode');
-        localStorage.setItem('theme', savedMode); 
-    }
+
+    setTransparentSideBar(sideBar);
+    setSideBarChecked(sideBar);
+
   }, []);
 
   return (
     <PrimeReactProvider>
       <div className="main-background">
         <Router>
-            <SideBar 
-              expand={expand}
-              setExpand={setExpand}
-            />
-            <div className="main" style={expand == false? {width: 'calc(100% - var(--larger-width))',}:{ transition:'all var(--transition-duration) linear'}}>
-                <UpBar />
-                <Routes>
-                  <Route path="/" element={<Dashboard products={products}  setProducts={setProducts}/>} />
-                  <Route path="/details/:id" element={<Details products={products} />} />
-                  <Route path="/category" element={<Category />} />
-                  <Route path="/category/details/:id" element={<Details />} />
-                  <Route path="/subCategory" element={<SubCategory />} />
-                  <Route path="/subCategory/details/:id" element={<Details />} />
-                  <Route path="/brands" element={<Brands />} />
-                  <Route path="/brands/details/:id" element={<Details />} />
-                  <Route path="/orders" element={<Orders />} />
-                  <Route path="/coupon" element={<Coupon />} />
-                  <Route path="/notification" element={<Notification />} />
-                  <Route path="/posters" element={<Posters />} />
-                  <Route path="/variantType" element={<VariantType />} />
-                  <Route path="/variant" element={<Variant />} />
-                  <Route path="/settings" element={<Settings activeMode={activeMode} setActiveMode={setActiveMode}/>} />
-                </Routes>
-              </div>
+          <SideBar
+            expand={expand}
+            setExpand={setExpand}
+            transparentSideBar={transparentSideBar}
+          />
+          <div className="main" style={expand ? {width:'100%'} : { width: 'calc(100% - var(--larger-width))' }}>
+            <UpBar />
+            <Routes>
+              <Route path="/" element={<Dashboard products={products} setProducts={setProducts} />} />
+              <Route path="/details/:id" element={<Details products={products} />} />
+              <Route path="/category" element={<Category />} />
+              <Route path="/category/details/:id" element={<Details />} />
+              <Route path="/subCategory" element={<SubCategory />} />
+              <Route path="/subCategory/details/:id" element={<Details />} />
+              <Route path="/brands" element={<Brands />} />
+              <Route path="/brands/details/:id" element={<Details />} />
+              <Route path="/orders" element={<Orders />} />
+              <Route path="/coupon" element={<Coupon />} />
+              <Route path="/notification" element={<Notification />} />
+              <Route path="/posters" element={<Posters />} />
+              <Route path="/variantType" element={<VariantType />} />
+              <Route path="/variant" element={<Variant />} />
+              <Route path="/settings" element={
+                <Settings
+                  activeMode={activeMode}
+                  setActiveMode={setActiveMode}
+                  setTransparentSideBar={setTransparentSideBar}
+                  sideBarChecked={sideBarChecked}
+                  setSideBarChecked={setSideBarChecked}
+                />
+              } />
+            </Routes>
+          </div>
         </Router>
       </div>
     </PrimeReactProvider>

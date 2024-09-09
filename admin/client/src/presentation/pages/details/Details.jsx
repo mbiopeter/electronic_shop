@@ -18,6 +18,8 @@ import AddBrands from '../../components/popups/addBrands/AddBrands';
 import { brands } from '../../../data/brands/table_data';
 import { subCategories } from '../../../data/subCategory/table_data';
 import { categories } from '../../../data/category/table_data';
+import { handleCheckRole } from '../../../logical/settings/Roles';
+import { editSystemVariables, viewDetails } from '../../../data/roles/Roles';
 
 const Details = ({
     products
@@ -28,6 +30,43 @@ const Details = ({
     const[currentId,setCurrentId] = useState();
     const location = useLocation();
     const pathSegments = location.pathname.split('/');
+
+    //roles usestate
+    const[editProductRole,setEditproductRole] = useState(false);
+    const[viewProductDetailsRole, setViewProductDetailsRole] = useState(false);
+
+    const[editCategoryRole,setEditCategoryRole] = useState(false);
+    const[viewCategoryDetailsRole, setViewCategoryDetailsRole] = useState(false);
+
+    const[editSubCategoryRole,setEditSubCategoryRole] = useState(false);
+    const[viewSubCategoryDetailsRole, setViewSubCategoryDetailsRole] = useState(false);
+
+    const[editBrandsRole,setEditBrandsRole] = useState(false);
+    const[viewBrandsDetailsRole, setViewBrandsDetailsRole] = useState(false);
+
+    //roles state array
+    const viewDetailsRolesArray = [
+        {
+            id:1,
+            data:viewProductDetailsRole,
+            currentPage:'details'
+        },
+        {
+            id:2,
+            data:viewCategoryDetailsRole,
+            currentPage:'category'
+        },
+        {
+            id:3,
+            data:viewSubCategoryDetailsRole,
+            currentPage:'subCategory'
+        },
+        {
+            id:4,
+            data:viewBrandsDetailsRole,
+            currentPage:'brands'
+        },
+    ]
     
     useEffect(() => {
         if(pathSegments[1] === 'details'){
@@ -56,27 +95,43 @@ const Details = ({
     const handleHidePopUp = () => {
         setShowAddNewProduct(false);
     }
+
+    //check and set user roles
+    useEffect(() => {
+        //product 
+        setEditproductRole(handleCheckRole(editSystemVariables,'edit products'));
+        setViewProductDetailsRole(handleCheckRole(viewDetails,'product details'));
+        //category
+        setEditCategoryRole(handleCheckRole(editSystemVariables,'edit category'));
+        setViewCategoryDetailsRole(handleCheckRole(viewDetails,'category details'));
+        //sub category
+        setEditSubCategoryRole(handleCheckRole(editSystemVariables,'edit sub category'));
+        setViewSubCategoryDetailsRole(handleCheckRole(viewDetails,'sub category details'));
+        //Brands
+        setEditBrandsRole(handleCheckRole(editSystemVariables,'edit brands'));
+        setViewBrandsDetailsRole(handleCheckRole(viewDetails,'brand details'));
+    },[]);
     return (
         <>
-            {currentPage === 'details' && (
+            {currentPage === 'details' &&  editProductRole &&(
                 <AddNewProduct
                     handleHidePopUp={handleHidePopUp} 
                     showAddNewProduct={showAddNewProduct} 
                 />
             )}
-            {currentPage === 'category' && (
+            {currentPage === 'category' && editCategoryRole && (
                 <AddCategory 
                     handleHidePopUp={handleHidePopUp} 
                     showAddNewProduct={showAddNewProduct} 
                 />
             )}
-            {currentPage === 'subCategory' && (
+            {currentPage === 'subCategory' && editSubCategoryRole && (
                 <AddSubCategory 
                     handleHidePopUp={handleHidePopUp} 
                     showAddSubCategory={showAddNewProduct} 
                 />
             )}
-            {currentPage === 'brands' && (
+            {currentPage === 'brands' && editBrandsRole &&(
                 <AddBrands
                     handleHidePopUp={handleHidePopUp} 
                     showAddBrands={showAddNewProduct} 
@@ -95,35 +150,51 @@ const Details = ({
                     ? `${products[currentId - 1].name} Analytical Details`
                     : null
                 }
-            />        
-            <div className='Details'>
-                <div className="right-details">
-                    <div className="right-details-description">
-                        {descriptionOverview.map((desc) =>(
-                            <DetailsDescription  name={desc.name} value={desc.value}/>
-                        ) )}
+                assignedRole={
+                    currentPage === 'details'
+                    ? editProductRole
+                    : currentPage === 'category'
+                    ? editCategoryRole
+                    : currentPage === 'subCategory'
+                    ? editSubCategoryRole
+                    : currentPage === 'brands'
+                    ? editBrandsRole
+                    : null
+                }
+            />
+            {viewDetailsRolesArray.map((data) => (
+                viewDetailsRolesArray[data.id -1].currentPage === currentPage && viewDetailsRolesArray[data.id -1].data &&(
+                    <div className='Details' key={data.id}>
+                        <div className="right-details">
+
+                                <div className="right-details-description">
+                                    {descriptionOverview.map((desc) =>(
+                                        <DetailsDescription  name={desc.name} value={desc.value}/>
+                                    ) )}
+                                </div>
+                                {numberOfcharts.map((chart) => (
+                                    <DetailsChart/>
+                                ))}
+
+                        </div>
+                        <div className="left-details">
+                            {currentPage === 'details' && (
+                                <EditProducts  products={products}/>
+                            )}
+                            {currentPage === 'category' && (
+                                <EditCategory />
+                            )}
+                            {currentPage === 'subCategory' && (
+                                <EditSubCategory />
+                            )}
+                            {currentPage === 'brands' && (
+                                <EditBrand />
+                            )}
+
+                        </div>
                     </div>
-                    {numberOfcharts.map((chart) => (
-                        <DetailsChart/>
-                    ))}
-
-                </div>
-                <div className="left-details">
-                    {currentPage === 'details' && (
-                        <EditProducts  products={products}/>
-                    )}
-                    {currentPage === 'category' && (
-                        <EditCategory />
-                    )}
-                    {currentPage === 'subCategory' && (
-                        <EditSubCategory />
-                    )}
-                    {currentPage === 'brands' && (
-                        <EditBrand />
-                    )}
-
-                </div>
-            </div>
+                )
+            ))}
         </>
     )
 }

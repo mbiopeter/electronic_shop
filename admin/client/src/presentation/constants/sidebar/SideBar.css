@@ -6,6 +6,9 @@
     overflow-x: hidden;
     transition:var(--transition-duration) linear;
 }
+.nonTransparentSideBar{
+    background-color:var(--secondary-background-color);
+}
 .SideBar:hover{
     width: var(--extra-small-width);
 }

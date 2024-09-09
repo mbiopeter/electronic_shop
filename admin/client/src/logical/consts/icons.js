@@ -19,6 +19,7 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import Person3OutlinedIcon from '@mui/icons-material/Person3Outlined';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
+import CloseIcon from '@mui/icons-material/Close';
 
 export {
     DashboardOutlinedIcon as Dashboard,
@@ -41,6 +42,7 @@ export {
     SettingsOutlinedIcon as Settings,
     Person3OutlinedIcon as Person,
     CameraAltIcon as Camera,
-    CancelPresentationIcon as Close
+    CancelPresentationIcon as Close,
+    CloseIcon as CloseIcon
 
 }

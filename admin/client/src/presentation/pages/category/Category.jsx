@@ -1,11 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Category.css';
 import '../../css/common.css';
 import SubHeading from '../../components/global/subheading/SubHeading';
 import DataTable from '../../components/category/DataTable';
 import AddCategory from '../../components/popups/addcategory/AddCategory';
+import { handleCheckRole } from '../../../logical/settings/Roles';
+import { addSystemVariables, viewDetails } from '../../../data/roles/Roles';
 const Category = () => {
     const [showAddNewProduct, setShowAddNewProduct] = useState(false);
+
+    //roles useState
+    const[viewCategoryRole, setViewCategoryRole] = useState(false);
+    const[addCategoryRole, setAddCategoryRole] = useState(false);
+
+        //check and set user roles
+    useEffect(() =>{
+        setAddCategoryRole(handleCheckRole(addSystemVariables,'create category'));
+        setViewCategoryRole(handleCheckRole(viewDetails,'all categories'));         
+    },[])
 
     const handleAddNew = () => {
         setShowAddNewProduct(true);
@@ -18,18 +30,21 @@ const Category = () => {
     return (
         <>
             {/* Add new product pop up */}
-            <AddCategory 
+            {addCategoryRole &&<AddCategory 
                 handleHidePopUp={handleHidePopUp} 
                 showAddNewProduct={showAddNewProduct} 
-            />
+            />}
             <div className="category">
                 <SubHeading
                     title='My Categories'
                     handleAddNew = {handleAddNew}
+                    assignedRole={addCategoryRole}
                 />
-                <div className="category-table">
-                    <DataTable />
-                </div>     
+                {viewCategoryRole && (
+                    <div className="category-table">
+                        <DataTable />
+                    </div>   
+                )}
             </div>
         </>
     )

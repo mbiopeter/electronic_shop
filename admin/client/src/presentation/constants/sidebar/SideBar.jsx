@@ -8,7 +8,11 @@ import { nav_links } from '../../../data/sidebar/SideBar';
 import { logo } from '../../../logical/consts/images';
 
 
-const SideBar = ({expand, setExpand}) => {
+const SideBar = ({
+    expand, 
+    setExpand,
+    transparentSideBar
+}) => {
     
     const handleMouseEnter = () => {
         if (!expand) {
@@ -24,7 +28,7 @@ const SideBar = ({expand, setExpand}) => {
 
     return (
         <div 
-            className='SideBar' 
+            className={` SideBar ${transparentSideBar === false && 'nonTransparentSideBar'}`}
             style={expand === false ? { width: 'var(--larger-width)',cursor:'pointer',transition:'var(--transition-duration) linear' ,overflow: 'hidden'} : null}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
