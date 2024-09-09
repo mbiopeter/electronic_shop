@@ -60,7 +60,7 @@ export const editSystemVariables = [
     {
         id:12,
         name:'edit products',
-        allowed:false
+        allowed:true
     },
     {
         id:13,
