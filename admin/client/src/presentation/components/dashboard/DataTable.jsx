@@ -32,8 +32,8 @@ const DataTable = ({
     };
     const columns = [
         { id: 'name', label: 'Name', minWidth: 170 },
-        { id: 'Category', label: 'Category', minWidth: 100 },
-        { id: 'Sub_category', label: 'Sub Category', minWidth: 100 },
+        { id: 'category', label: 'Category', minWidth: 100 },
+        { id: 'sub_category', label: 'Sub Category', minWidth: 100 },
         { id: 'price', label: 'Price', minWidth: 100, align: 'right', format: (value) => value.toFixed(2) },
         showEditIcon && { id: 'edit', label: 'Edit', minWidth: 50, align: 'center' },
         { id: 'delete', label: 'Delete', minWidth: 50, align: 'center' },

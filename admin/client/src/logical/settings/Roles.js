@@ -58,3 +58,30 @@ export const handleCheckRole = (rolesCategory, itemCheck) => {
     }
     return roleAssigned;
 }
+
+// FUNCTION TO PROTECT ROLES ROUTES
+export const handleProtectedRoutes = () => {
+    const roles = [];
+    const rolesObj = {};
+    const rolesCategories = [
+        addSystemVariables,
+        editSystemVariables,
+        viewDetails,
+        settings
+    ];
+    //push all the roles into one array
+    for(let i = 0; i < rolesCategories.length; i++){
+        let categoryName = rolesCategories[i];
+        for(let j = 0; j < categoryName.length; j++){
+            roles.push(
+                categoryName[j]
+            )
+        }
+    }
+    roles.forEach(permission => {
+        const formattedName = permission.name.replace(/\s+/g, '_').toLowerCase();
+        rolesObj[formattedName] = permission.allowed;
+    });
+
+    return rolesObj;
+}

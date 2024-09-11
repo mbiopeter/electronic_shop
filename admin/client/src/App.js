@@ -17,6 +17,7 @@ import Variant from "./presentation/pages/variant/Variant";
 import Details from "./presentation/pages/details/Details";
 import { all_products } from "./data/dashboard/table_data";
 import Settings from "./presentation/pages/settings/Settings";
+import { handleProtectedRoutes } from "./logical/settings/Roles";
 
 function App() {
   const [expand, setExpand] = useState(false);
@@ -53,6 +54,8 @@ function App() {
     setSideBarChecked(sideBar);
 
   }, []);
+
+  const roles = handleProtectedRoutes();
 
   return (
     <PrimeReactProvider>

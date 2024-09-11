@@ -137,38 +137,53 @@ const Dashboard = ({
                             </>
                         ))}
                     </div>
-                    <div className="dashboard-left-table-container">
-                        <DataTable 
-                            subTitle = {subTitle}
-                            products = {products}
-                        />
-                    </div>
+                    {
+                    viewAllProductsRole
+                    || outOfStockRole
+                    || limitedStockRole
+                    || otherStockRole 
+                    ? <div className="dashboard-left-table-container">
+                            <DataTable 
+                                subTitle = {subTitle}
+                                products = {products}
+                            />
+                        </div>
+                    :<></>}
                 </div>
-                <div className="dashboard-right common-css">
-                    <span className='dashboard-right-title'>Orders Details</span>
-                    {orderPercentangeRole && (
-                        <GaugeChart
-                            id="gauge-chart3"
-                            nrOfLevels={4}
-                            colors={["#4caf50", "#ff9800", "#f44336", "#00ff00"]} // Colors for the gauge
-                            arcWidth={0.3}
-                            percent={0.25}
-                            textColor={'var(--text-color)'} 
-                        />
-                    )}
-                    <div className="dashboard-right-details">
-                        {order_details_data.map((data) => (
-                            orderDetailsArray[data.id -1] &&( 
-                                <Order_details
-                                    key={data.id}
-                                    color={data.color}
-                                    main_title={data.main_title}
-                                    count={data.count}
-                                />
-                            )
-                        ))}
-                    </div>
-                </div>
+                {
+                    orderPercentangeRole
+                    || allOrdersRole
+                    || pendingOrdersRole
+                    || processedOrdersRole
+                    || cancelledOrdersRole
+                    || shippedOrdersRole
+                    || returnedOrdersRole
+                    ? <div className="dashboard-right common-css">
+                        <span className='dashboard-right-title'>Orders Details</span>
+                        {orderPercentangeRole && (
+                            <GaugeChart
+                                id="gauge-chart3"
+                                nrOfLevels={4}
+                                colors={["#4caf50", "#ff9800", "#f44336", "#00ff00"]} // Colors for the gauge
+                                arcWidth={0.3}
+                                percent={0.25}
+                                textColor={'var(--text-color)'} 
+                            />
+                        )}
+                        <div className="dashboard-right-details">
+                            {order_details_data.map((data) => (
+                                orderDetailsArray[data.id -1] &&( 
+                                    <Order_details
+                                        key={data.id}
+                                        color={data.color}
+                                        main_title={data.main_title}
+                                        count={data.count}
+                                    />
+                                )
+                            ))}
+                        </div>
+                        </div>
+                    :<></>}
             </div>
         </>
     )

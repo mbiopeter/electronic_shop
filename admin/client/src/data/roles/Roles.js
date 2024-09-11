@@ -12,12 +12,12 @@ export const addSystemVariables = [
     {
         id:3,
         name:'create sub category',
-        allowed:false
+        allowed:true
     },
     {
         id:4,
         name:'create brands',
-        allowed:false
+        allowed:true
     },
     {
         id:5,
@@ -36,7 +36,7 @@ export const addSystemVariables = [
     },
     {
         id:8,
-        name:'create poster',
+        name:'create posters',
         allowed:true
     },
     {
@@ -65,12 +65,12 @@ export const editSystemVariables = [
     {
         id:13,
         name:'edit category',
-        allowed:false
+        allowed:true
     },
     {
         id:14,
         name:'edit sub category',
-        allowed:false
+        allowed:true
     },
     {
         id:15,
@@ -152,18 +152,18 @@ export const viewDetails = [
     },
     {
         id:30,
-        name:'brands',
+        name:'all brands',
         allowed:true
     },
     {
         id:31,
         name:'product details',
-        allowed:false
+        allowed:true
     },
     {
         id:32,
         name:'category details',
-        allowed:false
+        allowed:true
     },
     {
         id:33,
@@ -177,38 +177,38 @@ export const viewDetails = [
     },
     {
         id:35,
-        name:'varient types',
+        name:'all varient types',
         allowed:true
     },
     {
         id:36,
-        name:'varients',
+        name:'all varients',
         allowed:true
     },
     {
         id:37,
-        name:'coupon codes',
+        name:'all orders',
         allowed:true
     },
     {
         id:38,
-        name:'posters',
+        name:'all coupon codes',
         allowed:true
     },
     {
         id:39,
-        name:'notifications',
+        name:'all posters',
+        allowed:true
+    },
+    {
+        id:40,
+        name:'all notifications',
         allowed:true
     },
 
 ];
 
 export const settings =[
-    {
-        id:40,
-        name:'appearance',
-        allowed:true
-    },
     {
         id:41,
         name:'basic info',

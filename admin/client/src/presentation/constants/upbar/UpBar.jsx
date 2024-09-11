@@ -11,7 +11,7 @@ const UpBar = () => {
     const pathSegments = location.pathname.split('/');
     const PageName = pathSegments[1];
     const homeTitlesList = ['Dashboard','Category','Sub Category','Brands','Orders','Coupon','Notifications','Posters','Variant Type','Variant','Details','Settings'];
-    const homeRoutesList = ['dashboard','category','subCategory','brands','orders','coupon','notifications','posters','variantType','variant','details','settings'];
+    const homeRoutesList = ['dashboard','category','subCategory','brands','orders','coupon','notification','posters','variantType','variant','details','settings'];
     useEffect(() => {
         for(var i = 0; i < homeTitlesList.length; i++){
             if(i === 0){

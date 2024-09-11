@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './DataTable.css';
 import '../../css/common.css';
 import StickyHeadTable from '../global/Table';
+import { handleCheckRole } from '../../../logical/settings/Roles';
+import { editSystemVariables, viewDetails } from '../../../data/roles/Roles';
 const DataTable = ({
     handleShowPopUp,
     filteredOrders
 }) => {
+        //get user roles
+        const[editOrderRole,setEditOrderRole] = useState(false);
+
+    
+        useEffect(() => {
+            //barnds 
+            setEditOrderRole(handleCheckRole(editSystemVariables,'edit orders'));
+        },[]);
+
     const handleEdit = (row) => {
         handleShowPopUp(row.id);
     };
@@ -19,7 +30,7 @@ const DataTable = ({
         { id: 'payment', label: 'Payment', minWidth: 170 },
         { id: 'status', label: 'Status', minWidth: 170 },
         { id: 'date', label: 'Date', minWidth: 100 },
-        { id: 'edit', label: 'Edit', minWidth: 50, align: 'center' },
+        editOrderRole &&{ id: 'edit', label: 'Edit', minWidth: 50, align: 'center' },
         { id: 'delete', label: 'Delete', minWidth: 50, align: 'center' },
     ];
     return (
