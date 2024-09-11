@@ -18,11 +18,12 @@ import Details from "./presentation/pages/details/Details";
 import { all_products } from "./data/dashboard/table_data";
 import Settings from "./presentation/pages/settings/Settings";
 import { handleProtectedRoutes } from "./logical/settings/Roles";
+import NotFound from "./presentation/pages/404/404";
 
 function App() {
   const [expand, setExpand] = useState(false);
   const [products, setProducts] = useState(all_products);
-  const [transparentSideBar, setTransparentSideBar] = useState(true);
+  const [transparentSideBar, setTransparentSideBar] = useState(false);
   const [sideBarChecked, setSideBarChecked] = useState(null);
   const[roles,setRoles] = useState(handleProtectedRoutes());
 
@@ -85,7 +86,8 @@ function App() {
           <div className="main" style={expand ? {width:'100%'} : { width: 'calc(100% - var(--larger-width))' }}>
             <UpBar />
             <Routes>
-            {rolesArray[0] &&<Route path="/" element={<Dashboard products={products} setProducts={setProducts} />} />}
+            {rolesArray[0] 
+              && <Route path="/" element={<Dashboard products={products} setProducts={setProducts} />} />}
             {rolesArray[0] &&<Route path="/details/:id" element={<Details products={products} />} />}
             {rolesArray[1] &&<Route path="/category" element={<Category />} />}
             {rolesArray[1] &&<Route path="/category/details/:id" element={<Details />} />}
@@ -108,7 +110,9 @@ function App() {
                   setSideBarChecked={setSideBarChecked}
                 />
               } />
+            <Route path="*" element={<NotFound />} /> 
             </Routes>
+
           </div>
         </Router>
       </div>
