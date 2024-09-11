@@ -24,6 +24,7 @@ function App() {
   const [products, setProducts] = useState(all_products);
   const [transparentSideBar, setTransparentSideBar] = useState(true);
   const [sideBarChecked, setSideBarChecked] = useState(null);
+  const[roles,setRoles] = useState(handleProtectedRoutes());
 
   // Mode and Sidebar states
   const [activeMode, setActiveMode] = useState();
@@ -52,10 +53,24 @@ function App() {
 
     setTransparentSideBar(sideBar);
     setSideBarChecked(sideBar);
-
+  
   }, []);
+  useEffect(() => {
+    setRoles(handleProtectedRoutes());
+  },[])
 
-  const roles = handleProtectedRoutes();
+    const rolesArray = [
+      roles.dashboard,
+      roles.category,
+      roles.subCategory,
+      roles.brand,
+      roles.orders,
+      roles.coupon,
+      roles.notification,
+      roles.poster,
+      roles.variantType,
+      roles.variant,
+  ]
 
   return (
     <PrimeReactProvider>
@@ -65,24 +80,25 @@ function App() {
             expand={expand}
             setExpand={setExpand}
             transparentSideBar={transparentSideBar}
+            roles ={roles}
           />
           <div className="main" style={expand ? {width:'100%'} : { width: 'calc(100% - var(--larger-width))' }}>
             <UpBar />
             <Routes>
-              <Route path="/" element={<Dashboard products={products} setProducts={setProducts} />} />
-              <Route path="/details/:id" element={<Details products={products} />} />
-              <Route path="/category" element={<Category />} />
-              <Route path="/category/details/:id" element={<Details />} />
-              <Route path="/subCategory" element={<SubCategory />} />
-              <Route path="/subCategory/details/:id" element={<Details />} />
-              <Route path="/brands" element={<Brands />} />
-              <Route path="/brands/details/:id" element={<Details />} />
-              <Route path="/orders" element={<Orders />} />
-              <Route path="/coupon" element={<Coupon />} />
-              <Route path="/notification" element={<Notification />} />
-              <Route path="/posters" element={<Posters />} />
-              <Route path="/variantType" element={<VariantType />} />
-              <Route path="/variant" element={<Variant />} />
+            {rolesArray[0] &&<Route path="/" element={<Dashboard products={products} setProducts={setProducts} />} />}
+            {rolesArray[0] &&<Route path="/details/:id" element={<Details products={products} />} />}
+            {rolesArray[1] &&<Route path="/category" element={<Category />} />}
+            {rolesArray[1] &&<Route path="/category/details/:id" element={<Details />} />}
+            {rolesArray[2] &&<Route path="/subCategory" element={<SubCategory />} />}
+            {rolesArray[2] &&<Route path="/subCategory/details/:id" element={<Details />} />}
+            {rolesArray[3] &&<Route path="/brands" element={<Brands />} />}
+            {rolesArray[3] &&<Route path="/brands/details/:id" element={<Details />} />}
+            {rolesArray[4] &&<Route path="/orders" element={<Orders />} />}
+            {rolesArray[5] &&<Route path="/coupon" element={<Coupon />} />}
+            {rolesArray[6] &&<Route path="/notification" element={<Notification />} />}
+            {rolesArray[7] &&<Route path="/posters" element={<Posters />} />}
+            {rolesArray[8] &&<Route path="/variantType" element={<VariantType />} />}
+            {rolesArray[9] &&<Route path="/variant" element={<Variant />} />}
               <Route path="/settings" element={
                 <Settings
                   activeMode={activeMode}

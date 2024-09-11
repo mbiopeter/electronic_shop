@@ -11,9 +11,22 @@ import { logo } from '../../../logical/consts/images';
 const SideBar = ({
     expand, 
     setExpand,
-    transparentSideBar
+    transparentSideBar,
+    roles
 }) => {
-    
+    const rolesArray = [
+        roles.dashboard,
+        roles.category,
+        roles.subCategory,
+        roles.brand,
+        roles.variantType,
+        roles.variant,
+        roles.orders,
+        roles.coupon,
+        roles.poster,
+        roles.notification,
+        true
+    ]
     const handleMouseEnter = () => {
         if (!expand) {
             setExpand(true);
@@ -40,6 +53,7 @@ const SideBar = ({
             </div>
             <hr />
             {nav_links.map((link) => (
+                rolesArray[link.id - 1] &&
                 <div className="SideBar-nav" key={link.id}>
                     {link.icon}
                     <Link className="link" style={expand === false ? {opacity:0,transition:'var(--transition-duration) linear'}:null} to={link.path}>{link.name}</Link>
