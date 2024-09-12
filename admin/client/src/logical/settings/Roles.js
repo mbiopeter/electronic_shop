@@ -93,6 +93,9 @@ export const handleProtectedRoutes = () => {
     const couponRole = rolesObj.all_coupon_codes || rolesObj.create_coupon ? true:false;
     const posterRole = rolesObj.all_posters || rolesObj.create_posters ? true:false;
     const notificationRole = rolesObj.all_notifications || rolesObj.send_notifications ? true:false;
+    const usersRole = rolesObj.all_users || rolesObj.create_users ? true:false;
+    const editUserRoles = rolesObj.edit_users;
+    const emails = rolesObj.send_emails;
 
 
     return {
@@ -105,6 +108,9 @@ export const handleProtectedRoutes = () => {
         orders:ordersRole,
         coupon:couponRole,
         poster:posterRole,
-        notification:notificationRole
+        notification:notificationRole,
+        users:usersRole,
+        userRoles:editUserRoles,
+        emails:emails,
     }
 }

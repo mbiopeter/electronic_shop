@@ -51,7 +51,7 @@ export const addSystemVariables = [
     },
     {
         id:11,
-        name:'create themes',
+        name:'create users',
         allowed:true
     },
 ];
@@ -80,6 +80,11 @@ export const editSystemVariables = [
     {
         id:16,
         name:'edit orders',
+        allowed:true
+    },
+    {
+        id:16,
+        name:'edit users',
         allowed:true
     },
 ]
@@ -156,6 +161,11 @@ export const viewDetails = [
         allowed:true
     },
     {
+        id:30,
+        name:'all emails',
+        allowed:true
+    },
+    {
         id:31,
         name:'product details',
         allowed:true
@@ -173,6 +183,11 @@ export const viewDetails = [
     {
         id:34,
         name:'brand details',
+        allowed:true
+    },
+    {
+        id:34,
+        name:'users details',
         allowed:true
     },
     {
@@ -205,22 +220,27 @@ export const viewDetails = [
         name:'all notifications',
         allowed:true
     },
+    {
+        id:41,
+        name:'all users',
+        allowed:true
+    },
 
 ];
 
 export const settings =[
     {
-        id:41,
+        id:42,
         name:'basic info',
         allowed:true
     },
     {
-        id:42,
+        id:43,
         name:'roles',
         allowed:true
     },
     {
-        id:43,
+        id:44,
         name:'notifications',
         allowed:true
     },

@@ -22,9 +22,6 @@ const Settings = ({
           <div onClick={() => handleActive('Basic')} className={`settingsNavigationItems ${active === 'Basic' ? 'active':null}`}>
             <span>Basic Info</span>
           </div>
-          <div onClick={() => handleActive('Roles')} className={`settingsNavigationItems ${active === 'Roles' ? 'active':null}`}>
-            <span>Roles</span>
-          </div>
           <div onClick={() => handleActive('Notifications')} className={`settingsNavigationItems ${active === 'Notifications' ? 'active':null}`}>
             <span>Notifications</span>
           </div>
@@ -32,7 +29,6 @@ const Settings = ({
         <div className="settingsNavigationHeader">
           {active === 'Appearance' &&<span>Appearance</span>}
           {active === 'Basic' &&<span>Basic</span>}
-          {active === 'Roles' &&<span>Roles</span>}
           {active === 'Notifications' &&<span>Notifications</span>}
         </div>
         <hr />
@@ -45,7 +41,6 @@ const Settings = ({
             setSideBarChecked={setSideBarChecked}
           />
         }
-        {active === 'Roles' && <Roles />}
       </div>
   )
 }

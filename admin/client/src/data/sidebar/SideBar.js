@@ -67,4 +67,16 @@ export const nav_links = [
         path: '/settings',
         name: 'Settings'
     },
+    {
+        id:12,
+        icon: < Person/>,
+        path: '/users',
+        name: 'Users'
+    },
+    {
+        id:13,
+        icon: < Inbox/>,
+        path: '/email',
+        name: 'Emails'
+    },
 ];

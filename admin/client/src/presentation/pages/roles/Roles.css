@@ -1,0 +1,10 @@
+@import '../../css/variables.css';
+.rolePage{
+    width: 100%;
+    height: auto;   
+    transition:all var(--transition-duration) linear;
+}
+.rolePageRoles{
+    width: 100%;
+    padding:var(--padding)  var(--container-padding);
+}

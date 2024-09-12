@@ -19,6 +19,9 @@ import { all_products } from "./data/dashboard/table_data";
 import Settings from "./presentation/pages/settings/Settings";
 import { handleProtectedRoutes } from "./logical/settings/Roles";
 import NotFound from "./presentation/pages/404/404";
+import Users from "./presentation/pages/users/Users";
+import RolesPage from "./presentation/pages/roles/Roles";
+import Emails from "./presentation/pages/emails/Emails";
 
 function App() {
   const [expand, setExpand] = useState(false);
@@ -71,6 +74,9 @@ function App() {
       roles.poster,
       roles.variantType,
       roles.variant,
+      roles.users,
+      roles.userRoles,
+      roles.emails
   ]
 
   return (
@@ -101,6 +107,9 @@ function App() {
             {rolesArray[7] &&<Route path="/posters" element={<Posters />} />}
             {rolesArray[8] &&<Route path="/variantType" element={<VariantType />} />}
             {rolesArray[9] &&<Route path="/variant" element={<Variant />} />}
+            {rolesArray[10] &&<Route path="/users" element={<Users />} />}
+            {rolesArray[11] &&<Route path="/users/roles/:id" element={<RolesPage />} />}
+            {rolesArray[12] &&<Route path="/email" element={<Emails />} />}
               <Route path="/settings" element={
                 <Settings
                   activeMode={activeMode}

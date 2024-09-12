@@ -25,7 +25,9 @@ const SideBar = ({
         roles.coupon,
         roles.poster,
         roles.notification,
-        true
+        true,
+        roles.users,
+        roles.emails
     ]
     const handleMouseEnter = () => {
         if (!expand) {

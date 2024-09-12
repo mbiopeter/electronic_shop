@@ -16,11 +16,11 @@
 .notfound-container>span:first-child{
     color: var(--grey-color);
     font-size: 150px;
-    letter-spacing: -10px;
+    letter-spacing: -5px;
 
 }
 .notfound-container>span:last-child{
     color: var(--grey-color);
     font-size: 50px;
-    margin-top: -50px;
+    margin-top: -30px;
 }

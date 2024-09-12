@@ -1,0 +1,9 @@
+@import '../../css/variables.css';
+.Users{
+    width: 100%;
+    height: auto;   
+    transition:all var(--transition-duration) linear;
+}
+.Users-table{
+    margin: var(--container-padding);
+}

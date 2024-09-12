@@ -1,0 +1,104 @@
+@import '../../../css/variables.css';
+.ViewEmail{
+    position: fixed;
+    z-index: 1000;
+    transition: all var(--popup-transition) ease-in-out;
+    padding: var(--container-padding);
+    bottom: 10%;
+    height: 60%;
+    width: 700px;
+
+}
+.show-brands{
+    transform: translate(30%, -15%);
+    opacity: 1;
+}
+.ViewEmail-title{
+    height: 10%;
+    font-size: var(--font-size-large);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    font-weight:var(--font-weight-bold);
+}
+.ViewEmail-title{
+    height: 10%;
+    font-size: var(--font-size-large);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    font-weight:var(--font-weight-bold);
+}
+.ViewEmail-container{
+    width: 100%;
+    height: 90%;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--secondary-background-color);
+    border-radius: var(--border-radius);
+    padding: var(--container-padding);
+}
+.viewEmailController{
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    padding: 5px 0;
+}
+.viewEmailController>span{
+    color: var(--text-color);
+    font-size:var(--font-size);
+}
+.viewEmailHeader{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    margin-top: var(--padding);
+}
+.viewEmailHeader>span{
+    color: var(--heading-color);
+    font-size:var(--font-size);
+}
+.viewEmailBody{
+    margin: var(--padding) 0;
+}
+.viewEmailBody>span{
+    font-style: italic;
+    color: var(--text-color);
+    font-size:var(--font-size);
+}
+.viewEmailAttachments{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.viewEmailAttachmentsCon{
+    margin-top: 5px;
+    position: relative;
+    width: 70px;
+    height:80px;
+    border-radius: 5px;
+    background-color: var(--secondary-color);
+}
+.viewEmailAttachmentsConner{
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 20px;
+    height: 20px;
+    background-color: var(--secondary-background-color);
+    rotate: 45deg;
+
+}
+.viewEmailAttachments>span{
+    color: var(--text-color);
+    font-size:var(--font-size-small);
+    font-style: italic;
+}
+.viewEmailDate{
+    padding-top: var(--padding);
+    
+}

@@ -5,6 +5,7 @@
     overflow-y: auto;
     overflow-x: hidden;
     transition:var(--transition-duration) linear;
+    background-color: var(--background-color);
 }
 .nonTransparentSideBar{
     background-color:var(--secondary-background-color);
