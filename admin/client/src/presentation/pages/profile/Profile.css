@@ -1,0 +1,116 @@
+@import '../../css/variables.css';
+.Profile{
+    width: 100%;
+    height: 90%;
+    padding:var(--container-padding);
+    display: flex;
+    flex-direction: column;
+    gap: var(--padding);
+    margin-bottom: var(--container-padding);
+}
+.ProfileHeader{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+.Profile button{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: var(--padding);
+    padding: 5px var(--padding);
+    border-radius: 5px;
+    cursor: pointer;
+    background-color:var(--primary-color);
+    border:none;
+    color: var(--text-color);
+    
+}
+.ProfileHeader>button>span{
+    font-weight:var(--font-weight-bold);
+    font-size: var(--font-size-small);
+}
+.ProfileBody{
+    width: 100%;
+    height:auto;
+    display: grid;
+    grid-template-columns: 3.5fr 2fr;
+    gap: var(--container-padding);
+}
+.ProfileLeft, .ProfileRightUpper, .ProfileRightLower{
+    background-color:var(--secondary-background-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    height:auto;
+    padding: var(--container-padding);
+}
+.ProfileRight{
+    display: flex;
+    flex-direction: column;
+    gap: var(--container-padding);
+}
+.ProfileLeftHeader{
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: var(--container-padding);
+}
+.ProfileLeftHeader>span{
+    font-size: var(--font-size);
+    font-weight: var(--font-weight-bold);
+    color: var(--heading-color);
+}
+.ProfileLeftInputsContainer{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: var(--container-padding) 0;
+}
+.ProfileLeftInputsControl{
+    width: 48%;
+    display: flex;
+    flex-direction: column;
+}
+.ProfileLeftInputsControl>span{
+    font-size: var(--font-size);
+    font-weight: var(--font-weight-normal);
+    color: var(--text-color);
+    margin-bottom: 5px;
+}
+.ProfileLeftInputsControlFull{
+    width: 100%;
+}
+.ProfileRightBanner{
+    background-color: var(--background-color);
+    border-radius: var(--padding) var(--padding) 0 0;
+    width: 100%;
+    height: 120px;
+    position: relative;
+}
+.ProfileRightImgContainer{
+    position: relative;
+    bottom: -60px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color:blue;
+    left:calc(50% - 60px);
+}
+.ProfileRightImgContainer>img{
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-size: cover;
+}
+.ProfileRightUpperDetails{
+    padding-top:70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    gap: 8px;
+}
+.ProfileRightUpperDetails>span{
+    font-size: var(--font-size-small);
+    color: var(--text-color);
+}

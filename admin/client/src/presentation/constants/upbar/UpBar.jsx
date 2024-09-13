@@ -10,8 +10,8 @@ const UpBar = () => {
     const location = useLocation();
     const pathSegments = location.pathname.split('/');
     const PageName = pathSegments[1];
-    const homeTitlesList = ['Dashboard','Category','Sub Category','Brands','Orders','Coupon','Notifications','Posters','Variant Type','Variant','Details','Settings','Users','Emails'];
-    const homeRoutesList = ['dashboard','category','subCategory','brands','orders','coupon','notification','posters','variantType','variant','details','settings','users','email'];
+    const homeTitlesList = ['Dashboard','Category','Sub Category','Brands','Orders','Coupon','Notifications','Posters','Variant Type','Variant','Details','Settings','Users','Emails','Profile'];
+    const homeRoutesList = ['dashboard','category','subCategory','brands','orders','coupon','notification','posters','variantType','variant','details','settings','users','email','profile'];
     useEffect(() => {
         for(var i = 0; i < homeTitlesList.length; i++){
             if(i === 0){
@@ -38,11 +38,13 @@ const UpBar = () => {
                         <Search className='Search-icon'/>
                     </div>
                 </div>
-                <div className="UpBar-profile">
-                    <img style={{height:'40px'}} src={profile}/>
-                    <span>Mbio Peter</span>
-                    <Down/>
-                </div>
+                <Link to='/profile' style={{textDecoration:'none'}}>
+                    <div className="UpBar-profile">
+                        <img style={{height:'40px'}} src={profile}/>
+                        <span>Mbio Peter</span>
+                        <Down/>
+                    </div>
+                </Link>
             </div>
         </div>
     )

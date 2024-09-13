@@ -1,37 +1,76 @@
-import Dashboard from "./presentation/pages/dashboard/Dashboard";
 import './App.css';
+import { useEffect, useState } from "react";
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import { PrimeReactProvider } from 'primereact/api';
+
+// Importing Components
+import Dashboard from "./presentation/pages/dashboard/Dashboard";
 import UpBar from "./presentation/constants/upbar/UpBar";
 import SideBar from "./presentation/constants/sidebar/SideBar";
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { useEffect, useState } from "react";
 import Category from "./presentation/pages/category/Category";
 import SubCategory from "./presentation/pages/subCategory/SubCategory";
 import Brands from "./presentation/pages/brands/Brands";
 import Orders from "./presentation/pages/orders/Orders";
-import { PrimeReactProvider } from 'primereact/api';
 import Coupon from "./presentation/pages/coupon/Coupon";
 import Notification from "./presentation/pages/notification/Notification";
 import Posters from "./presentation/pages/posters/Posters";
 import VariantType from "./presentation/pages/variantType/VariantType";
 import Variant from "./presentation/pages/variant/Variant";
 import Details from "./presentation/pages/details/Details";
-import { all_products } from "./data/dashboard/table_data";
 import Settings from "./presentation/pages/settings/Settings";
-import { handleProtectedRoutes } from "./logical/settings/Roles";
 import NotFound from "./presentation/pages/404/404";
 import Users from "./presentation/pages/users/Users";
 import RolesPage from "./presentation/pages/roles/Roles";
 import Emails from "./presentation/pages/emails/Emails";
+import Login from "./presentation/pages/login/Login";
+import Profile from "./presentation/pages/profile/Profile";
+
+// Importing data and logical utilities
+import { all_products } from "./data/dashboard/table_data";
+import { handleProtectedRoutes } from "./logical/settings/Roles";
+
+// Helper component to handle layout and routing logic
+function Layout({ children }) {
+  const location = useLocation(); // Get current location
+  const isLoginPage = location.pathname === '/login';
+
+  const [expand, setExpand] = useState(false);
+  const [transparentSideBar, setTransparentSideBar] = useState(false); 
+  const [roles, setRoles] = useState(handleProtectedRoutes());
+
+  useEffect(() => {
+    const sideBar = localStorage.getItem('transparentSideBar');
+    setTransparentSideBar(sideBar === "true"); // Update the state based on stored value
+  }, []);
+
+  // Determine if the sidebar and upbar should be shown based on roles and current route
+  const showSideBar = !isLoginPage && roles.dashboard; // Example condition: Show sidebar if not on login page and user has dashboard role
+  const showUpBar = !isLoginPage; // Always show UpBar if not on login page
+
+  return (
+    <div className="main-background">
+      {showSideBar && (
+        <SideBar
+          expand={expand}
+          setExpand={setExpand}
+          transparentSideBar={transparentSideBar}
+          roles={roles}
+        />
+      )}
+      <div className="main" style={expand ? { width: '100%' } : { width: 'calc(100% - var(--larger-width))' }}>
+        {showUpBar && <UpBar />}
+        {children}
+      </div>
+    </div>
+  );
+}
 
 function App() {
-  const [expand, setExpand] = useState(false);
   const [products, setProducts] = useState(all_products);
-  const [transparentSideBar, setTransparentSideBar] = useState(false);
   const [sideBarChecked, setSideBarChecked] = useState(null);
-  const[roles,setRoles] = useState(handleProtectedRoutes());
-
-  // Mode and Sidebar states
+  const [transparentSideBar, setTransparentSideBar] = useState(false);
   const [activeMode, setActiveMode] = useState();
+  const [roles, setRoles] = useState(handleProtectedRoutes());
 
   useEffect(() => {
     const savedMode = localStorage.getItem('theme') || 'Light';
@@ -55,78 +94,65 @@ function App() {
       }
     }
 
-    setTransparentSideBar(sideBar);
+    setTransparentSideBar(sideBar === "true"); 
     setSideBarChecked(sideBar);
-  
   }, []);
-  useEffect(() => {
-    setRoles(handleProtectedRoutes());
-  },[])
 
-    const rolesArray = [
-      roles.dashboard,
-      roles.category,
-      roles.subCategory,
-      roles.brand,
-      roles.orders,
-      roles.coupon,
-      roles.notification,
-      roles.poster,
-      roles.variantType,
-      roles.variant,
-      roles.users,
-      roles.userRoles,
-      roles.emails
-  ]
+  const rolesArray = [
+    roles.dashboard,
+    roles.category,
+    roles.subCategory,
+    roles.brand,
+    roles.orders,
+    roles.coupon,
+    roles.notification,
+    roles.poster,
+    roles.variantType,
+    roles.variant,
+    roles.users,
+    roles.userRoles,
+    roles.emails
+  ];
 
   return (
     <PrimeReactProvider>
-      <div className="main-background">
-        <Router>
-          <SideBar
-            expand={expand}
-            setExpand={setExpand}
-            transparentSideBar={transparentSideBar}
-            roles ={roles}
-          />
-          <div className="main" style={expand ? {width:'100%'} : { width: 'calc(100% - var(--larger-width))' }}>
-            <UpBar />
-            <Routes>
-            {rolesArray[0] 
-              && <Route path="/" element={<Dashboard products={products} setProducts={setProducts} />} />}
-            {rolesArray[0] &&<Route path="/details/:id" element={<Details products={products} />} />}
-            {rolesArray[1] &&<Route path="/category" element={<Category />} />}
-            {rolesArray[1] &&<Route path="/category/details/:id" element={<Details />} />}
-            {rolesArray[2] &&<Route path="/subCategory" element={<SubCategory />} />}
-            {rolesArray[2] &&<Route path="/subCategory/details/:id" element={<Details />} />}
-            {rolesArray[3] &&<Route path="/brands" element={<Brands />} />}
-            {rolesArray[3] &&<Route path="/brands/details/:id" element={<Details />} />}
-            {rolesArray[4] &&<Route path="/orders" element={<Orders />} />}
-            {rolesArray[5] &&<Route path="/coupon" element={<Coupon />} />}
-            {rolesArray[6] &&<Route path="/notification" element={<Notification />} />}
-            {rolesArray[7] &&<Route path="/posters" element={<Posters />} />}
-            {rolesArray[8] &&<Route path="/variantType" element={<VariantType />} />}
-            {rolesArray[9] &&<Route path="/variant" element={<Variant />} />}
-            {rolesArray[10] &&<Route path="/users" element={<Users />} />}
-            {rolesArray[11] &&<Route path="/users/roles/:id" element={<RolesPage />} />}
-            {rolesArray[12] &&<Route path="/email" element={<Emails />} />}
-              <Route path="/settings" element={
-                <Settings
-                  activeMode={activeMode}
-                  setActiveMode={setActiveMode}
-                  setTransparentSideBar={setTransparentSideBar}
-                  sideBarChecked={sideBarChecked}
-                  setSideBarChecked={setSideBarChecked}
-                />
-              } />
-            <Route path="*" element={<NotFound />} /> 
-            </Routes>
-
-          </div>
-        </Router>
-      </div>
+      <Router>
+        <Layout>
+          <Routes>
+            {rolesArray[0] && <Route path="/" element={<Dashboard products={products} setProducts={setProducts} />} />}
+            {rolesArray[0] && <Route path="/details/:id" element={<Details products={products} />} />}
+            {rolesArray[1] && <Route path="/category" element={<Category />} />}
+            {rolesArray[1] && <Route path="/category/details/:id" element={<Details />} />}
+            {rolesArray[2] && <Route path="/subCategory" element={<SubCategory />} />}
+            {rolesArray[2] && <Route path="/subCategory/details/:id" element={<Details />} />}
+            {rolesArray[3] && <Route path="/brands" element={<Brands />} />}
+            {rolesArray[3] && <Route path="/brands/details/:id" element={<Details />} />}
+            {rolesArray[4] && <Route path="/orders" element={<Orders />} />}
+            {rolesArray[5] && <Route path="/coupon" element={<Coupon />} />}
+            {rolesArray[6] && <Route path="/notification" element={<Notification />} />}
+            {rolesArray[7] && <Route path="/posters" element={<Posters />} />}
+            {rolesArray[8] && <Route path="/variantType" element={<VariantType />} />}
+            {rolesArray[9] && <Route path="/variant" element={<Variant />} />}
+            {rolesArray[10] && <Route path="/users" element={<Users />} />}
+            {rolesArray[11] && <Route path="/users/roles/:id" element={<RolesPage />} />}
+            {rolesArray[12] && <Route path="/email" element={<Emails />} />}
+            <Route path="/settings" element={
+              <Settings
+                activeMode={activeMode}
+                setActiveMode={setActiveMode}
+                setTransparentSideBar={setTransparentSideBar}
+                sideBarChecked={sideBarChecked}
+                setSideBarChecked={setSideBarChecked}
+              />
+            } />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="*" element={<NotFound />} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </Layout>
+      </Router>
     </PrimeReactProvider>
-  )
+  );
 }
 
 export default App;

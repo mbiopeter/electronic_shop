@@ -95,6 +95,12 @@
     --transition-duration: 0.5s;/*Used*/
     --transition-easing: ease-in-out;/*Used*/
 
+    /*Media Querys*/
+    --phone:576px; /* @media (min-width: 576px) */
+    --tablet:768px; /* @media (min-width: 768px) */
+    --desktops:992px; /* @media (min-width: 992px) */
+    --computers:1200px; /*@media (min-width: 1200px) */
+ 
 }
 /* Light Mode */
 :root.light-mode {
