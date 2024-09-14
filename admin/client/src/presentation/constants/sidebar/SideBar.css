@@ -1,6 +1,6 @@
 @import '../../css/variables.css';
 .SideBar{
-    width: var(--extra-small-width);
+    width: var(--min-width);
     height: var(--extra-large-width);
     overflow-y: auto;
     overflow-x: hidden;
@@ -9,9 +9,6 @@
 }
 .nonTransparentSideBar{
     background-color:var(--secondary-background-color);
-}
-.SideBar:hover{
-    width: var(--extra-small-width);
 }
 .SideBar-logo{
     display: flex;
@@ -55,10 +52,64 @@ hr{
     transition-timing-function: var(--transition-easing);
 }
 .SideBar-nav:hover{
-    background-color: var( --secondary-background-color);
+    background-color: var( --background-color);
     opacity:var(--medium-opacity);
 }
 .SideBar-nav:active{
     background-color: var(--nav-hover-color);
     opacity:var(--medium-opacity);
+}
+.mobileClose{
+    display: none;
+}
+@media (max-width: 992px) {
+    .SideBar {
+        width: 200px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        height: 100%;
+        transition: width 0.3s linear;
+        box-shadow: var(--box-shadow);
+    }
+    .mobileClose {
+        display: flex;
+        position: absolute;
+        top: var(--container-padding);
+        right: var(--padding);
+        padding: 5px;
+        background-color: var(--primary-color);
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .SideBar-logo{
+        height: auto;
+        padding-bottom: var(--padding);
+        display: flex;
+        align-items: start;
+        justify-content: flex-start;
+        padding-top:var(--container-padding);
+        padding-left: var(--padding);
+    }
+    .logo{
+        height:40px
+    }
+    .logo-title{
+        display: none;
+    }
+    .logo-slogan{
+        display: none;
+    }
+    .CloseMobileSideBar{
+        width:0px;
+        overflow: hidden;
+    }
+}
+@media (max-width: 768px){
+
+}
+@media (max-width: 576px){
+
+
 }

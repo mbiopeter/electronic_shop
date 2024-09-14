@@ -8,6 +8,15 @@
     align-items: center;
     transition:all var(--transition-duration) linear;
 }
+.upbar-title-links{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: var(--padding);
+}
+.mobileOpenIcon{
+    display:none;
+}
 .UpBar-title{
     font-size: var(--font-size-large);
     color: var(--heading-color);
@@ -73,4 +82,12 @@
 }
 .UpBar-search-input::placeholder{
     color: var(--text-color);
+}
+@media (max-width: 992px) {
+    .mobileOpenIcon{
+        display: block;
+        color: var(--primary-color);
+        font-size: 30px;
+        cursor: pointer;
+    }
 }

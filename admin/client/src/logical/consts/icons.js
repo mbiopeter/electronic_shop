@@ -20,6 +20,7 @@ import Person3OutlinedIcon from '@mui/icons-material/Person3Outlined';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 import CloseIcon from '@mui/icons-material/Close';
+import MenuIcon from '@mui/icons-material/Menu';
 
 export {
     DashboardOutlinedIcon as Dashboard,
@@ -43,6 +44,7 @@ export {
     Person3OutlinedIcon as Person,
     CameraAltIcon as Camera,
     CancelPresentationIcon as Close,
-    CloseIcon as CloseIcon
+    CloseIcon as CloseIcon,
+    MenuIcon as MenuIcon
 
 }

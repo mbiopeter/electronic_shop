@@ -1,10 +1,12 @@
 import React from 'react'
 import './UpBar.css';
-import { Search,Down } from '../../../logical/consts/icons';
+import { Search,Down, MenuIcon } from '../../../logical/consts/icons';
 import { profile } from '../../../logical/consts/images';
 import { Link, useLocation } from 'react-router-dom';
 import  {useState,useEffect} from 'react'
-const UpBar = () => {
+const UpBar = ({
+    setCloseMobile
+}) => {
     const [homeTitle, setHomeTitle]  = useState();
     const[homeRoute,setHomeRoute] = useState();
     const location = useLocation();
@@ -25,10 +27,14 @@ const UpBar = () => {
         }
     },[PageName])
 
+    const handleOpenMobile = () => {
+        setCloseMobile(false);
+    }
 
     return (
         <div className="UpBar">
             <span className='upbar-title-links'>
+                <MenuIcon className='mobileOpenIcon' onClick={handleOpenMobile}/>
                 <Link className='UpBar-title' style={{textDecoration:'none'}} to={`${homeRoute}`}>{homeTitle}</Link>
             </span>
             <div className="UpBar-right">

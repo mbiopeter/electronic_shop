@@ -34,9 +34,11 @@ function Layout({ children }) {
   const location = useLocation(); // Get current location
   const isLoginPage = location.pathname === '/login';
 
-  const [expand, setExpand] = useState(false);
+  const [appWidth, setAppWidth] = useState(window.innerWidth);
+  const [expand, setExpand] = useState(appWidth >=992 ? false:true);
   const [transparentSideBar, setTransparentSideBar] = useState(false); 
   const [roles, setRoles] = useState(handleProtectedRoutes());
+  const[closeMobile,setCloseMobile] = useState(true);
 
   useEffect(() => {
     const sideBar = localStorage.getItem('transparentSideBar');
@@ -47,6 +49,17 @@ function Layout({ children }) {
   const showSideBar = !isLoginPage && roles.dashboard; // Example condition: Show sidebar if not on login page and user has dashboard role
   const showUpBar = !isLoginPage; // Always show UpBar if not on login page
 
+
+  const updateWidth = () => {
+    setAppWidth(window.innerWidth);
+};
+
+useEffect(() => {
+    return () => {
+        window.removeEventListener('resize', updateWidth);
+    };
+}, []);
+
   return (
     <div className="main-background">
       {showSideBar && (
@@ -55,10 +68,13 @@ function Layout({ children }) {
           setExpand={setExpand}
           transparentSideBar={transparentSideBar}
           roles={roles}
+          appWidth={appWidth}
+          setCloseMobile={setCloseMobile}
+          closeMobile={closeMobile}
         />
       )}
       <div className="main" style={expand ? { width: '100%' } : { width: 'calc(100% - var(--larger-width))' }}>
-        {showUpBar && <UpBar />}
+        {showUpBar && <UpBar setCloseMobile={setCloseMobile} />}
         {children}
       </div>
     </div>
