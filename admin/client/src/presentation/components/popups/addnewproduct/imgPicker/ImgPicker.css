@@ -45,3 +45,9 @@
     color: red;
     cursor: pointer;
 }
+@media (max-width: 992px){
+    .ImgPicker{
+        width: 120px;
+        height: 100px;
+    }
+}

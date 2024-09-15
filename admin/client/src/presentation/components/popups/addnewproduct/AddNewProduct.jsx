@@ -14,6 +14,7 @@ import { variantType } from '../../../../data/variantType/table_data';
 import { varient } from '../../../../data/varient/table_data';
 
 import { useLocation } from 'react-router-dom';
+import { CloseIcon } from '../../../../logical/consts/icons';
 const AddNewProduct = ({
     handleHidePopUp,
     showAddNewProduct
@@ -155,6 +156,7 @@ const AddNewProduct = ({
             <div className={`AddNewProducts popup-css ${showAddNewProduct ? 'show-addProduct' : 'hide'}`}>
                 <div className="AddNewProducts-title">
                     <span>{currentPage === 'details' ? 'EDIT PRODUCT' : 'ADD PRODUCT'}</span>
+                    <CloseIcon onClick={handleHidePopUp}  className="closeProductCloseIcons"/>
                 </div>
                 <div className="AddNewProducts-container">
                     <div className="AddNewProducts-container-img-container">
