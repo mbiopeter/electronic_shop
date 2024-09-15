@@ -244,4 +244,8 @@ hr{
         padding: 5px;
         font-size: 10px;
     }
+    .themePackLibraryContainer{
+        display: flex;
+        flex-wrap: wrap;
+    }
 }

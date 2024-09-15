@@ -43,6 +43,8 @@
     .right-details{
         grid-template-rows: 30fr 10fr 24fr;
     }
+}
+@media (max-width: 576px){
     .right-details{
         grid-template-rows: 18fr 6fr 36fr;
     }
