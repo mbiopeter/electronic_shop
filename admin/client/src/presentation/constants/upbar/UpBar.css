@@ -75,6 +75,10 @@
     border-radius:var(--border-radius);
     color: var(--text-color);
     font-size: var(--font-size-small);
+    padding:0 var(--padding);
+}
+.UpBar-profile>img{
+    height:40px;
 }
 .Search-icon{
     size: 30px;
@@ -90,4 +94,18 @@
         font-size: 30px;
         cursor: pointer;
     }
+    .UpBar-search{
+        display:none;
+    }
 }
+@media (max-width: 576px){
+    .UpBar-title{
+        font-size:var(--font-size);
+    }
+    .UpBar-profile{
+        height:50%;
+    }
+    .UpBar-profile>img{
+        height:30px;
+    }
+} 

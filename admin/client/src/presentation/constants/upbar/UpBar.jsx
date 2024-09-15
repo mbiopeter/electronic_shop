@@ -46,7 +46,7 @@ const UpBar = ({
                 </div>
                 <Link to='/profile' style={{textDecoration:'none'}}>
                     <div className="UpBar-profile">
-                        <img style={{height:'40px'}} src={profile}/>
+                        <img  src={profile}/>
                         <span>Mbio Peter</span>
                         <Down/>
                     </div>

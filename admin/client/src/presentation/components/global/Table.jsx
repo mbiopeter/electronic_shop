@@ -24,7 +24,7 @@ export default function StickyHeadTable({ columns, rows, onEdit, onDelete }) {
     };
 
     return (
-        <Paper sx={{ width: '100%', overflow: 'hidden', backgroundColor: 'var(--secondary-background-color)' }}>
+        <Paper sx={{ maxWidth: 'calc(100vw - 3*var(--container-padding))', overflow: 'auto', backgroundColor: 'var(--secondary-background-color)' }}>
             <TableContainer sx={{ maxHeight: 'var(--height)' }}>
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead>

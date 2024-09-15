@@ -38,3 +38,23 @@
     cursor: pointer;
 
 }
+@media (max-width: 576px){
+    .subheading-left-title-name{
+        font-size: var(--font-size-small);
+    }
+    .subheading-left-title-right{
+        gap: 5px;
+    }
+    .subheading-left-title-right-btn{
+        gap: 0;
+    }
+    .subheading-left-title-right-btn{
+        padding:4px;
+        font-weight: var(--font-weight-normal);
+        font-size: var(--font-size-small);
+        padding-right: var(--padding);
+    }
+    .subheading-icons{
+        size: 10px;
+    }
+}

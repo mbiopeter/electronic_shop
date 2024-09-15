@@ -141,13 +141,13 @@ const Details = ({
                 handleAddNew={handleAddNew}
                 title={
                     currentPage === 'brands' 
-                    ? `${brands[currentId - 1].name} Analytical Details`
+                    ? `${brands[currentId - 1].name}  `
                     : currentPage === 'subCategory' 
-                    ? `${subCategories[currentId - 1].name} Analytical Details`
+                    ? `${subCategories[currentId - 1].name}  `
                     :  currentPage === 'category'
-                    ? `${categories[currentId - 1].name} Analytical Details`
+                    ? `${categories[currentId - 1].name}  `
                     :  currentPage === 'details' && products.length > 0
-                    ? `${products[currentId - 1].name} Analytical Details`
+                    ? `${products[currentId - 1].name}  `
                     : null
                 }
                 assignedRole={
@@ -172,10 +172,9 @@ const Details = ({
                                         <DetailsDescription  name={desc.name} value={desc.value}/>
                                     ) )}
                                 </div>
-                                {numberOfcharts.map((chart) => (
-                                    <DetailsChart/>
-                                ))}
-
+                                    {numberOfcharts.map((chart) => (
+                                        <DetailsChart/>
+                                    ))}
                         </div>
                         <div className="left-details">
                             {currentPage === 'details' && (

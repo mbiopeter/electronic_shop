@@ -26,3 +26,12 @@
     color: var(--heading-color);
     font-weight: var(--font-weight-bold);
 }
+@media (max-width: 576px){
+    .settingsNavigationItems{
+        font-size: 10px;
+    }
+    .settingsNavigationItems{
+        padding:5px var(--padding) ;
+    }
+    
+}

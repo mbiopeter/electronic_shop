@@ -20,3 +20,8 @@
     font-weight: var(--font-weight-bold);
     color: var(--text-color)
 }
+@media (max-width: 992px){
+    .right-details-description-item{
+        height: 100px;
+    }
+}

@@ -51,7 +51,7 @@ const SubHeading = ({
                     />
                 ) : assignedRole === true ? (
                     <button className='subheading-left-title-right-btn' onClick={handleAddNew}>
-                        <Add />
+                        <Add className='subheading-icons'/>
                         <span>
                             {currentPage === 'details'
                                 ? 'Edit Product'
@@ -63,7 +63,7 @@ const SubHeading = ({
                         </span>
                     </button>
                 ) : null}
-                <Reload onClick={handleReload} className='Reload-icon' />
+                <Reload onClick={handleReload} className='Reload-icon subheading-icons' />
             </div>
         </div>
     );

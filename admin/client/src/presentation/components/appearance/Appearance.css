@@ -226,3 +226,22 @@ hr{
     font-size: var(--font-size-large);
     cursor: pointer;
 }
+@media (max-width: 576px){
+    .appearanceHeading span{
+        font-size: var(--font-size-small);
+    }
+    .coloreModesContainer{
+        flex-direction: column;
+        justify-content: flex-start
+    }
+    .colorModeColor{
+        display: flex;
+        align-items: start;
+        justify-content: start;
+        text-align: center;
+    }
+    .subheading-left-title-right-btn{
+        padding: 5px;
+        font-size: 10px;
+    }
+}
