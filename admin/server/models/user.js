@@ -17,7 +17,7 @@ const User = sequelize.define('User', {
         allowNull: false,
         unique: false,
     },
-    idNo: {
+    idNumber: {
         type: DataTypes.INTEGER,
         allowNull: false,
         unique: true,

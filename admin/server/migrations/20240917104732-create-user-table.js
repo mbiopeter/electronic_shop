@@ -20,7 +20,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      idNo: {
+      idNumber: {
         type: Sequelize.INTEGER,
         allowNull: false,
         unique: true,

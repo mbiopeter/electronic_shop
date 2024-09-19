@@ -9,6 +9,7 @@ import AddUsers from '../../components/popups/addUsers/AddUsers';
 const Users = () => {
     const [showAddUsers, setShowAddUsers] = useState(false);
 
+    const [reload, setReload] = useState(false);
     //roles useState
     const[viewUsersRole, setViewUsersRole] = useState(false);
     const[addUsersRole, setAddUsersRole] = useState(false);
@@ -31,6 +32,8 @@ const Users = () => {
         <>
             {/* Add new product pop up */}
             {addUsersRole &&<AddUsers 
+                reload={reload}
+                setReload={setReload}
                 handleHidePopUp={handleHidePopUp} 
                 showAddUsers={showAddUsers} 
             />} 
@@ -42,7 +45,7 @@ const Users = () => {
                 />
                 {viewUsersRole && (
                     <div className="Users-table">
-                        <DataTable />
+                        <DataTable reload={reload}/>
                     </div>   
                 )}
             </div>

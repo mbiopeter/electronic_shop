@@ -1,3 +1,5 @@
+import axios from 'axios';
+import { usersUrl } from '../../logical/consts/apiUrl';
 export const users = [
     {
         id:1,
@@ -45,3 +47,12 @@ export const users = [
         phone:'0787654321',
     },
 ];
+export const handleFetchUsers = async () => {
+    try {
+        const response = await axios.get(`${usersUrl}/all`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+};
