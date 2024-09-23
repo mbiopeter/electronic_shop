@@ -5,10 +5,15 @@ import StickyHeadTable from '../global/Table';
 import { useNavigate } from 'react-router-dom';
 import { editSystemVariables, viewDetails } from '../../../data/roles/Roles';
 import { handleCheckRole } from '../../../logical/settings/Roles';
-import { handleFetchUsers } from '../../../data/users/table_data';
+import { usersUrl } from '../../../logical/consts/apiUrl';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { handleDeleteApi } from '../../../logical/consts/delete';
+import { handleFetchAllUsers } from '../../../logical/consts/fetch';
 
 const DataTable = ({
-    reload
+    reload,
+    setReload
 }) => {
 
     const [users, setUsers] = useState([]);
@@ -20,14 +25,12 @@ const DataTable = ({
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const usersData = await handleFetchUsers(); 
+                const usersData = await handleFetchAllUsers(usersUrl,'all'); 
                 setUsers(usersData); 
             } catch (error) {
                 console.error('Error fetching users:', error);
             }
         };
-
-
         fetchData();
     }, [reload]);
     useEffect(() => {
@@ -45,10 +48,19 @@ const DataTable = ({
         navigate(`/users/roles/${row.id}`);
     };
 
-    const handleDelete = (row) => {
-        console.log('Delete:', row);
+    const handleDelete = async (row) => {
+        const userId= row.id;
+        try {
+            const response = handleDeleteApi(usersUrl,'remove',userId);
+            setReload(!reload)
+            toast.success('user sucessfully removed');
+        } catch (err) {
+            console.log(err)
+            if (err.response && err.response.data && err.response.data.message) {
+                toast.error(err.response.data.message);
+            }
+        }
     };
-
     const columns = [
         { id: 'firstName', label: 'First Name', minWidth: 170 },
         { id: 'secondName', label: 'Second Name', minWidth: 170 },

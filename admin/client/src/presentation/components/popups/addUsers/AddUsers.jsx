@@ -3,9 +3,10 @@ import './AddUsers.css';
 import '../../../css/common.css';
 import '../../../css/variables.css';
 import Layer from '../Layer';
-import { handleAddUser } from '../../../../logical/users/users';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { usersUrl } from '../../../../logical/consts/apiUrl';
+import { handleAddDetails } from '../../../../logical/consts/add';
 
 const AddUsers = ({ 
     showAddUsers, 
@@ -19,8 +20,8 @@ const AddUsers = ({
         username: '',
         firstName: '',
         secondName: '',
-        idNumber: 0,
-        phoneNumber: 0
+        idNumber: null,
+        phoneNumber: null
     });
 
     const handleAddUserOnchange = (key, value) => {
@@ -32,7 +33,7 @@ const AddUsers = ({
 
     const handleSubmit = async () => {
         try {
-            const response = await handleAddUser(userDetails);
+            const response = await handleAddDetails(userDetails,usersUrl,'register');
             setReload(!reload)
             toast.success(response.message); 
 

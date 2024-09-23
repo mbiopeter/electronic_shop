@@ -5,7 +5,8 @@ import { profile } from '../../../logical/consts/images';
 import { Link, useLocation } from 'react-router-dom';
 import  {useState,useEffect} from 'react'
 const UpBar = ({
-    setCloseMobile
+    setCloseMobile,
+    appWidth
 }) => {
     const [homeTitle, setHomeTitle]  = useState();
     const[homeRoute,setHomeRoute] = useState();
@@ -34,7 +35,7 @@ const UpBar = ({
     return (
         <div className="UpBar">
             <span className='upbar-title-links'>
-                <MenuIcon className='mobileOpenIcon' onClick={handleOpenMobile}/>
+                {appWidth <= 992 &&<MenuIcon className='mobileOpenIcon' onClick={handleOpenMobile}/>}
                 <Link className='UpBar-title' style={{textDecoration:'none'}} to={`${homeRoute}`}>{homeTitle}</Link>
             </span>
             <div className="UpBar-right">

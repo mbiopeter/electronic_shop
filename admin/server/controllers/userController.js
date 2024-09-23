@@ -1,4 +1,10 @@
-const { loginUser,registerUser,allUsers } = require('../services/userService');
+const {
+    loginUser,
+    registerUser,
+    allUsers,
+    deleteUser,
+    oneUser
+} = require('../services/userService');
 
 const login = async (req, res) => {
     //get user inputs
@@ -18,7 +24,6 @@ const login = async (req, res) => {
 };
 
 const register = async (req, res) => {
-    console.log('Request body:', req.body); 
     //get user inputs
     const {username, firstName, secondName, idNumber, phoneNumber} = req.body;
 
@@ -31,6 +36,7 @@ const register = async (req, res) => {
             user: { id: user.id, username: user.username },
         });
     }catch (error) {
+        console.log(error);
         res.status(400).json({ message: error.message });
     }
 }
@@ -43,8 +49,34 @@ const users = async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 }
+
+const remove = async (req, res) => {
+    try {
+        // get user id from query params
+        const userId = req.query.id;
+        await deleteUser(userId);
+        res.status(200).json({
+            message: 'User successfully removed'
+        });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
+const getOne = async (req, res) => {
+    try {
+        // get user id from query params
+        const userId = req.query.id;
+        const user = await oneUser(userId)
+        res.status(200).json(user)
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+}
 module.exports = {
     login,
     register,
-    users
+    users,
+    remove,
+    getOne
 };

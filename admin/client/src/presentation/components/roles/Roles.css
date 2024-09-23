@@ -14,7 +14,7 @@
     align-items: center;
 }
 .RolesHeading>span{
-    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size);
     color: var(--text-color);
 
 }
@@ -33,7 +33,7 @@
     padding:0px var(--padding);
 }
 .RolesContainerItem>span{
-    font-size: var(--font-size);
+    font-size: var(--font-size-small);
     color: var(--text-color);
     font-weight: var(--font-weight-bold);
     opacity: 0.8;

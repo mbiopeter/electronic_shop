@@ -45,7 +45,7 @@ const Users = () => {
                 />
                 {viewUsersRole && (
                     <div className="Users-table">
-                        <DataTable reload={reload}/>
+                        <DataTable reload={reload} setReload={setReload}/>
                     </div>   
                 )}
             </div>

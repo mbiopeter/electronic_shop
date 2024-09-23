@@ -74,7 +74,7 @@ useEffect(() => {
         />
       )}
       <div className="main" style={expand ? { width: '100%' } : { width: 'calc(100% - var(--larger-width))' }}>
-        {showUpBar && <UpBar setCloseMobile={setCloseMobile} />}
+        {showUpBar && <UpBar setCloseMobile={setCloseMobile} appWidth={appWidth}/>}
         {children}
       </div>
     </div>

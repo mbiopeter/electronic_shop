@@ -23,15 +23,15 @@ const loginUser = async (username, password) => {
 const registerUser = async (username, firstName, secondName, idNumber, phoneNumber) => {
     // Verify all required details are provided
     if (!username || !firstName || !secondName || !idNumber || !phoneNumber) {
-        throw new Error('Provide all the required details');
+        throw new Error(' all the fields are required !');
     }
-    //check if id number is an integer
-    if (!Number.isInteger(idNumber)) {
-        throw new Error('idNumber must be an integer');
+    //id number varidation
+    if (!/^\d{8,}$/.test(idNumber.toString())) {
+        throw new Error('Invalid ID number');
     }
-    //check if phone number is an integer
-    if (!Number.isInteger(phoneNumber)) {
-        throw new Error('phoneNumber must be an integer');
+    //phone number validation
+    if (!/^\d+$/.test(phoneNumber) || phoneNumber.length < 10) {
+        throw new Error('Invalid phone number!');
     }
     // Check if user already exists
     const existingUser = await User.findOne({ where: { idNumber } });
@@ -49,7 +49,8 @@ const registerUser = async (username, firstName, secondName, idNumber, phoneNumb
         secondName,
         idNumber,
         phoneNumber,
-        password: hashedPassword
+        password: hashedPassword,
+        roles: []
     });
 
     // Generate JWT token
@@ -66,16 +67,49 @@ const allUsers = async () => {
                 exclude: ['username','createdAt', 'updatedAt', 'password']
             }
         });
-
         return users;
     } catch (error) {
-        console.error('Error fetching users:', error);
         throw error;
     }
 };
+
+const deleteUser = async (userId) => {
+    try {
+        //delete a user with the matching userid
+        const user = await User.destroy({ where: { id: userId } });
+        if (!user) {
+            throw new Error('Error removing the user, try again');
+        }
+    } catch (error) {
+        throw error;
+    }
+}
+
+const oneUser = async (userId) => {
+    try {
+        // get a user with the matching userId
+        const user = await User.findOne({
+            attributes: {
+                exclude: ['username', 'createdAt', 'updatedAt', 'password']
+            },
+            where: { id: userId }
+        });
+
+        if (!user) {
+            throw new Error('User not found in our records');
+        }
+
+        return user; // Return the user if found
+    } catch (err) {
+        throw err; // Handle or log the error
+    }
+};
+
 
 module.exports = {
     loginUser,
     registerUser,
     allUsers,
+    deleteUser,
+    oneUser
 };
