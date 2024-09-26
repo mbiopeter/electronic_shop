@@ -93,7 +93,7 @@ const Dashboard = ({
         setLimitedStockRole(handleCheckRole(viewDetails,'limited stock'));        
         setOtherStockRole(handleCheckRole(viewDetails,'other stock'));      
 
-        setOrderPercentangeRole(handleCheckRole(viewDetails,'order percentange'));        
+        setOrderPercentangeRole(handleCheckRole(viewDetails,'order percentage'));        
         setAllOrdersRole(handleCheckRole(viewDetails,'all orders'));        
         setPendingOrdersRole(handleCheckRole(viewDetails,'pending orders'));        
         setProcessedOrdersRole(handleCheckRole(viewDetails,'processed orders'));        

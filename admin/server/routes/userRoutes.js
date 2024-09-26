@@ -4,7 +4,10 @@ const {
     register,
     users,
     remove,
-    getOne 
+    getOne,
+    userRoles,
+    assignUserRole,
+    revokeUserRole
 } = require('../controllers/userController');
 
 const router = express.Router();
@@ -19,6 +22,11 @@ router.get('/all', users);
 router.delete('/remove', remove);
  //get one user
 router.get('/one', getOne);
-
+//get the current user roles
+router.post('/roles', userRoles);
+//assigne a role to the user
+router.post('/role/assign', assignUserRole);
+//rvoke a role to the user
+router.post('/role/revoke', revokeUserRole);
 
 module.exports = router;

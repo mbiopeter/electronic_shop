@@ -99,11 +99,108 @@ const oneUser = async (userId) => {
             throw new Error('User not found in our records');
         }
 
-        return user; // Return the user if found
+        return user;
     } catch (err) {
-        throw err; // Handle or log the error
+        throw err;
     }
 };
+
+const getUserRoles = async (userId, systemRoles) => {
+    try {
+        // Fetch the user by userId
+        const user = await User.findOne({ where: { id: userId } });
+        if (!user) {
+            throw new Error('User not found');
+        }
+
+        const userRoles = user.roles ? (Array.isArray(user.roles) ? user.roles : JSON.parse(user.roles)) : [];
+
+        // Helper function to check if a role exists in user's assigned roles
+        const assignAllowedStatus = (roles) => {
+            return roles.map((role) => {
+                return {
+                    ...role,
+                    allowed: userRoles.includes(role.id)
+                };
+            });
+        };
+
+        // Process system roles by checking the user's roles and categorising them
+        const processedRoles = {
+            addSystemVariables: assignAllowedStatus(systemRoles.addSystemVariables),
+            editSystemVariables: assignAllowedStatus(systemRoles.editSystemVariables),
+            viewDetails: assignAllowedStatus(systemRoles.viewDetails),
+            settings: assignAllowedStatus(systemRoles.settings)
+        };
+
+        console.log(processedRoles);
+        return processedRoles;
+    } catch (err) {
+        throw err;
+    }
+};
+
+const assignRole = async (userId, roleId) => {
+    try {
+        const user = await User.findByPk(userId);
+
+        if (!user) {
+            throw new Error('User not found');
+        }
+
+        // Ensure roles is an array or initialize as an empty array if null
+        let roles = user.roles ? (Array.isArray(user.roles) ? user.roles : JSON.parse(user.roles)) : [];
+
+        // Check if the role is already assigned
+        if (!roles.includes(roleId)) {
+            roles.push(roleId);
+            user.roles = roles;
+
+            // Save the updated user
+            await user.save();
+
+            return { message: 'Role assigned successfully', roles: user.roles };
+        }
+        else {
+            return { message: 'Role is already assigned', roles: user.roles };
+        }
+    } catch (err) {
+        throw err;
+    }
+};
+
+const revokeRole = async (userId, roleId) => {
+    try {
+        const user = await User.findByPk(userId);
+
+        if (!user) {
+            throw new Error('User not found');
+        }
+
+        // Parse roles from JSON string to array 
+        let roles = user.roles ? (Array.isArray(user.roles) ? user.roles : JSON.parse(user.roles)) : [];
+
+        // Convert roleId to integer for comparison
+        const roleIdAsNumber = parseInt(roleId, 10);
+
+        // Check if the role exists in the user's roles
+        if (roles.includes(roleIdAsNumber)) {
+            roles = roles.filter(role => role !== roleIdAsNumber);
+            user.roles = roles;
+
+            // Save the updated user
+            const result = await user.save();
+
+            return { message: 'Role revoked successfully', roles: user.roles };
+        } else {
+            return { message: 'Role not assigned to this user', roles: user.roles };
+        }
+    } catch (err) {
+        console.error('Error revoking role:', err);
+        throw err;
+    }
+};
+
 
 
 module.exports = {
@@ -111,5 +208,8 @@ module.exports = {
     registerUser,
     allUsers,
     deleteUser,
-    oneUser
+    oneUser,
+    getUserRoles,
+    assignRole,
+    revokeRole
 };

@@ -1,248 +1,274 @@
+import axios from 'axios';
+import { usersUrl } from '../../logical/consts/apiUrl'
 export const addSystemVariables = [
     {
-        id:1,
-        name:'create products',
-        allowed:true
+        id: 101,
+        name: 'create products',
+        allowed: false
     },
     {
-        id:2,
-        name:'create category',
-        allowed:true
+        id: 102,
+        name: 'create category',
+        allowed: false
     },
     {
-        id:3,
-        name:'create sub category',
-        allowed:true
+        id: 103,
+        name: 'create sub category',
+        allowed: true
     },
     {
-        id:4,
-        name:'create brands',
-        allowed:true
+        id: 104,
+        name: 'create brands',
+        allowed: true
     },
     {
-        id:5,
-        name:'create variant type',
-        allowed:true
+        id: 105,
+        name: 'create variant type',
+        allowed: true
     },
     {
-        id:6,
-        name:'create variant',
-        allowed:true
+        id: 106,
+        name: 'create variant',
+        allowed: true
     },
     {
-        id:7,
-        name:'create coupon',
-        allowed:true
+        id: 107,
+        name: 'create coupon',
+        allowed: true
     },
     {
-        id:8,
-        name:'create posters',
-        allowed:true
+        id: 108,
+        name: 'create posters',
+        allowed: true
     },
     {
-        id:9,
-        name:'send notifications',
-        allowed:true
+        id: 109,
+        name: 'send notifications',
+        allowed: true
     },
     {
-        id:10,
-        name:'send emails',
-        allowed:true
+        id: 110,
+        name: 'send emails',
+        allowed: true
     },
     {
-        id:11,
-        name:'create users',
-        allowed:true
+        id: 111,
+        name: 'create users',
+        allowed: true
     },
 ];
 
 export const editSystemVariables = [
     {
-        id:12,
-        name:'edit products',
-        allowed:true
+        id: 201,
+        name: 'edit products',
+        allowed: true
     },
     {
-        id:13,
-        name:'edit category',
-        allowed:true
+        id: 202,
+        name: 'edit category',
+        allowed: true
     },
     {
-        id:14,
-        name:'edit sub category',
-        allowed:true
+        id: 203,
+        name: 'edit sub category',
+        allowed: true
     },
     {
-        id:15,
-        name:'edit brands',
-        allowed:true
+        id: 204,
+        name: 'edit brands',
+        allowed: true
     },
     {
-        id:16,
-        name:'edit orders',
-        allowed:true
+        id: 205,
+        name: 'edit orders',
+        allowed: true
     },
     {
-        id:16,
-        name:'edit users',
-        allowed:true
+        id: 206,
+        name: 'edit users',
+        allowed: true
     },
-]
+];
 
 export const viewDetails = [
     {
-        id:17,
-        name:'all products',
-        allowed:true
+        id: 301,
+        name: 'all products',
+        allowed: true
     },
     {
-        id:18,
-        name:'out of stock',
-        allowed:true
+        id: 302,
+        name: 'out of stock',
+        allowed: true
     },
     {
-        id:19,
-        name:'limited stock',
-        allowed:true
+        id: 303,
+        name: 'limited stock',
+        allowed: true
     },
     {
-        id:20,
-        name:'other stock',
-        allowed:true
+        id: 304,
+        name: 'other stock',
+        allowed: true
     },
     {
-        id:21,
-        name:'order percentange',
-        allowed:true
+        id: 305,
+        name: 'order percentage',
+        allowed: true
     },
     {
-        id:22,
-        name:'all orders',
-        allowed:true
+        id: 306,
+        name: 'all orders',
+        allowed: true
     },
     {
-        id:23,
-        name:'pending orders',
-        allowed:true
+        id: 307,
+        name: 'pending orders',
+        allowed: true
     },
     {
-        id:24,
-        name:'processed orders',
-        allowed:true
+        id: 308,
+        name: 'processed orders',
+        allowed: true
     },
     {
-        id:25,
-        name:'cancelled orders',
-        allowed:true
+        id: 309,
+        name: 'cancelled orders',
+        allowed: true
     },
     {
-        id:26,
-        name:'shipped orders',
-        allowed:true
+        id: 310,
+        name: 'shipped orders',
+        allowed: true
     },
     {
-        id:27,
-        name:'returned orders',
-        allowed:true
+        id: 311,
+        name: 'returned orders',
+        allowed: true
     },
     {
-        id:28,
-        name:'all categories',
-        allowed:true
+        id: 312,
+        name: 'all categories',
+        allowed: true
     },
     {
-        id:29,
-        name:'all sub categories',
-        allowed:true
+        id: 313,
+        name: 'all sub categories',
+        allowed: true
     },
     {
-        id:30,
-        name:'all brands',
-        allowed:true
+        id: 314,
+        name: 'all brands',
+        allowed: true
     },
     {
-        id:30,
-        name:'all emails',
-        allowed:true
+        id: 315,
+        name: 'all emails',
+        allowed: true
     },
     {
-        id:31,
-        name:'product details',
-        allowed:true
+        id: 316,
+        name: 'product details',
+        allowed: true
     },
     {
-        id:32,
-        name:'category details',
-        allowed:true
+        id: 317,
+        name: 'category details',
+        allowed: true
     },
     {
-        id:33,
-        name:'sub category details',
-        allowed:true
+        id: 318,
+        name: 'sub category details',
+        allowed: true
     },
     {
-        id:34,
-        name:'brand details',
-        allowed:true
+        id: 319,
+        name: 'brand details',
+        allowed: true
     },
     {
-        id:34,
-        name:'users details',
-        allowed:true
+        id: 320,
+        name: 'users details',
+        allowed: true
     },
     {
-        id:35,
-        name:'all varient types',
-        allowed:true
+        id: 321,
+        name: 'all variant types',
+        allowed: true
     },
     {
-        id:36,
-        name:'all varients',
-        allowed:true
+        id: 322,
+        name: 'all variants',
+        allowed: true
     },
     {
-        id:37,
-        name:'all orders',
-        allowed:true
+        id: 323,
+        name: 'all orders',
+        allowed: true
     },
     {
-        id:38,
-        name:'all coupon codes',
-        allowed:true
+        id: 324,
+        name: 'all coupon codes',
+        allowed: true
     },
     {
-        id:39,
-        name:'all posters',
-        allowed:true
+        id: 325,
+        name: 'all posters',
+        allowed: true
     },
     {
-        id:40,
-        name:'all notifications',
-        allowed:true
+        id: 326,
+        name: 'all notifications',
+        allowed: true
     },
     {
-        id:41,
-        name:'all users',
-        allowed:true
+        id: 327,
+        name: 'all users',
+        allowed: true
     },
-
 ];
 
-export const settings =[
+export const settings = [
     {
-        id:42,
-        name:'basic info',
-        allowed:true
+        id: 401,
+        name: 'basic info',
+        allowed: true
     },
     {
-        id:43,
-        name:'roles',
-        allowed:true
+        id: 402,
+        name: 'roles',
+        allowed: true
     },
     {
-        id:44,
-        name:'notifications',
-        allowed:true
+        id: 403,
+        name: 'notifications',
+        allowed: true
     },
+];
 
-]
+export const fetchUserRoles = async (
+    userId
+) => {
+    const systemRoles = {
+        addSystemVariables: addSystemVariables,
+        editSystemVariables: editSystemVariables,
+        viewDetails: viewDetails,
+        settings: settings
+    }
+    try {
+
+        const response = await axios.post(`http://localhost:4000/api/users/roles`, { userId, systemRoles }, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        if (!response) {
+            console.log('Failed to fetch user assigned roles')
+        }
+        return response.data;
+    }
+    catch (err) {
+        throw err;
+    }
+};

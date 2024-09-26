@@ -1,28 +1,45 @@
 import React, { useEffect, useState } from 'react';
 import './Roles.css';
 import ControlledSwitch from '../switch/Switch';
-import { addSystemVariables, editSystemVariables, settings, viewDetails } from '../../../data/roles/Roles';
-import { handleRoleChange } from '../../../logical/settings/Roles';
+import { fetchUserRoles } from '../../../data/roles/Roles';
+import { useLocation } from 'react-router-dom';
+import Loader from '../loading/Loading';
+import { handleApiSwitchChange } from '../../../logical/users/Users';
 
 const Roles = () => {
-    // State to manage all switch states
     const [switchStates, setSwitchStates] = useState({});
+    const [userRoles, setUserRoles] = useState(null);
+
+    const location = useLocation();
+    const pathSegments = location.pathname.split('/');
+    const userId = pathSegments[3];  // Extract userId from the URL
 
     useEffect(() => {
-        // Function to initialize switch states from API data
-        const initializeSwitchStates = (...dataSets) => {
-            const initialStates = {};
-            dataSets.forEach(data => {
-                data.forEach(item => {
-                    initialStates[item.id] = item.allowed;
-                });
-            });
-            setSwitchStates(initialStates);
-        };
+        const getUserRoles = async () => {
+            try {
+                // Fetch roles from the server
+                const allRoles = await fetchUserRoles(userId);
+                setUserRoles(allRoles); 
 
-        // Initialize the switch states with data from all sections
-        initializeSwitchStates(addSystemVariables, editSystemVariables, viewDetails, settings);
-    }, []);
+                // Initialize switch states with data from the server
+                initializeSwitchStates(allRoles);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        getUserRoles();
+    }, [userId]);
+
+    // Function to initialize switch states from API data
+    const initializeSwitchStates = (data) => {
+        const initialStates = {};
+        for (const category in data) {
+            data[category].forEach(item => {
+                initialStates[item.id] = item.allowed;
+            });
+        }
+        setSwitchStates(initialStates);
+    };
 
     // Function to handle switch state changes
     const handleSwitchChange = (key, value) => {
@@ -30,23 +47,18 @@ const Roles = () => {
             ...prevState,
             [key]: value,
         }));
+        handleApiSwitchChange(key, value, userId);
     };
-
-    //Function to handle switch status change API
-    useEffect(() => {
-        handleRoleChange(switchStates);
-    },[switchStates]);
 
     // Function to render switch items for a section
     const renderSwitchItems = (data) => {
         return data.map((role) => {
-            const key = role.id
-            //.replace(/ /g, '');
+            const key = role.id;
             return (
                 <div className="RolesContainerItem" key={role.id}>
                     <span>{role.name}</span>
                     <ControlledSwitch
-                        checked={switchStates[key]}
+                        checked={switchStates[key]} 
                         setChecked={(value) => handleSwitchChange(key, value)}
                     />
                 </div>
@@ -54,13 +66,19 @@ const Roles = () => {
         });
     };
 
+    // Show loading state while waiting for data from the server
+    if (!userRoles) {
+        return <Loader />;  
+    }
+
+    // Render UI using the fetched userRoles data
     return (
         <div className='Roles'>
             <div className="RolesHeading">
                 <span>Add System Variables</span>
             </div>
             <div className="RolesContainer">
-                {renderSwitchItems(addSystemVariables)}
+                {renderSwitchItems(userRoles.addSystemVariables)}
             </div>
             <hr />
 
@@ -68,7 +86,7 @@ const Roles = () => {
                 <span>Edit System Variables</span>
             </div>
             <div className="RolesContainer">
-                {renderSwitchItems(editSystemVariables)}
+                {renderSwitchItems(userRoles.editSystemVariables)}
             </div>
             <hr />
 
@@ -76,7 +94,7 @@ const Roles = () => {
                 <span>View Details</span>
             </div>
             <div className="RolesContainer">
-                {renderSwitchItems(viewDetails)}
+                {renderSwitchItems(userRoles.viewDetails)}
             </div>
             <hr />
 
@@ -84,7 +102,7 @@ const Roles = () => {
                 <span>Settings</span>
             </div>
             <div className="RolesContainer">
-                {renderSwitchItems(settings)}
+                {renderSwitchItems(userRoles.settings)}
             </div>
         </div>
     );

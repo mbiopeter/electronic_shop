@@ -3,7 +3,10 @@ const {
     registerUser,
     allUsers,
     deleteUser,
-    oneUser
+    oneUser,
+    getUserRoles,
+    assignRole,
+    revokeRole
 } = require('../services/userService');
 
 const login = async (req, res) => {
@@ -73,10 +76,67 @@ const getOne = async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 }
+
+const userRoles = async (req, res) => {
+    try {
+        // get the user id and the system variables object
+        const { userId, systemRoles } = req.body;
+        // Ensure userId is defined
+        if (!userId) {
+            return res.status(400).json({ message: 'User ID is required' });
+        }
+
+        const roles = await getUserRoles(userId, systemRoles);
+
+        res.status(200).json(roles);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
+const assignUserRole = async (req, res) => {
+    try {
+        const userId = parseInt(req.query.userId, 10);
+        const roleId = parseInt(req.query.roleId, 10);
+
+        console.log(req.query);
+
+        // Ensure userId and roleId are provided and valid
+        if (isNaN(userId) || isNaN(roleId)) {
+            return res.status(400).json({ message: 'User Id and role Id must be valid integers' });
+        }
+
+        await assignRole(userId, roleId);
+        res.status(200).json({ message: 'Role successfully assigned' });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
+
+const revokeUserRole = async (req, res) => {
+    try {
+        //get userId and roleId
+        const { userId, roleId } = req.query;
+
+        //ensure userid and role id are provided
+        if (!userId || !roleId) {
+            return res.status(400).json({ message: 'User Id and role id are required' });
+        }
+        const revoke = await revokeRole(userId, roleId);
+        res.status(200).json(revoke);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+}
+
 module.exports = {
     login,
     register,
     users,
     remove,
-    getOne
+    getOne,
+    userRoles,
+    assignUserRole,
+    revokeUserRole
 };
