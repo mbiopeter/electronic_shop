@@ -1,8 +1,12 @@
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
+const { Op } = require('sequelize');
 const loginUser = async (username, password) => {
+    //ensure both the username and password are provided
+    if (!username || !password) {
+        throw new Error(' both password and username are mandatory');
+    }
     //check if the user exists
     const user = await User.findOne({ where: { username } });
     if (!user) {
@@ -59,12 +63,17 @@ const registerUser = async (username, firstName, secondName, idNumber, phoneNumb
     return { token, user: newUser };
 };
 
-const allUsers = async () => {
+const allUsers = async (userId) => {
     try {
-        // Fetch all users but the three fields
+        // Fetch all users except the one with the given userId, excluding specific fields
         const users = await User.findAll({
             attributes: {
-                exclude: ['username','createdAt', 'updatedAt', 'password']
+                exclude: ['username', 'createdAt', 'updatedAt', 'password']
+            },
+            where: {
+                id: {
+                    [Op.ne]: userId
+                }
             }
         });
         return users;
@@ -72,6 +81,7 @@ const allUsers = async () => {
         throw error;
     }
 };
+
 
 const deleteUser = async (userId) => {
     try {
@@ -130,10 +140,11 @@ const getUserRoles = async (userId, systemRoles) => {
             addSystemVariables: assignAllowedStatus(systemRoles.addSystemVariables),
             editSystemVariables: assignAllowedStatus(systemRoles.editSystemVariables),
             viewDetails: assignAllowedStatus(systemRoles.viewDetails),
-            settings: assignAllowedStatus(systemRoles.settings)
+            settings: assignAllowedStatus(systemRoles.settings),
+            deleteItems: assignAllowedStatus(systemRoles.deleteItems)
         };
 
-        console.log(processedRoles);
+
         return processedRoles;
     } catch (err) {
         throw err;

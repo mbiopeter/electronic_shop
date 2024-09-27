@@ -5,7 +5,7 @@ import SubHeading from '../../components/global/subheading/SubHeading';
 import DataTable from '../../components/category/DataTable';
 import AddCategory from '../../components/popups/addcategory/AddCategory';
 import { handleCheckRole } from '../../../logical/settings/Roles';
-import { addSystemVariables, viewDetails } from '../../../data/roles/Roles';
+import { fetchCurrentUserRoles } from '../../../data/roles/Roles';
 const Category = () => {
     const [showAddNewProduct, setShowAddNewProduct] = useState(false);
 
@@ -15,8 +15,13 @@ const Category = () => {
 
         //check and set user roles
     useEffect(() =>{
-        setAddCategoryRole(handleCheckRole(addSystemVariables,'create category'));
-        setViewCategoryRole(handleCheckRole(viewDetails,'all categories'));         
+        const getCurrentUsersRoles = async () => {
+            //get all the current user Roles
+            const roles = await fetchCurrentUserRoles();
+            setAddCategoryRole(handleCheckRole(roles.addSystemVariables,'create category'));
+            setViewCategoryRole(handleCheckRole(roles.viewDetails,'all categories'));   
+        } 
+        getCurrentUsersRoles();     
     },[])
 
     const handleAddNew = () => {

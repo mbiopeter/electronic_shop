@@ -5,7 +5,7 @@ import SubHeading from '../../components/global/subheading/SubHeading';
 import DataTable from '../../components/brands/DataTable';
 import AddBrands from '../../components/popups/addBrands/AddBrands';
 import { handleCheckRole } from '../../../logical/settings/Roles';
-import { addSystemVariables, viewDetails } from '../../../data/roles/Roles';
+import { fetchCurrentUserRoles } from '../../../data/roles/Roles';
 const Brands = () => {
     const [showAddBrands, setShowAddBrands] = useState(false);
 
@@ -16,8 +16,13 @@ const Brands = () => {
 
         //check and set user roles
     useEffect(() =>{
-        setAddBrandRole(handleCheckRole(addSystemVariables,'create brands'));
-        setViewBrandRole(handleCheckRole(viewDetails,'all brands'));         
+        const getCurrentUsersRoles = async () => {
+            //get all the current user Roles
+            const roles = await fetchCurrentUserRoles();
+            setAddBrandRole(handleCheckRole(roles.addSystemVariables,'create brands'));
+            setViewBrandRole(handleCheckRole(roles.viewDetails,'all brands'));      
+        }
+        getCurrentUsersRoles();
     },[])
 
 

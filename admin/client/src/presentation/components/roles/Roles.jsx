@@ -99,6 +99,14 @@ const Roles = () => {
             <hr />
 
             <div className="RolesHeading">
+                <span>Delete Items</span>
+            </div>
+            <div className="RolesContainer">
+                {renderSwitchItems(userRoles.deleteItems)}
+            </div>
+            <hr />
+
+            <div className="RolesHeading">
                 <span>Settings</span>
             </div>
             <div className="RolesContainer">

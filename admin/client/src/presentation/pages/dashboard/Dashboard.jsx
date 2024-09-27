@@ -12,21 +12,26 @@ import SubHeading from '../../components/global/subheading/SubHeading';
 import AddNewProduct from '../../components/popups/addnewproduct/AddNewProduct';
 import {all_products, out_of_stock_products, limited_stock_product, other_stock_product} from '../../../data/dashboard/table_data';
 import { handleCheckRole } from '../../../logical/settings/Roles';
-import { addSystemVariables,viewDetails } from '../../../data/roles/Roles';
+import { fetchCurrentUserRoles } from '../../../data/roles/Roles';
+/* import { addSystemVariables,viewDetails } from '../../../data/roles/Roles'; */
 
 
 const Dashboard = ({
     products,
     setProducts
 }) => {
+
     const [showAddNewProduct, setShowAddNewProduct] = useState(false);
     const [subTitle, setSubTitle] = useState('All Product');
+
     const itemCount = [
         all_products.length,
         out_of_stock_products.length,
         limited_stock_product.length,
         other_stock_product.length,
     ];
+
+
     //Roles Use States
     const[createProductsRole,setCreateProductsRole] = useState(false);
     const[viewAllProductsRole,setViewAllProductsRole] = useState(false);
@@ -87,19 +92,26 @@ const Dashboard = ({
 
     //check and set user roles
     useEffect(() =>{
-        setCreateProductsRole(handleCheckRole(addSystemVariables,'create products'));
-        setViewAllProductsRole(handleCheckRole(viewDetails,'all products'));        
-        setOutOfStockRole(handleCheckRole(viewDetails,'out of stock'));        
-        setLimitedStockRole(handleCheckRole(viewDetails,'limited stock'));        
-        setOtherStockRole(handleCheckRole(viewDetails,'other stock'));      
+        const getCurrentUsersRoles = async () => {
+            //get all the current user Roles
+            const roles = await fetchCurrentUserRoles();
+        
+            //set user roles states
+            setCreateProductsRole(handleCheckRole(roles.addSystemVariables,'create products'));
+            setViewAllProductsRole(handleCheckRole(roles.viewDetails,'all products'));        
+            setOutOfStockRole(handleCheckRole(roles.viewDetails,'out of stock'));        
+            setLimitedStockRole(handleCheckRole(roles.viewDetails,'limited stock'));        
+            setOtherStockRole(handleCheckRole(roles.viewDetails,'other stock'));      
 
-        setOrderPercentangeRole(handleCheckRole(viewDetails,'order percentage'));        
-        setAllOrdersRole(handleCheckRole(viewDetails,'all orders'));        
-        setPendingOrdersRole(handleCheckRole(viewDetails,'pending orders'));        
-        setProcessedOrdersRole(handleCheckRole(viewDetails,'processed orders'));        
-        setCancelledOrdersRole(handleCheckRole(viewDetails,'cancelled orders'));        
-        setShippedOrdersRole(handleCheckRole(viewDetails,'shipped orders'));        
-        setReturnedOrdersRole(handleCheckRole(viewDetails,'returned orders'));        
+            setOrderPercentangeRole(handleCheckRole(roles.viewDetails,'order percentage'));        
+            setAllOrdersRole(handleCheckRole(roles.viewDetails,'all orders'));        
+            setPendingOrdersRole(handleCheckRole(roles.viewDetails,'pending orders'));        
+            setProcessedOrdersRole(handleCheckRole(roles.viewDetails,'processed orders'));        
+            setCancelledOrdersRole(handleCheckRole(roles.viewDetails,'cancelled orders'));        
+            setShippedOrdersRole(handleCheckRole(roles.viewDetails,'shipped orders'));        
+            setReturnedOrdersRole(handleCheckRole(roles.viewDetails,'returned orders'));    
+        }
+        getCurrentUsersRoles();    
     },[])
     return (
         <>

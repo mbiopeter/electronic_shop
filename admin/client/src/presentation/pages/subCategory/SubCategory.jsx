@@ -4,8 +4,8 @@ import '../../css/common.css';
 import SubHeading from '../../components/global/subheading/SubHeading';
 import DataTable from '../../components/subCategory/DataTable';
 import AddSubCategory from '../../components/popups/addSubCategory/AddSubCategory';
-import { addSystemVariables, viewDetails } from '../../../data/roles/Roles';
 import { handleCheckRole } from '../../../logical/settings/Roles';
+import { fetchCurrentUserRoles } from '../../../data/roles/Roles';
 const SubCategory = () => {
     const [showAddSubCategory, setShowAddSubCategory] = useState(false);
 
@@ -15,8 +15,13 @@ const SubCategory = () => {
 
         //check and set user roles
     useEffect(() =>{
-        setAddSubCategoryRole(handleCheckRole(addSystemVariables,'create sub category'));
-        setViewSubCategoryRole(handleCheckRole(viewDetails,'all categories'));         
+        const getCurrentUsersRoles = async () => {
+            //get all the current user Roles
+            const roles = await fetchCurrentUserRoles();
+            setAddSubCategoryRole(handleCheckRole(roles.addSystemVariables,'create sub category'));
+            setViewSubCategoryRole(handleCheckRole(roles.viewDetails,'all categories'));    
+        } 
+        getCurrentUsersRoles()    
     },[])
 
     const handleAddNew = () => {

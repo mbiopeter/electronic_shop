@@ -5,19 +5,26 @@ import StickyHeadTable from '../global/Table';
 import { brands } from '../../../data/brands/table_data';
 import { useNavigate } from 'react-router-dom';
 import { handleCheckRole } from '../../../logical/settings/Roles';
-import { editSystemVariables, viewDetails } from '../../../data/roles/Roles';
+import { fetchCurrentUserRoles } from '../../../data/roles/Roles';
 const DataTable = () => {
 
             //get user roles
             const[editBrandRole,setEditBrandRole] = useState(false);
             const[viewBrandDetailsRole, setViewBrandDetailsRole] = useState(false);
+            const[deleteBrandDetailsRole, setDeleteBrandDetailsRole] = useState(false);
         
             const showEditIcon = editBrandRole || viewBrandDetailsRole ? true : false;
         
             useEffect(() => {
-                //barnds 
-                setEditBrandRole(handleCheckRole(editSystemVariables,'edit brands'));
-                setViewBrandDetailsRole(handleCheckRole(viewDetails,'brand details'));
+                const getCurrentUsersRoles = async () => {
+                    //get all the current user Roles
+                    const roles = await fetchCurrentUserRoles();
+                    //barnds 
+                    setEditBrandRole(handleCheckRole(roles.editSystemVariables,'edit brands'));
+                    setViewBrandDetailsRole(handleCheckRole(roles.viewDetails,'brand details'));
+                    setDeleteBrandDetailsRole(handleCheckRole(roles.deleteItems,'remove brands'));
+                }
+                getCurrentUsersRoles();
             },[]);
 
 
@@ -34,7 +41,7 @@ const DataTable = () => {
         { id: 'subCategory', label: 'Sub Category', minWidth: 170 },
         { id: 'addedDate', label: 'Added Date', minWidth: 100 },
         showEditIcon && { id: 'edit', label: 'Edit', minWidth: 50, align: 'center' },
-        { id: 'delete', label: 'Delete', minWidth: 50, align: 'center' },
+        deleteBrandDetailsRole && { id: 'delete', label: 'Delete', minWidth: 50, align: 'center' },
     ];
     return (
         <div className="sub-category-datatable common-css">

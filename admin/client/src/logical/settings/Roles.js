@@ -1,50 +1,4 @@
-import { addSystemVariables,editSystemVariables,viewDetails,settings } from "../../data/roles/Roles";
-
-//FUNCTION FOR API REQUEST
-export const handleRoleChange = (data) => {
-    const roles = []
-    const updateRoles = [];
-    const modifiedRoles = [];
-    const rolesCategories = [
-        addSystemVariables,
-        editSystemVariables,
-        viewDetails,
-        settings
-    ];
-    //push all the roles into one array
-    for(let i = 0; i < rolesCategories.length; i++){
-        let categoryName = rolesCategories[i];
-        for(let j = 0; j < categoryName.length; j++){
-            roles.push(
-                categoryName[j]
-            )
-        }
-    }
-    //track roles changes
-    for(let obj of roles){
-        if(obj.id in data){
-            updateRoles.push({
-                id:obj.id,
-                name:obj.name,
-                allowed:data[obj.id]
-            })
-        }
-    }
-    //filter to remain with changed roles
-    for(let i = 0; i < roles.length; i++){
-        for(let j = 0; j < updateRoles.length; j++){
-            if(roles[i].allowed !== updateRoles[j].allowed && roles[i].id === updateRoles[j].id){
-                modifiedRoles.push(
-                    updateRoles[j]
-                );
-            }
-        }
-    }
-    //Api request to update changed roles
-    if(modifiedRoles.length > 0){
-        //API REQUEST TO UPDATE ROLES
-    }
-}
+import { fetchCurrentUserRoles } from "../../data/roles/Roles";
 
 //FUNCTION TO CHECK ASSIGNED ROLES
 export const handleCheckRole = (rolesCategory, itemCheck) => {
@@ -60,15 +14,18 @@ export const handleCheckRole = (rolesCategory, itemCheck) => {
 }
 
 // FUNCTION TO PROTECT ROLES ROUTES
-export const handleProtectedRoutes = () => {
+export const handleProtectedRoutes = async () => {
     const roles = [];
     const rolesObj = {};
+    const apiRoles = await fetchCurrentUserRoles();
     const rolesCategories = [
-        addSystemVariables,
-        editSystemVariables,
-        viewDetails,
-        settings
+        apiRoles.addSystemVariables,
+        apiRoles.editSystemVariables,
+        apiRoles.viewDetails,
+        apiRoles.settings,
+        apiRoles.deleteItems
     ];
+
     //push all the roles into one array
     for(let i = 0; i < rolesCategories.length; i++){
         let categoryName = rolesCategories[i];
@@ -96,7 +53,6 @@ export const handleProtectedRoutes = () => {
     const usersRole = rolesObj.all_users || rolesObj.create_users ? true:false;
     const editUserRoles = rolesObj.edit_users;
     const emails = rolesObj.send_emails;
-
 
     return {
         dashboard:dashboardRole,

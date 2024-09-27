@@ -5,7 +5,7 @@ import SubHeading from '../../components/global/subheading/SubHeading';
 import DataTable from '../../components/posters/DataTable';
 import AddPosters from '../../components/popups/addPosters/AddPosters';
 import { handleCheckRole } from '../../../logical/settings/Roles';
-import { addSystemVariables, viewDetails } from '../../../data/roles/Roles';
+import { fetchCurrentUserRoles } from '../../../data/roles/Roles';
 const Posters = () => {
     const [showAddPosters, setShowAddPosters] = useState(false);
 
@@ -16,8 +16,13 @@ const Posters = () => {
 
         //check and set user roles
     useEffect(() =>{
-        setAddPostersRole(handleCheckRole(addSystemVariables,'create posters'));
-        setViewPostersRole(handleCheckRole(viewDetails,'all posters'));         
+        const getCurrentUsersRoles = async () => {
+            //get all the current user Roles
+            const roles = await fetchCurrentUserRoles();
+            setAddPostersRole(handleCheckRole(roles.addSystemVariables,'create posters'));
+            setViewPostersRole(handleCheckRole(roles.viewDetails,'all posters'));   
+        }
+        getCurrentUsersRoles();
     },[])
 
 

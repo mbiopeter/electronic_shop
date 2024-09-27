@@ -6,7 +6,7 @@ import DataTable from '../../components/orders/DataTable';
 import { orders } from '../../../data/orders/table_data';
 import OrderDetails from '../../components/popups/orderDetails/OrderDetails';
 import { handleCheckRole } from '../../../logical/settings/Roles';
-import { viewDetails } from '../../../data/roles/Roles';
+import { fetchCurrentUserRoles } from '../../../data/roles/Roles';
 const Orders = () => {
 
 
@@ -15,7 +15,12 @@ const Orders = () => {
 
         //check and set user roles
     useEffect(() =>{
-        setViewOrderRole(handleCheckRole(viewDetails,'all orders'));         
+        const getCurrentUsersRoles = async () => {
+            //get all the current user Roles
+            const roles = await fetchCurrentUserRoles();
+            setViewOrderRole(handleCheckRole(roles.viewDetails,'all orders'));   
+        }
+        getCurrentUsersRoles();
     },[])
 
     const [value, setValue] = useState('');

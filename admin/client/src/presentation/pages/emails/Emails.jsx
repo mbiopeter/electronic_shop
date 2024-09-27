@@ -3,10 +3,10 @@ import './Emails.css';
 import '../../css/common.css';
 import SubHeading from '../../components/global/subheading/SubHeading';
 import { handleCheckRole } from '../../../logical/settings/Roles';
-import { addSystemVariables, viewDetails } from '../../../data/roles/Roles';
 import DataTable from '../../components/emails/DataTable';
 import SendEmail from '../../components/popups/addEmails/SendEmail';
 import ViewEmail from '../../components/popups/viewEmail/ViewEmail';
+import { fetchCurrentUserRoles } from '../../../data/roles/Roles';
 const Emails = () => {
     const [showSendEmail, setShowSendEmail] = useState(false);
 
@@ -16,8 +16,13 @@ const Emails = () => {
 
         //check and set user roles
     useEffect(() =>{
-        setAddEmailsRole(handleCheckRole(addSystemVariables,'send emails'));
-        setViewEmailsRole(handleCheckRole(viewDetails,'all emails'));         
+        const getCurrentUsersRoles = async () => {
+            //get all the current user Roles
+            const roles = await fetchCurrentUserRoles();
+            setAddEmailsRole(handleCheckRole(roles.addSystemVariables,'send emails'));
+            setViewEmailsRole(handleCheckRole(roles.viewDetails,'all emails'));
+        }
+        getCurrentUsersRoles();
     },[])
 
     const handleAddNew = () => {

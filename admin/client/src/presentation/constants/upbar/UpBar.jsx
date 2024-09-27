@@ -1,9 +1,10 @@
 import React from 'react'
 import './UpBar.css';
-import { Search,Down, MenuIcon } from '../../../logical/consts/icons';
+import { Search,LogoutIcon, MenuIcon } from '../../../logical/consts/icons';
 import { profile } from '../../../logical/consts/images';
 import { Link, useLocation } from 'react-router-dom';
-import  {useState,useEffect} from 'react'
+import  {useState,useEffect} from 'react';
+import { useNavigate } from 'react-router-dom'; 
 const UpBar = ({
     setCloseMobile,
     appWidth
@@ -15,6 +16,7 @@ const UpBar = ({
     const PageName = pathSegments[1];
     const homeTitlesList = ['Dashboard','Category','Sub Category','Brands','Orders','Coupon','Notifications','Posters','Variant Type','Variant','Details','Settings','Users','Emails','Profile'];
     const homeRoutesList = ['dashboard','category','subCategory','brands','orders','coupon','notification','posters','variantType','variant','details','settings','users','email','profile'];
+    const[user,setUser] = useState();
     useEffect(() => {
         for(var i = 0; i < homeTitlesList.length; i++){
             if(i === 0){
@@ -27,10 +29,20 @@ const UpBar = ({
             }
         }
     },[PageName])
+    const navigate = useNavigate(); 
+    const handleLogOut = () => {
+        localStorage.removeItem('userId');
+        localStorage.removeItem('token');
+        localStorage.removeItem('rememberMe');
+        navigate('/login');
+    }
 
     const handleOpenMobile = () => {
         setCloseMobile(false);
     }
+    useEffect(() => {
+        setUser(localStorage.getItem('username'));
+    },[]);
 
     return (
         <div className="UpBar">
@@ -45,13 +57,13 @@ const UpBar = ({
                         <Search className='Search-icon'/>
                     </div>
                 </div>
-                <Link to='/profile' style={{textDecoration:'none'}}>
+                
                     <div className="UpBar-profile">
                         <img  src={profile}/>
-                        <span>Mbio Peter</span>
-                        <Down/>
+                        <span>{user}</span>
+                        <LogoutIcon onClick={handleLogOut}/>
                     </div>
-                </Link>
+                
             </div>
         </div>
     )

@@ -5,7 +5,7 @@ import SubHeading from '../../components/global/subheading/SubHeading';
 import DataTable from '../../components/variant/DataTable';
 import AddVariant from '../../components/popups/addVariant/AddVariant';
 import { handleCheckRole } from '../../../logical/settings/Roles';
-import { addSystemVariables, viewDetails } from '../../../data/roles/Roles';
+import { fetchCurrentUserRoles } from '../../../data/roles/Roles';
 const Variant = () => {
     const [showAddVariant, setShowAddVariant] = useState(false);
 
@@ -15,8 +15,13 @@ const Variant = () => {
 
         //check and set user roles
     useEffect(() =>{
-        setAddVariantRole(handleCheckRole(addSystemVariables,'create variant'));
-        setViewVariantRole(handleCheckRole(viewDetails,'all varients'));         
+        const getCurrentUsersRoles = async () => {
+            //get all the current user Roles
+            const roles = await fetchCurrentUserRoles();
+            setAddVariantRole(handleCheckRole(roles.addSystemVariables,'create variant'));
+            setViewVariantRole(handleCheckRole(roles.viewDetails,'all variants')); 
+        }
+        getCurrentUsersRoles();
     },[])
 
     const handleAddNew = () => {

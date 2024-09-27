@@ -3,13 +3,13 @@ import './DataTable.css';
 import '../../css/common.css';
 import StickyHeadTable from '../global/Table';
 import { useNavigate } from 'react-router-dom';
-import { editSystemVariables, viewDetails } from '../../../data/roles/Roles';
 import { handleCheckRole } from '../../../logical/settings/Roles';
 import { usersUrl } from '../../../logical/consts/apiUrl';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { handleDeleteApi } from '../../../logical/consts/delete';
 import { handleFetchAllUsers } from '../../../logical/consts/fetch';
+import { fetchCurrentUserRoles } from '../../../data/roles/Roles';
 
 const DataTable = ({
     reload,
@@ -18,6 +18,7 @@ const DataTable = ({
 
     const [users, setUsers] = useState([]);
     const [editUsersRole, setEditUsersRole] = useState(false);
+    const [deleteUserRole,setDeleteUserRole] = useState(false);
     const [viewUsersDetailsRole, setViewUsersDetailsRole] = useState(false);
 
     const showEditIcon = editUsersRole || viewUsersDetailsRole;
@@ -34,10 +35,15 @@ const DataTable = ({
         fetchData();
     }, [reload]);
     useEffect(() => {
-        // Set roles
-        setEditUsersRole(handleCheckRole(editSystemVariables, 'edit users'));
-        setViewUsersDetailsRole(handleCheckRole(viewDetails, 'users details'));
-
+        const getCurrentUsersRoles = async () => {
+            //get all the current user Roles
+            const roles = await fetchCurrentUserRoles();
+            // Set roles
+            setEditUsersRole(handleCheckRole(roles.editSystemVariables, 'edit users'));
+            setViewUsersDetailsRole(handleCheckRole(roles.viewDetails, 'users details'));
+            setDeleteUserRole(handleCheckRole(roles.deleteItems, 'remove user'));
+        }
+        getCurrentUsersRoles();
         // Fetch users data        
     },[])
 
@@ -67,7 +73,7 @@ const DataTable = ({
         { id: 'idNumber', label: 'Id No', minWidth: 170 },
         { id: 'phoneNumber', label: 'Phone No', minWidth: 170 },
         showEditIcon && { id: 'edit', label: 'Edit', minWidth: 50, align: 'center' },
-        { id: 'delete', label: 'Delete', minWidth: 50, align: 'center' },
+        deleteUserRole && { id: 'delete', label: 'Delete', minWidth: 50, align: 'center' },
     ];
 
     return (

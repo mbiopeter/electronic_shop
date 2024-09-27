@@ -1,1 +1,125 @@
 @import '../../css/variables.css';
+.login {
+    position: absolute;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loginContainer {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    box-shadow: var(--box-shadow);
+}
+
+.loginImageContainer>img {
+    background-size: cover;
+    object-fit: cover;
+    overflow: hidden;
+    height: 100%;
+    border-radius: var(--border-radius) 0 0 var(--border-radius);
+}
+
+.loginFormContainer {
+    background-color: var(--secondary-background-color);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: var(--padding);
+    padding: var(--container-padding);
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+
+.loginHeader {
+    font-size: var(--font-size-large);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: 1px;
+    color: var(--heading-color);
+    padding-bottom: var(--container-padding);
+}
+
+.LoginInputController {
+    display: flex;
+    flex-direction: column;
+    gap: var(--small-spacing);
+    position: relative;
+}
+
+.LoginInputController>span {
+    font-size: var(font-size);
+    color: var(--text-color);
+    text-transform: capitalize;
+}
+
+.LoginInputController>input {
+    border: none;
+    outline: none;
+    font-size: var(--font-size);
+    color: var(--text-color);
+    padding: var(--padding) 0;
+    border-bottom: 1px solid var(--grey-color);
+    background-color: transparent;
+}
+
+.LoginInputController>input::placeholder {
+    color: var(--grey-color);
+    opacity: 0.5;
+}
+
+.LoginInputController>.showPass {
+    position: absolute;
+    bottom: var(--small-spacing);
+    right: var(--small-spacing);
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.loginRemeberance {
+    padding-top: var(--container-padding);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--container-padding);
+}
+
+.loginRemeberance>span {
+    font-size: var(--font-size);
+    color: var(--text-color);
+    font-weight: var(--font-weight-bold);
+}
+
+.loginButtons {
+    padding-top: var(--container-padding);
+    display: flex;
+    flex-direction: row;
+    gap: var(--container-padding);
+    justify-content: center;
+    width: 100%;
+}
+
+.loginButtons>.btn-primary {
+    font-size: var(--font-size);
+    padding: var(--padding) var(--container-padding);
+    border-radius: var(--container-padding);
+    font-weight: var(--font-weight-bold);
+    background: linear-gradient(50deg, var(--primary-color), var(--secondary-color));
+    border: none;
+    cursor: pointer;
+    color: var(--heading-color);
+}
+
+.loginButtons>.btn-secondary {
+    display: flex;
+    flex-direction: row;
+    gap: var(--padding);
+    align-items: center;
+    color: var(--heading-color);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}

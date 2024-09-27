@@ -24,7 +24,7 @@ import RolesPage from "./presentation/pages/roles/Roles";
 import Emails from "./presentation/pages/emails/Emails";
 import Login from "./presentation/pages/login/Login";
 import Profile from "./presentation/pages/profile/Profile";
-
+import { useNavigate } from 'react-router-dom'; 
 // Importing data and logical utilities
 import { all_products } from "./data/dashboard/table_data";
 import { handleProtectedRoutes } from "./logical/settings/Roles";
@@ -38,23 +38,33 @@ function Layout({ children }) {
   const [expand, setExpand] = useState(appWidth >=992 ? false:true);
   const [transparentSideBar, setTransparentSideBar] = useState(false); 
   const [roles, setRoles] = useState(handleProtectedRoutes());
-  const[closeMobile,setCloseMobile] = useState(true);
-
+  const [closeMobile, setCloseMobile] = useState(true);
   useEffect(() => {
+    const handleGetRoles = async () => {
+      const getRoles = await handleProtectedRoutes();
+      setRoles(getRoles);
+    }
+    handleGetRoles();
+
     const sideBar = localStorage.getItem('transparentSideBar');
-    setTransparentSideBar(sideBar === "true"); // Update the state based on stored value
+    setTransparentSideBar(sideBar === "true"); 
   }, []);
 
   // Determine if the sidebar and upbar should be shown based on roles and current route
-  const showSideBar = !isLoginPage && roles.dashboard; // Example condition: Show sidebar if not on login page and user has dashboard role
-  const showUpBar = !isLoginPage; // Always show UpBar if not on login page
+  const showSideBar = !isLoginPage;
+  const showUpBar = !isLoginPage;
+
+  const navigate = useNavigate(); 
 
 
   const updateWidth = () => {
     setAppWidth(window.innerWidth);
-};
-
+  };
 useEffect(() => {
+  //CHECK LOGIN STATUS
+  if (!localStorage.getItem('userId') || !localStorage.getItem('token')) {
+    navigate('/login');
+  }
     return () => {
         window.removeEventListener('resize', updateWidth);
     };
@@ -86,9 +96,16 @@ function App() {
   const [sideBarChecked, setSideBarChecked] = useState(null);
   const [transparentSideBar, setTransparentSideBar] = useState(false);
   const [activeMode, setActiveMode] = useState();
-  const [roles, setRoles] = useState(handleProtectedRoutes());
+  const [roles, setRoles] = useState([]);
+
 
   useEffect(() => {
+    const handleGetRoles = async () => {
+      const getRoles = await handleProtectedRoutes();
+      setRoles(getRoles);
+    }
+    handleGetRoles();
+
     const savedMode = localStorage.getItem('theme') || 'Light';
     const sideBar = localStorage.getItem('transparentSideBar');
 
@@ -129,7 +146,6 @@ function App() {
     roles.userRoles,
     roles.emails
   ];
-
   return (
     <PrimeReactProvider>
       <Router>

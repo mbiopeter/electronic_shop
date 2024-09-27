@@ -18,8 +18,6 @@ const SideBar = ({
     closeMobile,
     setCloseMobile
 }) => {
-
-
     const rolesArray = [
         roles.dashboard,
         roles.category,

@@ -21,7 +21,10 @@ import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
-
+import { ArrowForward } from '@mui/icons-material';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import LogoutIcon from '@mui/icons-material/Logout';
 export {
     DashboardOutlinedIcon as Dashboard,
     CategoryOutlinedIcon as Category,
@@ -45,6 +48,10 @@ export {
     CameraAltIcon as Camera,
     CancelPresentationIcon as Close,
     CloseIcon as CloseIcon,
-    MenuIcon as MenuIcon
+    MenuIcon as MenuIcon,
+    ArrowForward as ArrowForward,
+    VisibilityIcon as VisibilityIcon,
+    VisibilityOffIcon as VisibilityOffIcon,
+    LogoutIcon as LogoutIcon
 
 }

@@ -19,7 +19,7 @@ import { brands } from '../../../data/brands/table_data';
 import { subCategories } from '../../../data/subCategory/table_data';
 import { categories } from '../../../data/category/table_data';
 import { handleCheckRole } from '../../../logical/settings/Roles';
-import { editSystemVariables, viewDetails } from '../../../data/roles/Roles';
+import { editSystemVariables, fetchCurrentUserRoles, viewDetails } from '../../../data/roles/Roles';
 
 const Details = ({
     products
@@ -98,18 +98,23 @@ const Details = ({
 
     //check and set user roles
     useEffect(() => {
-        //product 
-        setEditproductRole(handleCheckRole(editSystemVariables,'edit products'));
-        setViewProductDetailsRole(handleCheckRole(viewDetails,'product details'));
-        //category
-        setEditCategoryRole(handleCheckRole(editSystemVariables,'edit category'));
-        setViewCategoryDetailsRole(handleCheckRole(viewDetails,'category details'));
-        //sub category
-        setEditSubCategoryRole(handleCheckRole(editSystemVariables,'edit sub category'));
-        setViewSubCategoryDetailsRole(handleCheckRole(viewDetails,'sub category details'));
-        //Brands
-        setEditBrandsRole(handleCheckRole(editSystemVariables,'edit brands'));
-        setViewBrandsDetailsRole(handleCheckRole(viewDetails,'brand details'));
+        const getCurrentUsersRoles = async () => {
+            //get all the current user Roles
+            const roles = await fetchCurrentUserRoles();
+            //product 
+            setEditproductRole(handleCheckRole(roles.editSystemVariables,'edit products'));
+            setViewProductDetailsRole(handleCheckRole(roles.viewDetails,'product details'));
+            //category
+            setEditCategoryRole(handleCheckRole(roles.editSystemVariables,'edit category'));
+            setViewCategoryDetailsRole(handleCheckRole(roles.viewDetails,'category details'));
+            //sub category
+            setEditSubCategoryRole(handleCheckRole(roles.editSystemVariables,'edit sub category'));
+            setViewSubCategoryDetailsRole(handleCheckRole(roles.viewDetails,'sub category details'));
+            //Brands
+            setEditBrandsRole(handleCheckRole(roles.editSystemVariables,'edit brands'));
+            setViewBrandsDetailsRole(handleCheckRole(roles.viewDetails,'brand details'));
+        }
+        getCurrentUsersRoles();
     },[]);
     return (
         <>

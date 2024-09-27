@@ -79,6 +79,7 @@
 }
 .UpBar-profile>img{
     height:40px;
+    text-transform: uppercase;
 }
 .Search-icon{
     size: 30px;

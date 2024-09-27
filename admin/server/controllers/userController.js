@@ -45,8 +45,11 @@ const register = async (req, res) => {
 }
 
 const users = async (req, res) => {
+    let { userId } = req.query;
+    userId = parseInt(userId, 10);
+    console.log(userId)
     try{
-        const usersList = await allUsers();
+        const usersList = await allUsers(userId);
         res.status(200).json(usersList)
     }catch (error) {
         res.status(400).json({ message: error.message });

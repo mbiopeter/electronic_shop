@@ -3,18 +3,25 @@ import './DataTable.css';
 import '../../css/common.css';
 import StickyHeadTable from '../global/Table';
 import { handleCheckRole } from '../../../logical/settings/Roles';
-import { editSystemVariables, viewDetails } from '../../../data/roles/Roles';
+import { fetchCurrentUserRoles } from '../../../data/roles/Roles';
 const DataTable = ({
     handleShowPopUp,
     filteredOrders
 }) => {
         //get user roles
         const[editOrderRole,setEditOrderRole] = useState(false);
+        const[DeleteOrdersRole,setDeleteOrdersRole] = useState(false);
 
     
         useEffect(() => {
-            //barnds 
-            setEditOrderRole(handleCheckRole(editSystemVariables,'edit orders'));
+            const getCurrentUsersRoles = async () => {
+                //get all the current user Roles
+                const roles = await fetchCurrentUserRoles();
+
+                setEditOrderRole(handleCheckRole(roles.editSystemVariables,'edit orders'));
+                setDeleteOrdersRole(handleCheckRole(roles.deleteItems,'remove order'));
+            }
+            getCurrentUsersRoles();
         },[]);
 
     const handleEdit = (row) => {
@@ -31,7 +38,7 @@ const DataTable = ({
         { id: 'status', label: 'Status', minWidth: 170 },
         { id: 'date', label: 'Date', minWidth: 100 },
         editOrderRole &&{ id: 'edit', label: 'Edit', minWidth: 50, align: 'center' },
-        { id: 'delete', label: 'Delete', minWidth: 50, align: 'center' },
+        DeleteOrdersRole && { id: 'delete', label: 'Delete', minWidth: 50, align: 'center' },
     ];
     return (
         <div className="sub-category-datatable common-css">

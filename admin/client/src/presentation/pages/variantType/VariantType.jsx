@@ -4,8 +4,8 @@ import './VariantType.css';
 import SubHeading from '../../components/global/subheading/SubHeading';
 import DataTable from '../../components/variantType/DataTable';
 import AddVariantType from '../../components/popups/addVariantType/AddVariantType';
-import { addSystemVariables, viewDetails } from '../../../data/roles/Roles';
 import { handleCheckRole } from '../../../logical/settings/Roles';
+import { fetchCurrentUserRoles } from '../../../data/roles/Roles';
 const VariantType = () => {
     const [showAddVariantType, setShowAddVariantType] = useState(false);
 
@@ -15,8 +15,16 @@ const VariantType = () => {
 
         //check and set user roles
     useEffect(() =>{
-        setAddVariantTypeRole(handleCheckRole(addSystemVariables,'create variant type'));
-        setViewVariantTypeRole(handleCheckRole(viewDetails,'all varient types'));         
+        const getCurrentUsersRoles = async () => {
+            //get all the current user Roles
+            const roles = await fetchCurrentUserRoles();
+            setAddVariantTypeRole(handleCheckRole(roles.addSystemVariables,'create variant type'));
+            setViewVariantTypeRole(handleCheckRole(roles.viewDetails,'all variant types'));  
+            console.log(roles);
+        }
+        getCurrentUsersRoles();
+        
+        
     },[])
 
     const handleAddNew = () => {

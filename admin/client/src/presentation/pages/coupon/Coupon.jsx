@@ -5,7 +5,7 @@ import SubHeading from '../../components/global/subheading/SubHeading';
 import DataTable from '../../components/coupon/DataTable';
 import AddCoupon from '../../components/popups/addCoupon/AddCoupon';
 import { handleCheckRole } from '../../../logical/settings/Roles';
-import { addSystemVariables, viewDetails } from '../../../data/roles/Roles';
+import { fetchCurrentUserRoles } from '../../../data/roles/Roles';
 const Coupon = () => {
     const [showAddCoupont, setShowAddCoupont] = useState(false);
 
@@ -16,8 +16,13 @@ const Coupon = () => {
 
         //check and set user roles
     useEffect(() =>{
-        setAddCouponRole(handleCheckRole(addSystemVariables,'create coupon'));
-        setViewCouponRole(handleCheckRole(viewDetails,'all coupon codes'));         
+        const getCurrentUsersRoles = async () => {
+            //get all the current user Roles
+            const roles = await fetchCurrentUserRoles();
+            setAddCouponRole(handleCheckRole(roles.addSystemVariables,'create coupon'));
+            setViewCouponRole(handleCheckRole(roles.viewDetails,'all coupon codes'));     
+        }
+        getCurrentUsersRoles();
     },[])
 
 
