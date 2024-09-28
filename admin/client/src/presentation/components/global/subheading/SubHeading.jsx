@@ -17,6 +17,8 @@ const SubHeading = ({
     const location = useLocation();
     const pathSegments = location.pathname.split('/');
 
+    
+
     useEffect(() => {
         if (pathSegments[1] === 'details') {
             setCurrentPage(pathSegments[1]);

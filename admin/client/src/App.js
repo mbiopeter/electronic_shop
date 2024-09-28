@@ -29,6 +29,7 @@ import { useNavigate } from 'react-router-dom';
 import { all_products } from "./data/dashboard/table_data";
 import { handleProtectedRoutes } from "./logical/settings/Roles";
 
+
 // Helper component to handle layout and routing logic
 function Layout({ children }) {
   const location = useLocation(); // Get current location
@@ -48,7 +49,7 @@ function Layout({ children }) {
 
     const sideBar = localStorage.getItem('transparentSideBar');
     setTransparentSideBar(sideBar === "true"); 
-  }, []);
+  }, [location]);
 
   // Determine if the sidebar and upbar should be shown based on roles and current route
   const showSideBar = !isLoginPage;

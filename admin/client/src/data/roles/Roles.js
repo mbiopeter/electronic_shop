@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { usersUrl } from '../../logical/consts/apiUrl'
 export const addSystemVariables = [
     {
         id: 101,
@@ -248,41 +247,56 @@ export const deleteItems = [
 ];
 
 
-export const fetchUserRoles = async (
-    userId
-) => {
+export const fetchUserRoles = async (userId) => {
+    if (!userId) {
+        console.log('Error: User ID is not provided.');
+        return null; // Or you can throw an error or handle it based on your use case
+    }
+
     const systemRoles = {
         addSystemVariables: addSystemVariables,
         editSystemVariables: editSystemVariables,
         viewDetails: viewDetails,
         settings: settings,
-        deleteItems: deleteItems
-    }
-    try {
+        deleteItems: deleteItems,
+    };
 
-        const response = await axios.post(`http://localhost:4000/api/users/roles`, { userId, systemRoles }, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+    try {
+        const response = await axios.post(
+            `http://localhost:4000/api/users/roles`,
+            { userId, systemRoles },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
+
         if (!response) {
-            console.log('Failed to fetch user assigned roles')
+            console.log('Failed to fetch user assigned roles');
+            return null; // Ensure null is returned if response is not valid
         }
+
         return response.data;
-    }
-    catch (err) {
+    } catch (err) {
+        console.error('Error while fetching user roles:', err);
         throw err;
     }
 };
-
-export const fetchCurrentUserRoles = () => {
+export const fetchCurrentUserRoles = async () => {
     try {
-        const userId = localStorage.getItem('userId') || 17;
-        const userRoles = fetchUserRoles(
-            userId
-        );
+
+        const userId = localStorage.getItem('userId');
+        if (!userId) {
+
+            console.log('User is not logged in');
+            return null;
+        }
+
+        const userRoles = await fetchUserRoles(userId);
         return userRoles;
     } catch (err) {
+        console.error('Error while fetching current user roles:', err);
         throw err;
     }
-}
+};

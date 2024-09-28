@@ -84,13 +84,14 @@ const userRoles = async (req, res) => {
     try {
         // get the user id and the system variables object
         const { userId, systemRoles } = req.body;
+
         // Ensure userId is defined
         if (!userId) {
             return res.status(400).json({ message: 'User ID is required' });
         }
 
         const roles = await getUserRoles(userId, systemRoles);
-
+        console.log(roles);
         res.status(200).json(roles);
     } catch (error) {
         res.status(400).json({ message: error.message });

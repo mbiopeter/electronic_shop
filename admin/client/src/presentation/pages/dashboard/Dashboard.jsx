@@ -13,7 +13,7 @@ import AddNewProduct from '../../components/popups/addnewproduct/AddNewProduct';
 import {all_products, out_of_stock_products, limited_stock_product, other_stock_product} from '../../../data/dashboard/table_data';
 import { handleCheckRole } from '../../../logical/settings/Roles';
 import { fetchCurrentUserRoles } from '../../../data/roles/Roles';
-/* import { addSystemVariables,viewDetails } from '../../../data/roles/Roles'; */
+import { useLocation } from 'react-router-dom';
 
 
 const Dashboard = ({
@@ -23,6 +23,7 @@ const Dashboard = ({
 
     const [showAddNewProduct, setShowAddNewProduct] = useState(false);
     const [subTitle, setSubTitle] = useState('All Product');
+
 
     const itemCount = [
         all_products.length,
@@ -111,7 +112,9 @@ const Dashboard = ({
             setShippedOrdersRole(handleCheckRole(roles.viewDetails,'shipped orders'));        
             setReturnedOrdersRole(handleCheckRole(roles.viewDetails,'returned orders'));    
         }
-        getCurrentUsersRoles();    
+        
+
+        getCurrentUsersRoles(); 
     },[])
     return (
         <>

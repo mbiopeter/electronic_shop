@@ -5,11 +5,12 @@ import { ArrowForward, VisibilityIcon, VisibilityOffIcon } from '../../../logica
 import { handleUserLogin } from '../../../logical/users/Users';
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom'; 
+import { useLocation } from 'react-router-dom';
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [rememberMe, setRememberMe] = useState(false);
-    
+    const location = useLocation();
     const [userCredentials, setUserCredentials] = useState({
         username: '',
         password: '',
@@ -30,9 +31,9 @@ const Login = () => {
     const userLogin = async () => {
         try {
             const response = await handleUserLogin(userCredentials,rememberMe);
-            console.log(response);
             toast.success(response.message);
             navigate('/');
+            window.location.reload();
         } catch (err) {
             toast.error(err);
         }
