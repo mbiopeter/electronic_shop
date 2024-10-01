@@ -12,7 +12,7 @@ import { brands } from '../../../../data/brands/table_data';
 import { addNewProducts } from '../../../../logical/dashboard/addNewProduct';
 import { variantType } from '../../../../data/variantType/table_data';
 import { varient } from '../../../../data/varient/table_data';
-
+import { ToastContainer, toast } from 'react-toastify';
 import { useLocation } from 'react-router-dom';
 import { CloseIcon } from '../../../../logical/consts/icons';
 const AddNewProduct = ({
@@ -132,24 +132,32 @@ const AddNewProduct = ({
         ); 
         
     }
-    const[response,setResponse] = useState(null);
     //addnew product
-    const uploadNewProduct = () => {
-        const newResponse = addNewProducts(
-            userInputs,
-            categoryValue,
-            subCategoryValue,
-            brandValue,
-            varientValue,
-            varientItemValue,
-            selectedImages
-        );
-        
-        
-        setResponse(newResponse);
+    const uploadNewProduct = async () => {
+        try{
+            const newResponse = await addNewProducts(
+                userInputs,
+                categoryValue,
+                subCategoryValue,
+                brandValue,
+                varientValue,
+                varientItemValue,
+                selectedImages
+            );
+            if(newResponse.type === 'error'){
+                toast.error(newResponse.message); 
+            }
+            else{
+                toast.success(newResponse.message); 
+            }
+        }catch(err) {
+            console.log(err);
+            toast.error(err);
+        }
     };
     return (
         <>
+            <ToastContainer/>
             {showAddNewProduct && (
                 <Layer handleHidePopUp={handleHidePopUp}/>
             )}
@@ -173,12 +181,12 @@ const AddNewProduct = ({
                         ))}
                     </div>
                     <div className="AddNewProducts-form-one">
-                        <input style={response  && response[0].status === false ? {borderColor:'var(--error-color)'}:null}  onChange={(e) => inputOnchange(e,'productName')} className='input-css' type="text" placeholder='Product Name'/>
-                        <textarea style={response  && response[1].status === false ? {borderColor:'var(--error-color)'}:null}    onChange={(e) => inputOnchange(e,'productDescription')}  rows={4} placeholder='Product Name'></textarea>
+                        <input onChange={(e) => inputOnchange(e,'productName')} className='input-css' type="text" placeholder='Product Name'/>
+                        <textarea  onChange={(e) => inputOnchange(e,'productDescription')}  rows={4} placeholder='Product Name'></textarea>
                     </div>
                     <div className="AddNewProducts-form-two">
                         <DropdownDemo
-                            error={response  && response[5].status === false }
+                            
                             width={'100%'}
                             allItems = {categoriesNames}
                             placeholder={'Select Category'}
@@ -188,7 +196,7 @@ const AddNewProduct = ({
                             setItems={setCategoryItem}
                         />
                         <DropdownDemo
-                                error={response  && response[6].status === false }
+                                
                                 width={'100%'}
                                 allItems = {subCategoriesNames}
                                 placeholder={'Select Sub Category'}
@@ -198,7 +206,7 @@ const AddNewProduct = ({
                                 setItems={setSubCategoryItem}
                             />
                             <DropdownDemo
-                                error={response  && response[7].status === false }
+                                
                                 width={'100%'}
                                 allItems = {brandsNames}
                                 placeholder={'Select Brand'}
@@ -207,13 +215,13 @@ const AddNewProduct = ({
                                 items={brandItem}
                                 setItems={setBrandItem}
                             />
-                        <input  style={response  && response[2].status === false ? {borderColor:'var(--error-color)'}:null} onChange={(e) => inputOnchange(e,'productPrice')} className='input-css' type="text" placeholder='Price' />
-                        <input style={response  && response[3].status === false ? {borderColor:'var(--error-color)'}:null} onChange={(e) => inputOnchange(e,'productOfferPrice')}  className='input-css' type="text" placeholder='Offer Price' />
-                        <input style={response  && response[4].status === false ? {borderColor:'var(--error-color)'}:null} onChange={(e) => inputOnchange(e,'productQuantity')}  className='input-css' type="text" placeholder='Quantity' />
+                        <input  onChange={(e) => inputOnchange(e,'productPrice')} className='input-css' type="text" placeholder='Price' />
+                        <input onChange={(e) => inputOnchange(e,'productOfferPrice')}  className='input-css' type="text" placeholder='Offer Price' />
+                        <input onChange={(e) => inputOnchange(e,'productQuantity')}  className='input-css' type="text" placeholder='Quantity' />
                     </div>
                     <div className="AddNewProducts-form-three">
                             <DropdownDemo
-                                error={response  && response[8].status === false }
+                                
                                 width={'100%'}
                                 allItems = {variantName}
                                 placeholder={'Select Varient Type'}
@@ -223,7 +231,7 @@ const AddNewProduct = ({
                                 setItems={setVarientItem}
                             />
                             <DropdownDemo
-                                error={response  && response[9].status === false }
+                                
                                 width={'100%'}
                                 allItems = {varientItemsNames}
                                 placeholder={'Select Item'}

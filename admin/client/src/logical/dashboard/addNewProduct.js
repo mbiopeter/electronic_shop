@@ -1,4 +1,6 @@
-export const addNewProducts = (
+import axios from 'axios';
+import { productsUrl } from '../consts/apiUrl';
+export const addNewProducts = async (
     userInputs,
     productCategory,
     productSubCategory,
@@ -7,98 +9,54 @@ export const addNewProducts = (
     productVariantType,
     productImages,
 ) => {
-    //create a response object
-    const response = [
-        {
-            id:1,
-            fieldName:'product name',
-            status:true,
-            message:'',
-        },
-        {
-            id:2,
-            fieldName:'product description',
-            status:true,
-            message:'',
-        },
-        {
-            id:3,
-            fieldName:'product price',
-            status:true,
-            message:'',
-        },
-        {
-            id:4,
-            fieldName:'product offer price',
-            status:true,
-            message:'',
-        },
-        {
-            id:5,
-            fieldName:'product quantity',
-            status:true,
-            message:'',
-        },
-        {
-            id:6,
-            fieldName:'product category',
-            status:true,
-            message:'',
-        },
-        {
-            id:7,
-            fieldName:'product sub category',
-            status:true,
-            message:'',
-        },
-        {
-            id:8,
-            fieldName:'product brand',
-            status:true,
-            message:'',
-        },
-        {
-            id:9,
-            fieldName:'product varient',
-            status:true,
-            message:'',
-        },
-        {
-            id:10,
-            fieldName:'product varient value',
-            status:true,
-            message:'',
+    const formData = new FormData();
+
+    // Append all the products details to the form data
+    formData.append('name', userInputs.productName);
+    formData.append('description', userInputs.productDescription);
+    formData.append('category', productCategory);
+    formData.append('subCategory', productSubCategory);
+    formData.append('brand', productBrand);
+    formData.append('price', userInputs.productPrice);
+    formData.append('offerPrice', userInputs.productOfferPrice);
+    formData.append('quantity', userInputs.productQuantity);
+    formData.append('variantType', productVariantType);
+    formData.append('variant', productVariant);
+
+    // Append product images to the form data
+    Object.keys(productImages).forEach((key) => {
+        const imageData = productImages[key];
+        if (imageData) {
+            // Convert base64 to Blob to append it as a file
+            const byteString = atob(imageData.split(',')[1]);
+            const mimeString = imageData.split(',')[0].split(':')[1].split(';')[0];
+            const ab = new ArrayBuffer(byteString.length);
+            const ia = new Uint8Array(ab);
+            for (let i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
+            }
+            const blob = new Blob([ab], { type: mimeString });
+            formData.append('images', blob, `image_${key}.jpg`);
         }
-    ];
-   //user inputs array
-    const userInputsArray = [
-        userInputs.productName,
-        userInputs.productDescription,
-        userInputs.productPrice,
-        userInputs.productOfferPrice,
-        userInputs.productQuantity,
-        productCategory,
-        productSubCategory,
-        productBrand,
-        productVariant,
-        productVariantType,
-    ];
-    //verifiy the user inputs
-    for(var i = 0; i < userInputsArray.length; i++) {
-        if(userInputsArray[i] === '' ||  userInputsArray[i] === 0){
-            response[i].status=false;
-            response[i].message = 'Input field cannot be empty';
-        }
-        else if(i >= 2 && i <=4 &&  isNaN(userInputsArray[i])  ) {
-            response[i].status=false;
-            response[i].message = 'Input field cannot be a string'; 
-        }
-        else{
-            response[i].status=true;
-            response[i].message = 'Success';
-        }
+    });
+    let resp = {
+        message: '',
+        type: ''
+    };
+
+    try {
+        const response = await axios.post(`${productsUrl}/addNew`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+        resp.message = response.data.message;
+        resp.type = 'success';
+    } catch (error) {
+        resp.message = error.response?.data?.error || 'An error occurred';
+        resp.type = 'error';
     }
-    
-    
-    return response;
+
+    return resp;
 };
+

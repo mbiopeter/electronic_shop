@@ -1,6 +1,7 @@
 const express = require('express');
 const sequelize = require('./config/database');
 const userRoutes = require('./routes/userRoutes');
+const productRoutes = require('./routes/productsRoutes');
 const logger = require('./config/logger'); 
 const cors = require('cors');
 
@@ -17,8 +18,10 @@ app.use((req, res, next) => {
     next();
 });
 
-// Define routes
+app.use('/', express.static('images'));
+// api routes
 app.use('/api/users', userRoutes);
+app.use('/api/products', productRoutes);
 
 // Test DB connection and start server
 sequelize.authenticate()
