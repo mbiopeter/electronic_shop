@@ -19,7 +19,7 @@ import { brands } from '../../../data/brands/table_data';
 import { subCategories } from '../../../data/subCategory/table_data';
 import { categories } from '../../../data/category/table_data';
 import { handleCheckRole } from '../../../logical/settings/Roles';
-import { editSystemVariables, fetchCurrentUserRoles, viewDetails } from '../../../data/roles/Roles';
+import { fetchCurrentUserRoles } from '../../../data/roles/Roles';
 
 const Details = ({
     products
@@ -27,7 +27,7 @@ const Details = ({
     const numberOfcharts = [4];
     const [showAddNewProduct, setShowAddNewProduct] = useState(false);
     const[currentPage,setCurrentPage] = useState();
-    const[currentId,setCurrentId] = useState();
+    const[currentId,setCurrentId] = useState(null);
     const location = useLocation();
     const pathSegments = location.pathname.split('/');
 
@@ -43,6 +43,10 @@ const Details = ({
 
     const[editBrandsRole,setEditBrandsRole] = useState(false);
     const[viewBrandsDetailsRole, setViewBrandsDetailsRole] = useState(false);
+    useEffect(() => {
+        const id = pathSegments[pathSegments.length - 1];
+        setCurrentId(id)
+    },[location])
 
     //roles state array
     const viewDetailsRolesArray = [
@@ -67,8 +71,14 @@ const Details = ({
             currentPage:'brands'
         },
     ]
+    function getItemById(id) {
+        return  products.find(item => item.id === id);
+    }
+
+    console.log(getItemById(currentId));
     
     useEffect(() => {
+        
         if(pathSegments[1] === 'details'){
             setCurrentPage(pathSegments[1])
             setCurrentId(pathSegments[2]);
@@ -98,6 +108,8 @@ const Details = ({
 
     //check and set user roles
     useEffect(() => {
+
+
         const getCurrentUsersRoles = async () => {
             //get all the current user Roles
             const roles = await fetchCurrentUserRoles();
@@ -152,7 +164,7 @@ const Details = ({
                     :  currentPage === 'category'
                     ? `${categories[currentId - 1].name}  `
                     :  currentPage === 'details' && products.length > 0
-                    ? `${products[currentId - 1].name}  `
+                    ? `${products.find(item => item.id === currentId)}  `
                     : null
                 }
                 assignedRole={
@@ -167,8 +179,8 @@ const Details = ({
                     : null
                 }
             />
-            {viewDetailsRolesArray.map((data) => (
-                viewDetailsRolesArray[data.id -1].currentPage === currentPage && viewDetailsRolesArray[data.id -1].data &&(
+{/*             {viewDetailsRolesArray.map((data) => (
+                viewDetailsRolesArray[data.id].currentPage === currentPage && viewDetailsRolesArray[data.id].data &&(
                     <div className='Details' key={data.id}>
                         <div className="right-details">
 
@@ -198,7 +210,7 @@ const Details = ({
                         </div>
                     </div>
                 )
-            ))}
+            ))} */}
         </>
     )
 }

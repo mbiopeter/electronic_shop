@@ -21,7 +21,7 @@ export const addNewProducts = async (
     formData.append('offerPrice', userInputs.productOfferPrice);
     formData.append('quantity', userInputs.productQuantity);
     formData.append('variantType', productVariantType);
-    formData.append('variant', productVariant);
+    formData.append('variant', JSON.stringify(productVariant));
 
     // Append product images to the form data
     Object.keys(productImages).forEach((key) => {

@@ -4,10 +4,16 @@ import '../../css/common.css';
 import StickyHeadTable from '../global/Table';
 import { useNavigate } from 'react-router-dom';
 import { handleCheckRole } from '../../../logical/settings/Roles';
-import { editSystemVariables, fetchCurrentUserRoles, viewDetails } from '../../../data/roles/Roles';
+import { fetchCurrentUserRoles } from '../../../data/roles/Roles';
+import { handleDeleteApi } from '../../../logical/consts/delete';
+import { productsUrl } from '../../../logical/consts/apiUrl';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const DataTable = ({
     subTitle,
-    products
+    products,
+    setProductsReload,
+    productsReload
 }) => {
 
     //get user roles
@@ -35,7 +41,17 @@ const DataTable = ({
     };
 
     const handleDelete = (row) => {
-        console.log('Delete:', row);
+        const productId= row.id;
+        try {
+            const response = handleDeleteApi(productsUrl,'remove',productId);
+            setProductsReload(!productsReload)
+            toast.success(`${row.name} sucessfully removed`);
+        } catch (err) {
+            console.log(err)
+            if (err.response && err.response.data && err.response.data.message) {
+                toast.error(err.response.data.message);
+            }
+        }
     };
     const columns = [
         { id: 'name', label: 'Name', minWidth: 170 },

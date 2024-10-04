@@ -1,3 +1,4 @@
+const User = require('../models/user');
 const {
     loginUser,
     registerUser,
@@ -8,6 +9,7 @@ const {
     assignRole,
     revokeRole
 } = require('../services/userService');
+const { remove } = require('../utils/delete');
 
 const login = async (req, res) => {
     //get user inputs
@@ -56,11 +58,11 @@ const users = async (req, res) => {
     }
 }
 
-const remove = async (req, res) => {
+const removeUser = async (req, res) => {
     try {
         // get user id from query params
         const userId = req.query.id;
-        await deleteUser(userId);
+        await remove(userId, User);
         res.status(200).json({
             message: 'User successfully removed'
         });
@@ -138,7 +140,7 @@ module.exports = {
     login,
     register,
     users,
-    remove,
+    removeUser,
     getOne,
     userRoles,
     assignUserRole,

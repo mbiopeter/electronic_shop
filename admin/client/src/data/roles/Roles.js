@@ -273,13 +273,11 @@ export const fetchUserRoles = async (userId) => {
         );
 
         if (!response) {
-            console.log('Failed to fetch user assigned roles');
-            return null; // Ensure null is returned if response is not valid
+            return null; 
         }
 
         return response.data;
     } catch (err) {
-        console.error('Error while fetching user roles:', err);
         throw err;
     }
 };
@@ -289,7 +287,6 @@ export const fetchCurrentUserRoles = async () => {
         const userId = localStorage.getItem('userId');
         if (!userId) {
 
-            console.log('User is not logged in');
             return null;
         }
 

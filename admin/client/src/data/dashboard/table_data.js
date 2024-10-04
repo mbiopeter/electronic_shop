@@ -1,3 +1,6 @@
+import axios from "axios";
+import { productsUrl } from "../../logical/consts/apiUrl";
+
 export const all_products = [
     {
         id:1,
@@ -278,3 +281,38 @@ export const other_stock_product = [
         ],
     }
 ];
+
+export const fetchProducts = async (category) => {
+    let categoryUrl = '';
+    try {
+        const categories = [
+            'allProducts',
+            'outOfStockProducts',
+            'limitedProducts',
+            'otherProducts'
+        ];
+        const urls = [
+            '/products',
+            '/outofstock',
+            '/limited',
+            '/otherproducts'
+        ];
+        for (var i = 0; i < categories.length; i++) {
+            if (category === categories[i]) {
+                categoryUrl = `${productsUrl}${urls[i]}`;
+                break;
+            }
+        }
+        if (!categoryUrl) {
+            throw new Error('Invalid category provided');
+        }
+        console.log(`Fetching data from: ${categoryUrl}`);
+
+        // Fetch data 
+        const response = await axios.get(categoryUrl);
+        return response.data;
+
+    } catch (error) {
+        throw error;
+    }
+}

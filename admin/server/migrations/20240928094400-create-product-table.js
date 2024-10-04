@@ -1,6 +1,6 @@
 'use strict';
-//npx sequelize-cli migration:generate --name create-products-table
-//npx sequelize-cli db:migrate
+// npx sequelize-cli migration:generate --name create-products-table
+// npx sequelize-cli db:migrate
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Products', {
@@ -44,11 +44,7 @@ module.exports = {
         defaultValue: 0
       },
       variantType: {
-        type: Sequelize.STRING,
-        allowNull: true
-      },
-      variant: {
-        type: Sequelize.STRING,
+        type: Sequelize.JSON,
         allowNull: true
       },
       images: {

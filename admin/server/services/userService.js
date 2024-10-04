@@ -82,19 +82,6 @@ const allUsers = async (userId) => {
     }
 };
 
-
-const deleteUser = async (userId) => {
-    try {
-        //delete a user with the matching userid
-        const user = await User.destroy({ where: { id: userId } });
-        if (!user) {
-            throw new Error('Error removing the user, try again');
-        }
-    } catch (error) {
-        throw error;
-    }
-}
-
 const oneUser = async (userId) => {
     try {
         // get a user with the matching userId
@@ -218,7 +205,6 @@ module.exports = {
     loginUser,
     registerUser,
     allUsers,
-    deleteUser,
     oneUser,
     getUserRoles,
     assignRole,

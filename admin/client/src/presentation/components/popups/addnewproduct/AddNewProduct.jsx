@@ -17,7 +17,9 @@ import { useLocation } from 'react-router-dom';
 import { CloseIcon } from '../../../../logical/consts/icons';
 const AddNewProduct = ({
     handleHidePopUp,
-    showAddNewProduct
+    showAddNewProduct,
+    setProductsReload,
+    productsReload
 }) => {
     const[currentPage,setCurrentPage] = useState();
     const location = useLocation();
@@ -149,6 +151,7 @@ const AddNewProduct = ({
             }
             else{
                 toast.success(newResponse.message); 
+                setProductsReload(!productsReload)
             }
         }catch(err) {
             console.log(err);

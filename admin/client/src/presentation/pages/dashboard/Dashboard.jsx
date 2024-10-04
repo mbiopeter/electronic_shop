@@ -10,7 +10,7 @@ import Order_details from '../../components/dashboard/Order_details';
 import { order_details_data } from '../../../data/dashboard/order_details';
 import SubHeading from '../../components/global/subheading/SubHeading';
 import AddNewProduct from '../../components/popups/addnewproduct/AddNewProduct';
-import {all_products, out_of_stock_products, limited_stock_product, other_stock_product} from '../../../data/dashboard/table_data';
+import {fetchProducts} from '../../../data/dashboard/table_data';
 import { handleCheckRole } from '../../../logical/settings/Roles';
 import { fetchCurrentUserRoles } from '../../../data/roles/Roles';
 import { useLocation } from 'react-router-dom';
@@ -18,8 +18,16 @@ import { useLocation } from 'react-router-dom';
 
 const Dashboard = ({
     products,
-    setProducts
+    setProducts,
+    productsReload,
+    setProductsReload
 }) => {
+    //products use states
+    const[all_products,setAllProducts] = useState([]);
+    const[out_of_stock_products,setOutOfStockProducts] = useState([]);
+    const[limited_stock_product,setLimitedProducts] = useState([]);
+    const[other_stock_product,setOtherProducts] = useState([]);
+
 
     const [showAddNewProduct, setShowAddNewProduct] = useState(false);
     const [subTitle, setSubTitle] = useState('All Product');
@@ -32,6 +40,21 @@ const Dashboard = ({
         other_stock_product.length,
     ];
 
+    useEffect(() => {
+        const getData = async () => {
+            const [allProductsData, outOfStockData, limitedStockData, otherStockData] = await Promise.all([
+                fetchProducts('allProducts'),
+                fetchProducts('outOfStockProducts'),
+                fetchProducts('limitedProducts'),
+                fetchProducts('otherProducts')
+            ]);
+            setAllProducts(allProductsData);
+            setOutOfStockProducts(outOfStockData);
+            setLimitedProducts(limitedStockData);
+            setOtherProducts(otherStockData);
+        }
+        getData();
+    },[productsReload]);
 
     //Roles Use States
     const[createProductsRole,setCreateProductsRole] = useState(false);
@@ -123,6 +146,8 @@ const Dashboard = ({
             {createProductsRole && <AddNewProduct 
                 handleHidePopUp={handleHidePopUp} 
                 showAddNewProduct={showAddNewProduct} 
+                setProductsReload={setProductsReload}
+                productsReload={productsReload}
             />}
             
 
@@ -161,6 +186,8 @@ const Dashboard = ({
                             <DataTable 
                                 subTitle = {subTitle}
                                 products = {products}
+                                setProductsReload={setProductsReload}
+                                productsReload={productsReload}
                             />
                         </div>
                     :<></>}

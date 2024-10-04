@@ -3,7 +3,7 @@ const {
     login, 
     register,
     users,
-    remove,
+    removeUser,
     getOne,
     userRoles,
     assignUserRole,
@@ -19,7 +19,7 @@ router.post('/register', register);
  //all users
 router.get('/all', users);
  //delete a users
-router.delete('/remove', remove);
+router.delete('/remove', removeUser);
  //get one user
 router.get('/one', getOne);
 //get the current user roles

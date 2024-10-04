@@ -59,7 +59,7 @@ const DataTable = ({
         try {
             const response = handleDeleteApi(usersUrl,'remove',userId);
             setReload(!reload)
-            toast.success('user sucessfully removed');
+            toast.success(`${row.firstName} ${row.secondName} sucessfully removed`);
         } catch (err) {
             console.log(err)
             if (err.response && err.response.data && err.response.data.message) {

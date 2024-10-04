@@ -36,11 +36,7 @@ const Product = sequelize.define('Product', {
         defaultValue: 0
     },
     variantType: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
-    variant: {
-        type: DataTypes.STRING,
+        type: DataTypes.JSON,
         allowNull: true
     },
     images: {

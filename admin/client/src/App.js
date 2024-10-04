@@ -26,7 +26,7 @@ import Login from "./presentation/pages/login/Login";
 import Profile from "./presentation/pages/profile/Profile";
 import { useNavigate } from 'react-router-dom'; 
 // Importing data and logical utilities
-import { all_products } from "./data/dashboard/table_data";
+import { all_products, fetchProducts } from "./data/dashboard/table_data";
 import { handleProtectedRoutes } from "./logical/settings/Roles";
 
 
@@ -93,12 +93,25 @@ useEffect(() => {
 }
 
 function App() {
-  const [products, setProducts] = useState(all_products);
+  const [products, setProducts] = useState([]);
   const [sideBarChecked, setSideBarChecked] = useState(null);
   const [transparentSideBar, setTransparentSideBar] = useState(false);
   const [activeMode, setActiveMode] = useState();
   const [roles, setRoles] = useState([]);
 
+  //reload products
+  const [productsReload, setProductsReload] = useState(false);
+
+  //fetch products
+  useEffect(() => {
+    const getData = async () => {
+      const [allProductsData] = await Promise.all([
+        fetchProducts('allProducts'),
+      ]);
+      setProducts(allProductsData);
+    }
+    getData();
+  }, [productsReload]);
 
   useEffect(() => {
     const handleGetRoles = async () => {
@@ -152,7 +165,7 @@ function App() {
       <Router>
         <Layout>
           <Routes>
-            {rolesArray[0] && <Route path="/" element={<Dashboard products={products} setProducts={setProducts} />} />}
+            {rolesArray[0] && <Route path="/" element={<Dashboard products={products} productsReload={productsReload} setProductsReload={setProductsReload} setProducts={setProducts} />} />}
             {rolesArray[0] && <Route path="/details/:id" element={<Details products={products} />} />}
             {rolesArray[1] && <Route path="/category" element={<Category />} />}
             {rolesArray[1] && <Route path="/category/details/:id" element={<Details />} />}
