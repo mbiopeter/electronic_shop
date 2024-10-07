@@ -4,6 +4,8 @@ import '../../../css/common.css';
 import Layer from '../Layer';
 import ImgPicker from '../addnewproduct/imgPicker/ImgPicker';
 import { useLocation } from 'react-router-dom';
+import { addCategory } from '../../../../logical/category/Addcategory';
+import { ToastContainer, toast } from 'react-toastify';
 const AddCategory = ({
     handleHidePopUp,
     showAddNewProduct
@@ -19,7 +21,9 @@ const AddCategory = ({
         }
         
     },[])
-    const [selectedImages, setSelectedImages] = useState();
+    const [selectedImages, setSelectedImages] = useState(null);
+    const [categoryName, setCategoryName] = useState('');
+
 
     const handleImageChange = (event, id) => {
         const file = event.target.files[0];
@@ -35,8 +39,26 @@ const AddCategory = ({
     const handleCloseSelected = (id) => {
         setSelectedImages(null);
     }
+    const uploadnewCategory = async () => {
+        try{
+            const newResponse = await addCategory(
+                categoryName,
+                selectedImages
+            );
+            if(newResponse.type === 'error'){
+                toast.error(newResponse.message); 
+            }
+            else{
+                toast.success(newResponse.message); 
+                //setProductsReload(!productsReload)
+            }
+        }catch(err) {
+            toast.error(err);
+        }
+    };
     return (
         <>
+            <ToastContainer/>
             {showAddNewProduct && (
                 <Layer handleHidePopUp={handleHidePopUp}/>
             )}
@@ -53,12 +75,12 @@ const AddCategory = ({
                             handleCloseSelected = {handleCloseSelected}      
                         />
                     </div>
-                    <input className='input-css' type="text" placeholder='Category Name' />
+                    <input className='input-css' type="text" placeholder='Category Name' value={categoryName} onChange={(e) => setCategoryName(e.target.value)}/>
                     <div className="AddCategory-form-btn">
                         <button className="AddCategory-form-btn-item cancel">Cancel</button>
                         {currentPage === 'details' 
                         ?<button className="AddCategory-form-btn-item submit">Submit</button>
-                        :<button className="AddCategory-form-btn-item submit">Submit</button>}
+                        :<button className="AddCategory-form-btn-item submit" onClick={uploadnewCategory}>Submit</button>}
                     </div>                    
                 </div>
 
