@@ -8,6 +8,7 @@ import { handleCheckRole } from '../../../logical/settings/Roles';
 import { fetchCurrentUserRoles } from '../../../data/roles/Roles';
 const Brands = () => {
     const [showAddBrands, setShowAddBrands] = useState(false);
+    const[reload,setReload] = useState(true);
 
 
     //roles useState
@@ -40,6 +41,8 @@ const Brands = () => {
             {addBrandRole &&<AddBrands 
                 handleHidePopUp={handleHidePopUp} 
                 showAddBrands={showAddBrands} 
+                setReload={setReload}
+                reload={reload}
             />}
             <div className="Brands">
                 <SubHeading
@@ -48,7 +51,10 @@ const Brands = () => {
                     assignedRole={addBrandRole}
                 />
                 {viewBrandRole &&<div className="Brands-table">
-                    <DataTable />
+                    <DataTable
+                        setReload={setReload}
+                        reload={reload}
+                    />
                 </div>}         
             </div>
         </>

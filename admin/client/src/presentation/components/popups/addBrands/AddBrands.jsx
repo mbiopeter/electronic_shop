@@ -3,13 +3,19 @@ import './AddBrands.css';
 import '../../../css/common.css';
 import Layer from '../Layer';
 import ImgPicker from '../addnewproduct/imgPicker/ImgPicker';
-import { subCategories } from '../../../../data/subCategory/table_data';
+import { ToastContainer, toast } from 'react-toastify';
 import DropdownDemo from '../../global/select/Select';
 import { useLocation } from 'react-router-dom';
+import { brandsUrl, subCategoriesUrl } from '../../../../logical/consts/apiUrl';
+import { addBrand } from '../../../../logical/brand/AddBrand';
+import { handleFetchAllSubCategories } from '../../../../logical/subCategory/fetch';
 const AddBrands = ({
     handleHidePopUp,
-    showAddBrands
+    showAddBrands,
+    setReload,
+    reload
 }) => {
+    const [brandName,setBrandName] = useState(null);
 
     const location = useLocation();
     const pathSegments = location.pathname.split('/');
@@ -33,17 +39,50 @@ const AddBrands = ({
     const handleCloseSelected = (id) => {
         setSelectedImages(null);
     }
-    useEffect(()=> {
-        //set sub categories Names
-        subCategories.map((subCategoryName) =>{
-            setSubCategoriesNames(prevState => ([
-                ...prevState,
-                subCategoryName.name
-            ]));
-        });
-    },[])
+
+    const[subCategories,setSubCategories] = useState([]);
+    useEffect(() => {
+        // Get categories data
+        const getAllSubCategories = async () => {
+            try {
+                const usersData = await handleFetchAllSubCategories(subCategoriesUrl, 'all');
+                setSubCategories(usersData); 
+            } catch (error) {
+                console.error('Error fetching categories:', error);
+            }
+        };
+        getAllSubCategories();
+    }, []);
+
+    // Update sub category names when subCategories state changes
+    useEffect(() => {
+        if (subCategories.length > 0) {
+            const subCategoryNames = subCategories.map((subCategory) => subCategory.name);
+            setSubCategoriesNames(subCategoryNames);
+        }
+    }, [subCategories]);
+    const uploadNewBrand = async () => {
+        try{
+            const newResponse = await addBrand(
+                brandName,
+                subCategoryValue,
+                selectedImages
+            );
+            console.log(newResponse);
+            if(newResponse.type === 'error'){
+                toast.error(newResponse.message); 
+            }
+            else{
+                toast.success(newResponse.message); 
+                setReload(!reload);
+            }
+        }catch(err) {
+            toast.error(err);
+        }
+    };
     return (
         <>
+            <ToastContainer />
             {showAddBrands && (
                 <Layer handleHidePopUp={handleHidePopUp}/>
             )}
@@ -70,7 +109,7 @@ const AddBrands = ({
                             items={subCategoryItem}
                             setItems={setSubCategoryItem}
                         />
-                        <input className='input-css' type="text" placeholder='Brand Name' />
+                        <input className='input-css' type="text" placeholder='Brand Name' onChange={(e) => setBrandName(e.target.value)} value={brandName}/>
                     </div>
                     
                     <div className="AddBrands-form-btn">
@@ -78,7 +117,7 @@ const AddBrands = ({
                         {pathSegments[2] === 'details' ? (
                             <button className="AddBrands-form-btn-item submit">Submit</button>
                         ):(
-                            <button className="AddBrands-form-btn-item submit">Submit</button> 
+                            <button className="AddBrands-form-btn-item submit" onClick={uploadNewBrand}>Submit</button> 
                         )}
                     </div>                    
                 </div>

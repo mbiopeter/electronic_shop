@@ -1,9 +1,9 @@
 'use strict';
-// npx sequelize-cli migration:generate --name create-subCategories-table
+// npx sequelize-cli migration:generate --name create-Brands-table
 // npx sequelize-cli db:migrate
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('SubCategories', {
+    await queryInterface.createTable('Brands', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -14,7 +14,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      category: {
+      SubCategory: {
         type: Sequelize.STRING,
         allowNull: false
       },
@@ -35,6 +35,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('SubCategories');
+    await queryInterface.dropTable('Brands');
   }
 };

@@ -39,18 +39,18 @@ const DataTable = ({
     const handleEdit = (row) => {
         navigate(`/subCategory/details/${row.id}`);
     };
-        useEffect(() => {
-            //get categories data
-            const getAllCategories = async () => {
-                try {
-                    const usersData = await handleFetchAllSubCategories(subCategoriesUrl,'all'); 
-                    setSubCategories(usersData); 
-                } catch (error) {
-                    console.error('Error fetching users:', error);
-                }
+    useEffect(() => {
+        //get categories data
+        const getAllSubCategories = async () => {
+            try {
+                const usersData = await handleFetchAllSubCategories(subCategoriesUrl,'all'); 
+                setSubCategories(usersData); 
+            } catch (error) {
+                console.error('Error fetching users:', error);
             }
-            getAllCategories();
-        },[ reload ])
+        }
+        getAllSubCategories();
+    },[ reload ])
 
 
     const handleDelete = (row) => {
