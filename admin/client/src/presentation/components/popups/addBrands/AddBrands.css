@@ -5,13 +5,14 @@
     transition: all var(--popup-transition) ease-in-out;
     padding: var(--container-padding);
     bottom: 20%;
+    left: 20%;
     height: 48%;
     max-height: 500px;
     width: 600px;
 
 }
 .show-brands{
-    transform: translate(60%, -15%);
+    transform: translate(20%, -20%);
     opacity: 1;
 }
 .AddBrands-title{

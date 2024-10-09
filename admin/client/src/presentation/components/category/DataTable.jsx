@@ -2,11 +2,17 @@ import React, { useEffect, useState } from 'react';
 import './DataTable.css';
 import '../../css/common.css';
 import StickyHeadTable from '../global/Table';
-import { categories } from '../../../data/category/table_data';
 import { useNavigate } from 'react-router-dom';
 import {fetchCurrentUserRoles } from '../../../data/roles/Roles';
+import { ToastContainer, toast } from 'react-toastify';
 import { handleCheckRole } from '../../../logical/settings/Roles';
-const DataTable = () => {
+import { handleFetchAllCategories } from '../../../logical/category/fetch';
+import { categoriesUrl } from '../../../logical/consts/apiUrl';
+import { handleDeleteApi } from '../../../logical/consts/delete';
+const DataTable = ({
+    reload,
+    setReload
+}) => {
 
         //get user roles
         const[editCategoryRole,setEditCategoryRole] = useState(false);
@@ -14,10 +20,12 @@ const DataTable = () => {
         const[deleteCategoryDetailsRole, setDeleteCategoryDetailsRole] = useState(false);
     
         const showEditIcon = editCategoryRole || viewCategoryDetailsRole ? true : false;
+
+        const[categories,setCategories] = useState([]);
     
         useEffect(() => {
+            //get all the current user Roles
             const getCurrentUsersRoles = async () => {
-                //get all the current user Roles
                 const roles = await fetchCurrentUserRoles();
                 setEditCategoryRole(handleCheckRole(roles.editSystemVariables,'edit category'));
                 setViewCategoryDetailsRole(handleCheckRole(roles.viewDetails,'category details'));
@@ -26,6 +34,19 @@ const DataTable = () => {
             getCurrentUsersRoles();
         },[]);
 
+        useEffect(() => {
+            //get categories data
+            const getAllCategories = async () => {
+                try {
+                    const usersData = await handleFetchAllCategories(categoriesUrl,'all'); 
+                    setCategories(usersData); 
+                } catch (error) {
+                    console.error('Error fetching users:', error);
+                }
+            }
+            getAllCategories();
+        },[reload])
+
 
     const navigate = useNavigate();
     const handleEdit = (row) => {
@@ -33,7 +54,17 @@ const DataTable = () => {
     };
 
     const handleDelete = (row) => {
-        console.log('Delete:', row);
+        const userId= row.id;
+        try {
+            const response = handleDeleteApi(categoriesUrl,'remove',userId);
+            setReload(!reload)
+            toast.success(`${row.name} category sucessfully removed`);
+        } catch (err) {
+            console.log(err)
+            if (err.response && err.response.data && err.response.data.message) {
+                toast.error(err.response.data.message);
+            }
+        }
     };
     const columns = [
         { id: 'name', label: 'Category Name', minWidth: 170 },

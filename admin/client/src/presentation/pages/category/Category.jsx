@@ -13,6 +13,8 @@ const Category = () => {
     const[viewCategoryRole, setViewCategoryRole] = useState(false);
     const[addCategoryRole, setAddCategoryRole] = useState(false);
 
+    const[reload,setReload] = useState(false);
+
         //check and set user roles
     useEffect(() =>{
         const getCurrentUsersRoles = async () => {
@@ -38,6 +40,8 @@ const Category = () => {
             {addCategoryRole &&<AddCategory 
                 handleHidePopUp={handleHidePopUp} 
                 showAddNewProduct={showAddNewProduct} 
+                reload={reload}
+                setReload={setReload}
             />}
             <div className="category">
                 <SubHeading
@@ -47,7 +51,10 @@ const Category = () => {
                 />
                 {viewCategoryRole && (
                     <div className="category-table">
-                        <DataTable />
+                        <DataTable 
+                            reload={reload}
+                            setReload={setReload}
+                        />
                     </div>   
                 )}
             </div>

@@ -12,7 +12,7 @@ const add = async (name, imageFile) => {
         };
 
         if (imageFile && imageFile.filename) {
-            productData.img = imageFile.filename; // Update to `img` to match your model
+            productData.img = imageFile.filename;
         }
 
         const category = await Category.create(productData);
@@ -23,7 +23,7 @@ const add = async (name, imageFile) => {
 }
 
 
-const categories = async () => {
+const allCategories = async () => {
     try {
         const allCategories = await Category.findAll({
             attributes: {
@@ -31,17 +31,34 @@ const categories = async () => {
             }
         });
 
-        return allCategories;
+        const formattedCategories = allCategories.map(category => {
+            const formattedDate = new Date(category.createdAt).toLocaleString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric',
+                hour12: true
+            });
+            const imageUrl = `http://localhost:4000/${category.img}`;
+            return {
+                ...category.dataValues,
+                addedDate: formattedDate,
+                img: imageUrl
+            };
+        });
+
+        return formattedCategories;
     } catch (error) {
         throw new Error(error);
     }
 }
 
+
 const oneCategory = async (name) => {
     try {
         const oneCategory = await Category.findOne({ where: { name: name } });
         return oneCategory;
-        return false;
     } catch (error) {
         throw new Error('Error while fetching category');
     }
@@ -49,6 +66,6 @@ const oneCategory = async (name) => {
 
 module.exports = {
     add,
-    categories,
+    allCategories,
     oneCategory
 }

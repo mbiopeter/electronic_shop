@@ -8,7 +8,9 @@ import { addCategory } from '../../../../logical/category/Addcategory';
 import { ToastContainer, toast } from 'react-toastify';
 const AddCategory = ({
     handleHidePopUp,
-    showAddNewProduct
+    showAddNewProduct,
+    reload,
+    setReload
 }) => {
 
     const[currentPage,setCurrentPage] = useState();
@@ -50,7 +52,7 @@ const AddCategory = ({
             }
             else{
                 toast.success(newResponse.message); 
-                //setProductsReload(!productsReload)
+                setReload(!reload);
             }
         }catch(err) {
             toast.error(err);

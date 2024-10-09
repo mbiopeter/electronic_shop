@@ -2,11 +2,17 @@ import React, { useEffect, useState } from 'react';
 import './DataTable.css';
 import '../../css/common.css';
 import StickyHeadTable from '../global/Table';
-import { subCategories } from '../../../data/subCategory/table_data';
 import { useNavigate } from 'react-router-dom';
 import { handleCheckRole } from '../../../logical/settings/Roles';
 import { fetchCurrentUserRoles } from '../../../data/roles/Roles';
-const DataTable = () => {
+import { subCategoriesUrl } from '../../../logical/consts/apiUrl';
+import { handleFetchAllSubCategories } from '../../../logical/subCategory/fetch';
+import { handleDeleteApi } from '../../../logical/consts/delete';
+import { ToastContainer, toast } from 'react-toastify';
+const DataTable = ({
+    reload,
+    setReload
+}) => {
 
         //get user roles
         const[editSubCategoryRole,setEditSubCategoryRole] = useState(false);
@@ -14,6 +20,8 @@ const DataTable = () => {
         const[deleteSubCategoryDetailsRole, setDeleteSubCategoryDetailsRole] = useState(false);
     
         const showEditIcon = editSubCategoryRole || viewSubCategoryDetailsRole ? true : false;
+
+        const [subCategories,setSubCategories] = useState([]);
     
         useEffect(() => {
             const getCurrentUsersRoles = async () => {
@@ -31,10 +39,32 @@ const DataTable = () => {
     const handleEdit = (row) => {
         navigate(`/subCategory/details/${row.id}`);
     };
+        useEffect(() => {
+            //get categories data
+            const getAllCategories = async () => {
+                try {
+                    const usersData = await handleFetchAllSubCategories(subCategoriesUrl,'all'); 
+                    setSubCategories(usersData); 
+                } catch (error) {
+                    console.error('Error fetching users:', error);
+                }
+            }
+            getAllCategories();
+        },[ reload ])
 
 
     const handleDelete = (row) => {
-        console.log('Delete:', row);
+        const userId= row.id;
+        try {
+            const response = handleDeleteApi(subCategoriesUrl,'remove',userId);
+            setReload(!reload)
+            toast.success(`${row.name} category sucessfully removed`);
+        } catch (err) {
+            console.log(err)
+            if (err.response && err.response.data && err.response.data.message) {
+                toast.error(err.response.data.message);
+            }
+        }
     };
     const columns = [
         { id: 'name', label: 'Sub Category Name', minWidth: 170 },
