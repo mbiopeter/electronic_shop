@@ -2,29 +2,36 @@ import React, { useState } from 'react';
 import './AddVariantType.css';
 import '../../../css/common.css';
 import Layer from '../Layer';
-import ImgPicker from '../addnewproduct/imgPicker/ImgPicker';
+import { ToastContainer, toast } from 'react-toastify';
+import { handleAddVariantType } from '../../../../logical/variantType/AddVariantType';
 const AddVariantType = ({
     handleHidePopUp,
-    showAddVariantType
+    showAddVariantType,
+    reload,
+    setReload
 }) => {
-    const [selectedImages, setSelectedImages] = useState();
-
-    const handleImageChange = (event, id) => {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setSelectedImages(reader.result);
-            };
-            reader.readAsDataURL(file);
+    const [variantType,setAddVariantType] = useState(null);
+    const uploadNewVariantType = async () => {
+        try{
+            const newResponse = await handleAddVariantType(
+                variantType
+            );
+            console.log(newResponse);
+            if(newResponse.type === 'error'){
+                toast.error(newResponse.message); 
+            }
+            else{
+                toast.success(newResponse.message); 
+                setReload(!reload);
+            }
+        }catch(err) {
+            toast.error(err);
         }
     };
 
-    const handleCloseSelected = (id) => {
-        setSelectedImages(null);
-    }
     return (
         <>
+            <ToastContainer />
             {showAddVariantType && (
                 <Layer handleHidePopUp={handleHidePopUp}/>
             )}
@@ -33,18 +40,10 @@ const AddVariantType = ({
                     <span>ADD VARIANT TYPE</span>
                 </div>
                 <div className="AddVariantType-container">
-                    <div className="AddVariantType-container-img-container">
-                        <ImgPicker 
-                            label="Category"
-                            selectedImage={selectedImages}
-                            handleImageChange={handleImageChange}
-                            handleCloseSelected = {handleCloseSelected}      
-                        />
-                    </div>
-                    <input className='input-css' type="text" placeholder='Variant Type' />
+                    <input className='input-css' type="text" placeholder='Variant Type' onChange={(e) => setAddVariantType(e.target.value)} value={variantType}/>
                     <div className="AddVariantType-form-btn">
                         <button className="AddVariantType-form-btn-item cancel">Cancel</button>
-                        <button className="AddVariantType-form-btn-item submit">Submit</button>
+                        <button className="AddVariantType-form-btn-item submit" onClick={uploadNewVariantType}>Submit</button>
                     </div>                    
                 </div>
 

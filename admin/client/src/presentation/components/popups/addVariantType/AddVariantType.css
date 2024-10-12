@@ -4,9 +4,9 @@
     z-index: 1000;
     transition: all var(--popup-transition) ease-in-out;
     padding: var(--container-padding);
-    bottom: 20%;
+    bottom: 35%;
     height: 55%;
-    max-height: 500px;
+    height: auto;
     width: 400px;
 
 }

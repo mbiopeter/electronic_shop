@@ -187,7 +187,7 @@ const revokeRole = async (userId, roleId) => {
             user.roles = roles;
 
             // Save the updated user
-            const result = await user.save();
+            await user.save();
 
             return { message: 'Role revoked successfully', roles: user.roles };
         } else {
