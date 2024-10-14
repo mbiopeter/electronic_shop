@@ -5,16 +5,17 @@ import '../../../css/variables.css';
 import Layer from '../Layer';
 import ImgPicker from './imgPicker/ImgPicker';
 import { add_new_product_data } from '../../../../data/popup/newProduct';
-import { categories } from '../../../../data/category/table_data';
 import DropdownDemo from '../../global/select/Select';
-import { subCategories } from '../../../../data/subCategory/table_data';
-import { brands } from '../../../../data/brands/table_data';
 import { addNewProducts } from '../../../../logical/dashboard/addNewProduct';
-import { variantType } from '../../../../data/variantType/table_data';
-import { varient } from '../../../../data/varient/table_data';
 import { ToastContainer, toast } from 'react-toastify';
 import { useLocation } from 'react-router-dom';
 import { CloseIcon } from '../../../../logical/consts/icons';
+import { brandsUrl, categoriesUrl, subCategoriesUrl, variantTypeUrl, variantUrl } from '../../../../logical/consts/apiUrl';
+import { handleFetchAllCategories } from '../../../../logical/category/fetch';
+import { handleFetchAllSubCategories } from '../../../../logical/subCategory/fetch';
+import { handleFetchAllBrands } from '../../../../logical/brand/fetch';
+import { handleFetchAllVariantTypes } from '../../../../logical/variantType/fetch';
+import { handleFetchAllVariant } from '../../../../logical/variant/fetch';
 const AddNewProduct = ({
     handleHidePopUp,
     showAddNewProduct,
@@ -76,45 +77,46 @@ const AddNewProduct = ({
             [id]: null,
         }));
     }
+    const useFetchData = (fetchFunction, fetchUrl, setDataFunction) => {
+        useEffect(() => {
+            const fetchData = async () => {
+                try {
+                    const data = await fetchFunction(fetchUrl, 'all');
+                    setDataFunction(data);
+                } catch (error) {
+                    console.error(error);
+                }
+            };
 
+            fetchData();
+        }, [fetchFunction, fetchUrl, setDataFunction]); 
+    };
+
+    const [categories, setCategories] = useState([]);
+    const [subCategories, setSubCategories] = useState([]);
+    const [brands, setBrand] = useState([]);
+    const [variantType, setVariantType] = useState([]);
+    const [varient, setVariant] = useState([]);
+
+    useFetchData(handleFetchAllCategories, categoriesUrl, setCategories);
+    useFetchData(handleFetchAllSubCategories, subCategoriesUrl, setSubCategories);
+    useFetchData(handleFetchAllBrands, brandsUrl, setBrand);
+    useFetchData(handleFetchAllVariantTypes, variantTypeUrl, setVariantType);
+    useFetchData(handleFetchAllVariant, variantUrl, setVariant);
+
+
+    const dropDownData = [categories, subCategories, brands, variantType, varient];
+    const setDropDownDataNames = [setCategoriesNames, setSubCategoriesNames, setBrandNames, setVarientType, setVarientItemNames];
     useEffect(()=>{
-        //set categories Names
-        categories.map((categoryName) =>{
-                return setCategoriesNames(prevState => ([
-                    ...prevState,
-                    categoryName.name
-                ]));
-            }
-        );
-        //set sub categories Names
-        subCategories.map((subCategoryName) =>{
-            return setSubCategoriesNames(prevState => ([
-                ...prevState,
-                subCategoryName.name
-            ]));
-        });
-        //set Brands
-        brands.map((brand) =>{
-            return setBrandNames(prevState => ([
-                ...prevState,
-                brand.name
-            ]));
-        });
-        //set Varient Type
-        variantType.map((varient) =>{
-            return setVarientType(prevState => ([
-                ...prevState,
-                varient.type
-            ]));
-        });
-        //set Varient item
-        varient.map((varientValueName) =>{
-            return setVarientItemNames(prevState => ([
-                ...prevState,
-                varientValueName.name
-            ]));
-        });
-    },[])
+        //for loop to set dropDownDataNames
+        for(var i = 0; i < dropDownData.length; i++){
+            //set dropDownData Names
+            if (dropDownData[i].length > 0) {
+                const names = dropDownData[i].map((data) => data.name);
+                setDropDownDataNames[i](names);
+            }            
+        }
+    },[categories,subCategories,brands,variantType,varient]);
 
 
     //use state to store use input
@@ -166,7 +168,7 @@ const AddNewProduct = ({
             )}
             <div className={`AddNewProducts popup-css ${showAddNewProduct ? 'show-addProduct' : 'hide'}`}>
                 <div className="AddNewProducts-title">
-                    <span>{currentPage === 'details' ? 'EDIT PRODUCT' : 'ADD PRODUCT'}</span>
+                    <span>{currentPage === 'details' ? 'EDIT PRODUCT' : 'ADD PRODUCTS'}</span>
                     <CloseIcon onClick={handleHidePopUp}  className="closeProductCloseIcons"/>
                 </div>
                 <div className="AddNewProducts-container">

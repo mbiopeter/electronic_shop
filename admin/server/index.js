@@ -6,6 +6,7 @@ const categoryRoutes = require('./routes/categoryRoutes');
 const subCategoryRoutes = require('./routes/subCategoryRoutes');
 const brandRoutes = require('./routes/brandsRoutes');
 const variantTypeRoutes = require('./routes/variantTypeRoutes');
+const variantRoutes = require('./routes/variantRoutes');
 const logger = require('./config/logger'); 
 const cors = require('cors');
 
@@ -30,6 +31,7 @@ app.use('/api/categories', categoryRoutes);
 app.use('/api/subCategories', subCategoryRoutes);
 app.use('/api/brands', brandRoutes);
 app.use('/api/variantType', variantTypeRoutes);
+app.use('/api/variant', variantRoutes);
 
 // Test DB connection and start server
 sequelize.authenticate()

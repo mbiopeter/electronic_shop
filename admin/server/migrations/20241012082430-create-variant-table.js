@@ -1,9 +1,9 @@
 'use strict';
-// npx sequelize-cli migration:generate --name create-VariantTypes-table
+// npx sequelize-cli migration:generate --name create-Variants-table
 // npx sequelize-cli db:migrate
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('VariantTypes', {
+    await queryInterface.createTable('Variants', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -11,6 +11,10 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      variantType: {
         type: Sequelize.STRING,
         allowNull: false
       },
@@ -27,6 +31,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('VariantTypes');
+    await queryInterface.dropTable('Variants');
   }
 };

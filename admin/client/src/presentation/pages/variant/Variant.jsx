@@ -13,6 +13,8 @@ const Variant = () => {
     const[viewVariantRole, setViewVariantRole] = useState(false);
     const[addVariantRole, setAddVariantRole] = useState(false);
 
+    const [reload,setReload] = useState(false);
+
         //check and set user roles
     useEffect(() =>{
         const getCurrentUsersRoles = async () => {
@@ -38,6 +40,8 @@ const Variant = () => {
             <AddVariant
                 handleHidePopUp={handleHidePopUp} 
                 showAddVariant={showAddVariant} 
+                reload={reload}
+                setReload={setReload}
             />
             <div className="Variant">
                 <SubHeading
@@ -46,7 +50,10 @@ const Variant = () => {
                     assignedRole={addVariantRole}
                 />
                 {viewVariantRole && <div className="Variant-table">
-                    <DataTable />
+                    <DataTable 
+                        reload={reload}
+                        setReload={setReload}
+                    />
                 </div>}
             </div>
         </>

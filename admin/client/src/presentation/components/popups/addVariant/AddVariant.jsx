@@ -2,61 +2,76 @@ import React, { useEffect, useState } from 'react';
 import './AddVariant.css';
 import '../../../css/common.css';
 import Layer from '../Layer';
-import ImgPicker from '../addnewproduct/imgPicker/ImgPicker';
 import DropdownDemo from '../../global/select/Select';
-import { variantType } from '../../../../data/variantType/table_data';
+import { variantTypeUrl } from '../../../../logical/consts/apiUrl';
+import { handleFetchAllVariantTypes } from '../../../../logical/variantType/fetch';
+import { handleAddVariant } from '../../../../logical/variant/AddVariant';
+import { ToastContainer, toast } from 'react-toastify';
 const AddVariant = ({
     handleHidePopUp,
-    showAddVariant
+    showAddVariant,
+    reload,
+    setReload
 }) => {
-    const [selectedImages, setSelectedImages] = useState();
     //sub categories state
     const [variantTypeNames, setVariantTypeNames] = useState([]);
     const [variantValue,setvariantTypeValue] = useState('');
     const [variantItem,setVariantItem] = useState([]);
-    //set Image
-    const handleImageChange = (event, id) => {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setSelectedImages(reader.result);
-            };
-            reader.readAsDataURL(file);
-        }
-    };
-    //unset Image
-    const handleCloseSelected = (id) => {
-        setSelectedImages(null);
-    }
+
+    const[variantType,setVariantType] = useState([]);
+    useEffect(() => {
+        // Get categories data
+        const getAllVariantType = async () => {
+            try {
+                const variantTypeData = await handleFetchAllVariantTypes(variantTypeUrl, 'all');
+                setVariantType(variantTypeData); 
+            } catch (error) {
+                console.error('Error fetching categories:', error);
+            }
+        };
+        getAllVariantType();
+    }, []);
+
     useEffect(()=> {
-        //set sub categories Names
         variantType.map((variantName) =>{
             setVariantTypeNames(prevState => ([
                 ...prevState,
-                variantName.type
+                variantName.name
             ]));
         });
-    },[])
+    },[variantType]);
+
+
+    const [variant,setVariant] = useState(null);
+    const uploadNewVariant = async () => {
+        try{
+            const newResponse = await handleAddVariant(
+                variant,
+                variantValue
+            );
+            if(newResponse.type === 'error'){
+                toast.error(newResponse.message); 
+            }
+            else{
+                setReload(!reload);
+                toast.success(newResponse.message); 
+                
+            }
+        }catch(err) {
+            toast.error(err);
+        }
+    };
+
     return (
         <>
             {showAddVariant && (
                 <Layer handleHidePopUp={handleHidePopUp}/>
             )}
-            <div className={`AddVariant popup-css ${showAddVariant ? 'show-brands' : 'hide'}`}>
+            <div className={`AddVariant popup-css ${showAddVariant ? 'show-variant-type' : 'hide'}`}>
                 <div className="AddVariant-title">
                     <span>ADD VARIANT</span>
                 </div>
                 <div className="AddVariant-container">
-                    <div className="AddVariant-container-img-container">
-                        <ImgPicker 
-                            label="Variant"
-                            selectedImage={selectedImages}
-                            handleImageChange={handleImageChange}
-                            handleCloseSelected = {handleCloseSelected}      
-                        />
-                    </div>
-                    <div className="AddVariant-input-container">
                         <DropdownDemo
                             width={'100%'}
                             allItems = {variantTypeNames}
@@ -66,12 +81,10 @@ const AddVariant = ({
                             items={variantItem}
                             setItems={setVariantItem}
                         />
-                        <input className='input-css' type="text" placeholder='Variant Name' />
-                    </div>
-                    
+                        <input className='input-css' type="text" placeholder='Variant Name' onChange={(e) => setVariant(e.target.value)} value={variant}/>
                     <div className="AddVariant-form-btn">
                         <button className="AddVariant-form-btn-item cancel">Cancel</button>
-                        <button className="AddVariant-form-btn-item submit">Submit</button>
+                        <button className="AddVariant-form-btn-item submit" onClick={uploadNewVariant}>Submit</button>
                     </div>                    
                 </div>
 

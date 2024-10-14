@@ -15,4 +15,5 @@ router.get('/all', all);
 router.delete('/remove', deleteVariantType);
 
 
+
 module.exports = router;

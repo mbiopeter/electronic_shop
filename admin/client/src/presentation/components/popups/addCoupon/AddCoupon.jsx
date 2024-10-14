@@ -4,9 +4,7 @@ import '../../../css/common.css';
 import '../../../css/variables.css';
 import Layer from '../Layer';
 import DropdownDemo from '../../global/select/Select';
-import { categories } from '../../../../data/category/table_data';
-import { subCategories } from '../../../../data/subCategory/table_data';
-import { all_products } from '../../../../data/dashboard/table_data';
+import {fetchProducts } from '../../../../data/dashboard/table_data';
 const AddCoupon = ({
     showAddCoupont,
     handleHidePopUp,
@@ -15,49 +13,39 @@ const AddCoupon = ({
     const[couponValue, setCouponValue] = useState();
     const[couponItem,setCouponItem] = useState();
     //coupon status
+    const [productArray,setProductArray] = useState([]);
     const[couponStatusValue, setCouponStatusValue] = useState();
     const[couponStatusItem,setCouponStatusItem] = useState();
-    //category
-    const[categoryArray,setCategoryArray] = useState([]);
-    const[categoryValue,setCategoryValue] = useState();
-    const[categoryItem,setCategoryItem] = useState();
-    //sub category
-    const[subCategoryArray,setSubCategoryArray] = useState([]);
-    const[subCategoryValue,setSubCategoryValue] = useState();
-    const[subCategoryItem,setSubCategoryItem] = useState(); 
     //product
-    const[productArray,setProductArray] = useState([]);
     const[product,setProduct] = useState();
     const[productItem,setProductItem] = useState();
 
-
+    const[all_products,setProducts] = useState([]);
     useEffect(() => {
-        //set category array
-        {categories.map((item) => {
-            setCategoryArray(prevState => ([
-                ...prevState,
-                item.name
-            ])
-            )
-        })}
-        //set sub category
-        {subCategories.map((item) => {
-            setSubCategoryArray(prevState => ([
-                ...prevState,
-                item.name
-            ])
-            )
-        })}       
-        //set product
-        {all_products.map((item) => {
-            setProductArray(prevState => ([
-                ...prevState,
-                item.name
-            ])
-            )
-        })}       
+        //Fetch all products
+        const handleFetchproducts = async () =>{
+            try{
+                const [allProductsData] = await Promise.all([
+                    fetchProducts('allProducts'),
+                ]);
+            setProducts(allProductsData);
+            }catch(error){
+
+            }
+        }
+        handleFetchproducts();
     },[]);
 
+
+    useEffect(() => {     
+        //set product
+        if (all_products.length > 0) {
+            const productNames = all_products.map((product) => product.name);
+            setProductArray(productNames);
+            
+        }    
+        
+    },[all_products]);
     const handleSubmit = () => {
 
     }
@@ -100,28 +88,6 @@ const AddCoupon = ({
                     </div>                         
                 </div>
                 <div className="AddCouponPopUp-input-two">
-                    <div className="AddCouponPopUp-select">
-                        <DropdownDemo
-                            width={'100%'}
-                            allItems = {categoryArray}
-                            placeholder={'Select Category'}
-                            value={categoryValue}
-                            setValue={setCategoryValue}
-                            items={categoryItem}
-                            setItems={setCategoryItem}
-                        />                    
-                    </div>  
-                    <div className="AddCouponPopUp-select">
-                        <DropdownDemo
-                            width={'100%'}
-                            allItems = {subCategoryArray}
-                            placeholder={'Select Sub Category'}
-                            value={subCategoryValue}
-                            setValue={setSubCategoryValue}
-                            items={subCategoryItem}
-                            setItems={setSubCategoryItem}
-                        />                    
-                    </div>  
                     <div className="AddCouponPopUp-select">
                         <DropdownDemo
                             width={'100%'}

@@ -6,3 +6,4 @@ export const categoriesUrl = `${mainUrl}/api/categories`;
 export const subCategoriesUrl = `${mainUrl}/api/subCategories`;
 export const brandsUrl = `${mainUrl}/api/brands`;
 export const variantTypeUrl = `${mainUrl}/api/variantType`;
+export const variantUrl = `${mainUrl}/api/variant`;

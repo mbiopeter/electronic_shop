@@ -6,12 +6,12 @@
     padding: var(--container-padding);
     bottom: 20%;
     height: 48%;
-    max-height: 500px;
-    width: 600px;
+    height: auto;
+        width: 500px;
 
 }
-.show-brands{
-    transform: translate(60%, -15%);
+.show-variant-type {
+    transform: translate(80%, -50%);
     opacity: 1;
 }
 .AddVariant-title{
@@ -35,21 +35,17 @@
     font-weight:var(--font-weight-bold);
 }
 .AddVariant-container{
+
     width: 100%;
     height: 90%;
     overflow: auto;
     display: flex;
     flex-direction: column;
+    gap: 20px;
     background-color: var(--secondary-background-color);
     border-radius: var(--border-radius);
     padding: var(--container-padding);
-}
-.AddVariant-container-img-container{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding:var(--container-padding);
-    padding-top:0 ;
+    padding: 20px;
 }
 .AddVariant-form-btn{
     display: flex;
