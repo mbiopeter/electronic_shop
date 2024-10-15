@@ -14,6 +14,8 @@ const Coupon = () => {
     const[viewCouponRole, setViewCouponRole] = useState(false);
     const[addCouponRole, setAddCouponRole] = useState(false);
 
+    const[reload,setReload] = useState(false);
+
         //check and set user roles
     useEffect(() =>{
         const getCurrentUsersRoles = async () => {
@@ -40,6 +42,8 @@ const Coupon = () => {
             {addCouponRole && <AddCoupon
                 handleHidePopUp={handleHidePopUp} 
                 showAddCoupont={showAddCoupont} 
+                reload={reload}
+                setReload={setReload}
             />} 
             <div className="Coupon">
                 <SubHeading
@@ -48,7 +52,10 @@ const Coupon = () => {
                     assignedRole={addCouponRole}
                 />
                 {viewCouponRole && <div className="Coupon-table">
-                    <DataTable />
+                    <DataTable 
+                        reload={reload}
+                        setReload={setReload}
+                    />
                 </div>}     
             </div>
         </>

@@ -5,9 +5,13 @@ import '../../../css/variables.css';
 import Layer from '../Layer';
 import DropdownDemo from '../../global/select/Select';
 import {fetchProducts } from '../../../../data/dashboard/table_data';
+import { ToastContainer, toast } from 'react-toastify';
+import { handleAddCoupon } from '../../../../logical/coupon/AddCoupon';
 const AddCoupon = ({
     showAddCoupont,
     handleHidePopUp,
+    reload,
+    setReload
 }) => {
     //discount type
     const[couponValue, setCouponValue] = useState();
@@ -46,9 +50,35 @@ const AddCoupon = ({
         }    
         
     },[all_products]);
-    const handleSubmit = () => {
+    const [name,setName] = useState();
+    const [discountAmount,setDiscountAmount] = useState();
+    const [minimumAmount,setMinimumAmount] = useState();
+    const [expiry,setExpiry] = useState();
 
-    }
+    const uploadNewCoupon = async () => {
+        try{
+            const newResponse = await handleAddCoupon(
+                name,
+                couponValue,
+                discountAmount,
+                minimumAmount,
+                expiry,
+                product
+            );
+            if(newResponse.type === 'error'){
+                toast.error(newResponse.message); 
+            }
+            else{
+                setReload(!reload);
+                toast.success(newResponse.message); 
+                
+            }
+        }catch(err) {
+            toast.error(err);
+            console.log(err);
+        }
+    };
+
     return (
         <>
         {showAddCoupont && (
@@ -60,7 +90,7 @@ const AddCoupon = ({
             </div>
             <div className="AddCouponPopUp-container">
                 <div className="AddCouponPopUp-inputs">
-                    <input type="text" placeholder="Coupon Code" className="input-css" />
+                    <input onChange={(e) => setName(e.target.value)} value={name} type="text" placeholder="Coupon Code" className="input-css" />
                     <div className="AddCouponPopUp-select">
                         <DropdownDemo
                             width={'100%'}
@@ -72,9 +102,9 @@ const AddCoupon = ({
                             setItems={setCouponItem}
                         />                    
                     </div>
-                    <input type="text" placeholder="Discount Amount" className="input-css" />
-                    <input type="text" placeholder="Minimum Purchase Amount" className="input-css" />
-                    <input type="date" placeholder="Select Date" className="input-css" />            
+                    <input onChange={(e) => setDiscountAmount(e.target.value)} value={discountAmount} type="text" placeholder="Discount Amount" className="input-css" />
+                    <input onChange={(e) => setMinimumAmount(e.target.value)} value={minimumAmount}   type="text" placeholder="Minimum Purchase Amount" className="input-css" />
+                    <input onChange={(e) => setExpiry(e.target.value)} value={expiry} type="date" placeholder="Select Date" className="input-css" />            
                     <div className="AddCouponPopUp-select">
                         <DropdownDemo
                             width={'100%'}
@@ -103,7 +133,7 @@ const AddCoupon = ({
 
                 <div className="AddCouponPopUp-form-btn">
                     <button className="AddCouponPopUp-form-btn-item cancel">Cancel</button>
-                    <button onClick={handleSubmit} className="AddCouponPopUp-form-btn-item submit">Submit</button>
+                    <button onClick={uploadNewCoupon} className="AddCouponPopUp-form-btn-item submit">Submit</button>
                 </div>
             </div>
         </div>

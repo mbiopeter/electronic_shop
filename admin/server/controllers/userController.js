@@ -3,7 +3,6 @@ const {
     loginUser,
     registerUser,
     allUsers,
-    deleteUser,
     oneUser,
     getUserRoles,
     assignRole,

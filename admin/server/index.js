@@ -7,11 +7,12 @@ const subCategoryRoutes = require('./routes/subCategoryRoutes');
 const brandRoutes = require('./routes/brandsRoutes');
 const variantTypeRoutes = require('./routes/variantTypeRoutes');
 const variantRoutes = require('./routes/variantRoutes');
+const couponRoutes = require('./routes/couponRoutes');
 const logger = require('./config/logger'); 
 const cors = require('cors');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8000;
 
 app.use(cors());
 
@@ -32,6 +33,7 @@ app.use('/api/subCategories', subCategoryRoutes);
 app.use('/api/brands', brandRoutes);
 app.use('/api/variantType', variantTypeRoutes);
 app.use('/api/variant', variantRoutes);
+app.use('/api/coupon', couponRoutes);
 
 // Test DB connection and start server
 sequelize.authenticate()
