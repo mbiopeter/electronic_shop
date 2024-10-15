@@ -60,3 +60,4 @@ __pycache__/
 
 # Uncomment if using MacOS
 # .DS_Store
+/images
