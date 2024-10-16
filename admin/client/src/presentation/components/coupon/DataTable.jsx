@@ -57,8 +57,8 @@ const DataTable = ({
     const columns = [
         { id: 'name', label: 'Coupon Name', minWidth: 170 },
         { id: 'status', label: 'Status', minWidth: 100 },
-        { id: 'type', label: 'Type', minWidth: 100 },
-        { id: 'amount', label: 'Amount', minWidth: 100 },
+        { id: 'discountType', label: 'Type', minWidth: 100 },
+        { id: 'discountAmount', label: 'Amount', minWidth: 100 },
         deleteCouponDetailsRole && { id: 'delete', label: 'Delete', minWidth: 50, align: 'center' },
     ];
     return (

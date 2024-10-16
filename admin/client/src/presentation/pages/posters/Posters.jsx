@@ -14,6 +14,8 @@ const Posters = () => {
     const[viewPostersRole, setViewPostersRole] = useState(false);
     const[addPostersRole, setAddPostersRole] = useState(false);
 
+    const [reload,setReload] = useState(false);
+
         //check and set user roles
     useEffect(() =>{
         const getCurrentUsersRoles = async () => {
@@ -40,6 +42,8 @@ const Posters = () => {
             {addPostersRole && <AddPosters
                 handleHidePopUp={handleHidePopUp} 
                 showAddPosters={showAddPosters} 
+                reload={reload}
+                setReload={setReload}
             />} 
             <div className="Posters">
                 <SubHeading
@@ -48,7 +52,10 @@ const Posters = () => {
                     assignedRole={addPostersRole}
                 />
                 {viewPostersRole && <div className="Posters-table">
-                    <DataTable />
+                    <DataTable 
+                        reload={reload}
+                        setReload={setReload}
+                    />
                 </div>}     
             </div>
         </>

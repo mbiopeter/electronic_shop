@@ -52,7 +52,7 @@ const one = async (name) => {
         const coupon = await Coupon.findOne({ where: { name: name } });
         return coupon;
     } catch (err) {
-        throw new Error('Database error while fetching coupon');  // Only throw error for actual DB issues
+        throw new Error('Database error while fetching coupon');
     }
 };
 

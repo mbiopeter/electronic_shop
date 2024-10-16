@@ -8,3 +8,4 @@ export const brandsUrl = `${mainUrl}/api/brands`;
 export const variantTypeUrl = `${mainUrl}/api/variantType`;
 export const variantUrl = `${mainUrl}/api/variant`;
 export const couponUrl = `${mainUrl}/api/coupon`;
+export const posterUrl = `${mainUrl}/api/poster`;
