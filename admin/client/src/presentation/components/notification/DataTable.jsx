@@ -2,16 +2,32 @@ import React, { useEffect, useState } from 'react';
 import './DataTable.css';
 import '../../css/common.css';
 import StickyHeadTable from '../global/Table';
-import { notifications } from '../../../data/notification/table_data';
 import { handleCheckRole } from '../../../logical/settings/Roles';
 import { fetchCurrentUserRoles } from '../../../data/roles/Roles';
-const DataTable = () => {
+import { handleFetchAllNotifications } from '../../../logical/notification/fetch';
+import { notificationUrl } from '../../../logical/consts/apiUrl';
+import { ToastContainer, toast } from 'react-toastify';
+import { handleDeleteApi } from '../../../logical/consts/delete';
+const DataTable = ({
+    setReload,
+    reload
+}) => {
     const handleEdit = (row) => {
         console.log('Edit:', row);
     };
 
     const handleDelete = (row) => {
-        console.log('Delete:', row);
+    const userId= row.id;
+        try {
+            const response = handleDeleteApi(notificationUrl,'remove',userId);
+            setReload(!reload)
+            toast.success(`${row.name} sucessfully removed`);
+        } catch (err) {
+            console.log(err)
+            if (err.response && err.response.data && err.response.data.message) {
+                toast.error(err.response.data.message);
+            }
+        }
     };
     const[deleteNotificationDetailsRole, setDeleteNotificationDetailsRole] = useState(false);
 
@@ -24,10 +40,24 @@ const DataTable = () => {
         }
         getCurrentUsersRoles();
     },[]);
+
+    const[notifications, setNotifications] = useState([]);
+    useEffect(() => {
+        //get categories data
+        const getAllNotifications = async () => {
+            try {
+                const notificationData = await handleFetchAllNotifications(notificationUrl,'all'); 
+                setNotifications(notificationData); 
+            } catch (error) {
+                console.error('Error fetching notifications:', error);
+            }
+        }
+        getAllNotifications();
+    },[reload])
     const columns = [
-        { id: 'title', label: 'Title', minWidth: 170 },
-        { id: 'desc', label: 'Description', minWidth: 100 },
-        { id: 'date', label: 'Date', minWidth: 100 }, 
+        { id: 'name', label: 'Title', minWidth: 170 },
+        { id: 'description', label: 'Description', minWidth: 100 },
+        { id: 'addedDate', label: 'Date', minWidth: 100 }, 
         deleteNotificationDetailsRole && { id: 'delete', label: 'Delete', minWidth: 50, align: 'center' },
     ];
     return (

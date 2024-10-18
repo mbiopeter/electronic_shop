@@ -14,6 +14,8 @@ const Notification = () => {
     const[viewNotificationRole, setViewNotificationRole] = useState(false);
     const[addNotificationRole, setAddNotificationRole] = useState(false);
 
+    const[reload,setReload] = useState(false);
+
         //check and set user roles
     useEffect(() =>{
         const getCurrentUsersRoles = async () => {
@@ -39,6 +41,8 @@ const Notification = () => {
             {addNotificationRole && <AddNotification
                 handleHidePopUp={handleHidePopUp} 
                 showAddNotification={showAddNotification} 
+                setReload={setReload}
+                reload={reload}
             /> } 
             <div className="Notification">
                 <SubHeading
@@ -47,7 +51,10 @@ const Notification = () => {
                     assignedRole={addNotificationRole}
                 />
                 {viewNotificationRole && <div className="Notification-table">
-                    <DataTable />
+                    <DataTable 
+                        setReload={setReload}
+                        reload={reload}
+                    />
                 </div>}     
             </div>
         </>

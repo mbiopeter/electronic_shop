@@ -4,9 +4,13 @@ import '../../../css/common.css';
 import '../../../css/variables.css';
 import Layer from '../Layer';
 import ImgPicker from '../addnewproduct/imgPicker/ImgPicker';
+import { addNotification } from '../../../../logical/notification/AddNotification';
+import { ToastContainer, toast } from 'react-toastify';
 const AddNotification = ({
     showAddNotification,
     handleHidePopUp,
+    setReload,
+    reload
 }) => {
     const [selectedImages, setSelectedImages] = useState();
 
@@ -25,11 +29,29 @@ const AddNotification = ({
         setSelectedImages(null);
     }
 
-    const handleSubmit = () => {
-
-    }
+    const[notificationName,setNotificationName] = useState();
+    const[notificationDescription,setNotificationDescription] = useState();
+    const uploadnewPoster = async () => {
+        try{
+            const newResponse = await addNotification(
+                notificationName,
+                notificationDescription,
+                selectedImages
+            );
+            if(newResponse.type === 'error'){
+                toast.error(newResponse.message); 
+            }
+            else{
+                toast.success(newResponse.message); 
+                setReload(!reload);
+            }
+        }catch(err) {
+            toast.error(err);
+        }
+    };
     return (
         <>
+        <ToastContainer />
         {showAddNotification && (
             <Layer handleHidePopUp={handleHidePopUp}/>
         )}
@@ -47,14 +69,14 @@ const AddNotification = ({
                     />
                 </div>
                 <div className="AddNotificationPopUp-inputs">
-                    <input type="text" className='input-css' placeholder="Enter Notification Tiltle..." />
-                    <textarea className='input-css' placeholder="Enter Notification Tiltle..." ></textarea>                
+                    <input onChange={(e) => setNotificationName(e.target.value)} value ={notificationName} type="text" className='input-css' placeholder="Enter Notification Tiltle..." />
+                    <textarea onChange={(e) => setNotificationDescription(e.target.value)} value ={notificationDescription}className='input-css' placeholder="Enter Notification Tiltle..." ></textarea>                
                 </div>
 
 
                 <div className="AddNotificationPopUp-form-btn">
                     <button className="AddNotificationPopUp-form-btn-item cancel">Cancel</button>
-                    <button onClick={handleSubmit} className="AddNotificationPopUp-form-btn-item submit">Submit</button>
+                    <button onClick={uploadnewPoster} className="AddNotificationPopUp-form-btn-item submit">Submit</button>
                 </div>
             </div>
         </div>
