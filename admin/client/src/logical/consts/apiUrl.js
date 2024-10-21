@@ -10,3 +10,4 @@ export const variantUrl = `${mainUrl}/api/variant`;
 export const couponUrl = `${mainUrl}/api/coupon`;
 export const posterUrl = `${mainUrl}/api/poster`;
 export const notificationUrl = `${mainUrl}/api/notification`;
+export const emailUrl = `${mainUrl}/api/email`;

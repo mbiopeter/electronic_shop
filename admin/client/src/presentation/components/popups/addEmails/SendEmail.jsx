@@ -1,69 +1,79 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './SendEmail.css';
 import '../../../css/common.css';
 import Layer from '../Layer';
-import ImgPicker from '../addnewproduct/imgPicker/ImgPicker';
-import { subCategories } from '../../../../data/subCategory/table_data';
-import DropdownDemo from '../../global/select/Select';
+import { sendEmail } from '../../../../logical/email/sendEmail';
+import { ToastContainer, toast } from 'react-toastify';
+
 const SendEmail = ({
     handleHidePopUp,
-    showSendEmail
+    showSendEmail,
+    setReload,
+    reload
 }) => {
 
-    const [selectedImages, setSelectedImages] = useState();
+    const[sender, setSender] = useState('');
+    const[receiver, setReceiver] = useState('');
+    const[copyTo, setCopyTo] = useState('');
+    const[subject, setSubject] = useState('');
+    const[message, setMessage] = useState('');
+    const[loading, setLoading] = useState(false);
 
-    //set Image
-    const handleImageChange = (event, id) => {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setSelectedImages(reader.result);
-            };
-            reader.readAsDataURL(file);
+    const handleSendEmail = async () => {
+        setLoading(true);
+        try {
+            const newResponse = await sendEmail(
+                sender,
+                receiver,
+                copyTo,
+                subject,
+                message,
+            );
+            if(newResponse.type === 'error'){
+                toast.error(newResponse.message); 
+            } else {
+                toast.success(newResponse.message); 
+                setReload(!reload);
+            }
+        } catch (err) {
+            toast.error(err.message || err);
+        } finally {
+            setLoading(false); 
         }
-    };   
-    //unset Image
-    const handleCloseSelected = (id) => {
-        setSelectedImages(null);
-    }
+    };
 
     return (
         <>
+            <ToastContainer />
             {showSendEmail && (
-                <Layer handleHidePopUp={handleHidePopUp}/>
+                <Layer handleHidePopUp={handleHidePopUp} />
             )}
-            <div className={`SendEmail popup-css ${showSendEmail ? 'show-brands' : 'hide'}`}>
+            <div className={`SendEmail popup-css ${showSendEmail ? 'show-emails' : 'hide'}`}>
                 <div className="SendEmail-title">
                     <span>SEND EMAIL</span>
                 </div>
                 <div className="SendEmail-container">
-                    <div className="SendEmail-container-img-container">
-                        <ImgPicker 
-                            label="Attachment"
-                            selectedImage={selectedImages}
-                            handleImageChange={handleImageChange}
-                            handleCloseSelected = {handleCloseSelected}      
-                        />
-                    </div>
-                    <input className='input-css' type="text" placeholder='From' />
                     <div className="SendEmail-input-container">
-                        <input className='input-css' type="text" placeholder='To' />
-                        <input className='input-css' type="text" placeholder='Copy To' />
-                        
+                        <input onChange={(e) => setSender(e.target.value)} value={sender} className='input-css' type="text" placeholder='From' />
+                        <input onChange={(e) => setReceiver(e.target.value)} value={receiver} className='input-css' type="text" placeholder='To' />
+                    </div>
+                    <div className="SendEmail-input-container">
+                        <input onChange={(e) => setCopyTo(e.target.value)} value={copyTo} className='input-css' type="text" placeholder='Copy To' />
+                        <input onChange={(e) => setSubject(e.target.value)} value={subject} className='input-css' type="text" placeholder='Subject' />
                     </div>
                     <div className="SendEmail-input-container-textarea">
-                        <textarea  className='input-css' ></textarea>
+                        <textarea onChange={(e) => setMessage(e.target.value)} value={message} className='input-css'></textarea>
                     </div>
                     <div className="SendEmail-form-btn">
                         <button onClick={handleHidePopUp} className="SendEmail-form-btn-item cancel">Cancel</button>
-                        <button className="SendEmail-form-btn-item submit">Send</button>
-                    </div>                    
+                        <button onClick={handleSendEmail} className="SendEmail-form-btn-item submit" disabled={loading}>
+                            {loading ? 'Sending...' : 'Send'}
+                        </button>
+                    </div>
                 </div>
-
             </div>
         </>
-    )
-}
+    );
+};
 
-export default SendEmail
+export default SendEmail;

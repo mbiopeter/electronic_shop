@@ -14,6 +14,8 @@ const Emails = () => {
     const[viewEmailsRole, setViewEmailsRole] = useState(false);
     const[addEmailsRole, setAddEmailsRole] = useState(false);
 
+    const[reload,setReload] = useState(false);
+
         //check and set user roles
     useEffect(() =>{
         const getCurrentUsersRoles = async () => {
@@ -49,7 +51,9 @@ const Emails = () => {
             {/* Add new product pop up */}
             {addEmailsRole &&<SendEmail 
                 handleHidePopUp={handleHidePopUp} 
-                showSendEmail={showSendEmail} 
+                showSendEmail={showSendEmail}
+                setReload={setReload}
+                reload={reload}
             />}
             <ViewEmail 
                 handleHidePopUp={handleHideViewEmail} 
@@ -66,6 +70,8 @@ const Emails = () => {
                     <div className="Emails-table">
                         <DataTable 
                             handleViewEmail={handleViewEmail}
+                            setReload={setReload}
+                            reload={reload}
                         />
                     </div>   
                 )}

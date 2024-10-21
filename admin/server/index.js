@@ -10,6 +10,7 @@ const variantRoutes = require('./routes/variantRoutes');
 const couponRoutes = require('./routes/couponRoutes');
 const posterRoutes = require('./routes/posterRoutes');
 const notificationRoutes = require('./routes/notificationRoutes');
+const emailRoutes = require('./routes/emailRoutes');
 const logger = require('./config/logger'); 
 const cors = require('cors');
 
@@ -38,6 +39,7 @@ app.use('/api/variant', variantRoutes);
 app.use('/api/coupon', couponRoutes);
 app.use('/api/poster', posterRoutes);
 app.use('/api/notification', notificationRoutes);
+app.use('/api/email', emailRoutes);
 
 // Test DB connection and start server
 sequelize.authenticate()

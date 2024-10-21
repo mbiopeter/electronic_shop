@@ -58,7 +58,6 @@ const removeNotification = async (req, res) => {
         const Notifications = await remove(id, Notification);
         res.status(200).json(Notifications);
     } catch (error) {
-        console.log(error);
         res.status(500).json({ error: error.message });
     }
 }

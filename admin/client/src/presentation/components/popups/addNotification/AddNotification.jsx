@@ -31,7 +31,7 @@ const AddNotification = ({
 
     const[notificationName,setNotificationName] = useState();
     const[notificationDescription,setNotificationDescription] = useState();
-    const uploadnewPoster = async () => {
+    const sendNotification = async () => {
         try{
             const newResponse = await addNotification(
                 notificationName,
@@ -76,7 +76,7 @@ const AddNotification = ({
 
                 <div className="AddNotificationPopUp-form-btn">
                     <button className="AddNotificationPopUp-form-btn-item cancel">Cancel</button>
-                    <button onClick={uploadnewPoster} className="AddNotificationPopUp-form-btn-item submit">Submit</button>
+                    <button onClick={sendNotification} className="AddNotificationPopUp-form-btn-item submit">Submit</button>
                 </div>
             </div>
         </div>

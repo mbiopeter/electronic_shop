@@ -9,8 +9,8 @@
     width: 700px;
 
 }
-.show-brands{
-    transform: translate(30%, -15%);
+.show-emails {
+    transform: translate(50%, -15%);
     opacity: 1;
 }
 .SendEmail-title{
